@@ -1,4 +1,5 @@
 import { AgentInstallTabs } from "@/components/agent-install-tabs";
+import { HomeAgentPreview } from "@/components/home-agent-preview";
 import { HomeCtas } from "@/components/home-ctas";
 import { PageTransition } from "@/components/page-transition";
 import { ROUTES } from "@/constants/routes";
@@ -25,6 +26,8 @@ export default function IndexPage() {
             <AgentInstallTabs className="mt-4 w-full max-w-xl" />
 
             <HomeCtas className="mt-4" />
+
+            <HomeAgentPreview className="mt-12 w-full max-w-4xl" />
           </div>
         </section>
       </PageTransition>
