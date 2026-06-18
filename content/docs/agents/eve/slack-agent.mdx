@@ -1,0 +1,73 @@
+---
+title: Slack Agent
+description: Eve recipe — reply to Slack mentions and DMs, threaded, via the Slack Web API.
+---
+
+The **Slack Agent** turns your agent into a Slack bot. It answers mentions and
+direct messages, keeps each conversation scoped to its thread, and replies with
+Slack formatting. Reach for it to put an assistant where your team already works —
+an on-call helper, a docs bot, or a triage assistant.
+
+<DocsBaseSwitcher base="eve" agent="slack-agent" />
+
+The **Eve** recipe ships a `post_message` tool over the Slack Web API. Wire it up
+behind your Slack Events endpoint, map `app_mention` and `message.im` events to an
+agent session, and the agent replies in-thread.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/slack-agent
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The `eve` package (installed automatically as a dependency of the recipe).
+- A Slack app with a `SLACK_BOT_TOKEN`, the `chat:write` scope, and Event
+  Subscriptions enabled. Use a tunnel (e.g. ngrok) for local webhook testing.
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="slack-agent"
+  framework="eve"
+  inputFields={[
+    {
+      name: "message",
+      label: "Message",
+      placeholder: "@bot what's the status of the deploy?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts             # Agent definition (model + config)
+├── instructions.md      # Slack reply style + threading instructions
+└── tools/
+    └── post_message.ts  # Posts a (threaded) Slack message
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Verify signatures.** Add Slack request-signature verification in your event
+  route before invoking the agent.
+- **Add more actions.** Add tools for reactions, file uploads, or opening modals.
+- **Scope memory by thread.** Key agent sessions on `thread_ts` for clean context.
+- **Swap the model.** Edit `agent/agent.ts`.

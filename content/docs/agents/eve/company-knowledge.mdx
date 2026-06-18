@@ -1,0 +1,80 @@
+---
+title: Company Knowledge Agent
+description: Eve recipe — index internal documents into a vector store and answer questions over them, with PII redaction.
+---
+
+The **Company Knowledge Agent** answers questions over your internal documents —
+issues, wiki pages, notes. It indexes them into a vector store, searches the
+corpus first, and redacts personal data (emails, phone numbers, SSNs, card
+numbers, API keys) from responses. Reach for it to build an internal "ask the
+company" assistant.
+
+<DocsBaseSwitcher base="eve" agent="company-knowledge" />
+
+The **Eve** recipe ships `index_document` and `search_knowledge` tools over a
+libSQL vector store, plus a `redactPii` helper applied to every retrieved passage
+before it reaches the model.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/company-knowledge
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The recipe's dependencies (`@libsql/client`, `ai`, `@ai-sdk/openai`) install
+  automatically with the shadcn CLI.
+- An `OPENAI_API_KEY` for embeddings, and optionally `LIBSQL_URL` for a remote
+  Turso/libSQL database (or swap in pgvector/Neon).
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="company-knowledge"
+  framework="eve"
+  inputFields={[
+    {
+      name: "query",
+      label: "Question",
+      placeholder: "What's our policy on refund requests over $500?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts                 # Agent definition (model + config)
+├── instructions.md          # Corpus-first, PII-safe instructions
+├── lib/
+│   ├── pii.ts               # PII redaction helper
+│   └── vector-store.ts      # libSQL vector store + embeddings
+└── tools/
+    ├── index_document.ts    # Add a document to the corpus
+    └── search_knowledge.ts  # Search the corpus (redacted)
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Connect sources.** Feed `index_document` from Linear, Notion, or your wiki —
+  on a schedule for fresh data.
+- **Swap the vector store.** Replace `lib/vector-store.ts` with pgvector/Neon,
+  Pinecone, or Qdrant.
+- **Tune redaction.** Edit the patterns in `lib/pii.ts` for your data.
+- **Swap the model.** Edit `agent/agent.ts`.

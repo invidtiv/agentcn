@@ -2,6 +2,22 @@
   "title": "Agents",
   "pages": [
     "index",
-    "[Competitor Intelligence](/docs/agents/eve/competitor-intel)"
+    "[Deep Search](/docs/agents/eve/deep-search)",
+    "[CSV to Questions](/docs/agents/eve/csv-to-questions)",
+    "[Customer Feedback Summary](/docs/agents/eve/feedback-summary)",
+    "[Meeting Notes](/docs/agents/eve/meeting-notes)",
+    "[Chat with PDF](/docs/agents/eve/chat-with-pdf)",
+    "[Flash Cards from PDF](/docs/agents/eve/flashcards-pdf)",
+    "[Chat with YouTube](/docs/agents/eve/chat-with-youtube)",
+    "[Docs Chatbot](/docs/agents/eve/docs-chatbot)",
+    "[Chat with Database](/docs/agents/eve/text-to-sql)",
+    "[GitHub PR Review](/docs/agents/eve/github-review)",
+    "[Slack Agent](/docs/agents/eve/slack-agent)",
+    "[Google Sheets](/docs/agents/eve/google-sheets)",
+    "[Browser Agent](/docs/agents/eve/browser-agent)",
+    "[Claw Assistant](/docs/agents/eve/claw)",
+    "[Company Knowledge](/docs/agents/eve/company-knowledge)",
+    "[Docs Expert](/docs/agents/eve/docs-expert)",
+    "[Weather](/docs/agents/eve/weather)"
   ]
 }

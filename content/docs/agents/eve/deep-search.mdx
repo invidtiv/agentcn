@@ -1,0 +1,81 @@
+---
+title: Deep Search Agent
+description: Eve recipe — research a question, evaluate your own findings, and iterate until the answer is complete and cited.
+---
+
+The **Deep Search Agent** takes a research question, searches the web, and then
+critiques its own findings — re-searching to close gaps until the question is
+fully answered. It returns an answer grounded only in the sources it found, with
+a citation for every claim. Reach for it whenever a single search isn't enough
+and you need a verified, sourced answer.
+
+<DocsBaseSwitcher base="eve" agent="deep-search" />
+
+The **Eve** recipe runs the whole loop inside one durable session: it
+decomposes the question, **searches** each sub-question with the `web_search`
+tool, **self-evaluates** for gaps and contradictions, and repeats until coverage
+is sufficient — then writes a cited answer.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/deep-search
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The `eve` package (installed automatically as a dependency of the recipe).
+- An `EXA_API_KEY` for web search (the `web_search` tool calls the Exa API).
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="deep-search"
+  framework="eve"
+  inputFields={[
+    {
+      name: "question",
+      label: "Research question",
+      placeholder:
+        "What pricing models do the top 3 observability vendors use?",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts              # Agent definition (model + config)
+├── instructions.md       # Self-evaluating research instructions
+├── tools/
+│   └── web_search.ts     # Web search via the Exa API
+└── skills/
+    └── research/
+        └── SKILL.md      # Iterative research procedure
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Swap the search provider.** Edit `agent/tools/web_search.ts` to call a
+  different search API (Brave, Tavily, SerpAPI) — keep the input/output shape.
+- **Bound the iterations.** Add a max-rounds guard in `instructions.md` so the
+  agent stops after N search rounds.
+- **Swap the model.** Edit `agent/agent.ts` — `anthropic/claude-sonnet-4-6` for
+  deeper synthesis, `anthropic/claude-haiku-4-5` for speed.
+- **Add scraping.** Add a `scrape_url` tool so the agent can read full pages, not
+  just search snippets.

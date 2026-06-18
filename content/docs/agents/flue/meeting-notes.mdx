@@ -1,0 +1,70 @@
+---
+title: Meeting Notes Agent
+description: Flue recipe — run a transcript through a workflow to return a structured summary, decisions, and action items.
+---
+
+The **Meeting Notes Agent** takes a raw meeting transcript and returns clean,
+structured notes: a short summary, the decisions that were made, action items as
+owner/task pairs, and any open questions. Reach for it to close out standups,
+planning sessions, or customer calls without writing up notes by hand.
+
+<DocsBaseSwitcher base="flue" agent="meeting-notes" />
+
+The **Flue** recipe runs the transcript through a workflow that returns a typed
+`Notes` object — summary, decisions, owner/task action items, and open questions
+— so downstream code gets structured data rather than free text.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/meeting-notes
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="meeting-notes"
+  framework="flue"
+  inputFields={[
+    {
+      name: "transcript",
+      label: "Transcript",
+      placeholder: "Paste the raw meeting transcript here…",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── meeting-notes.ts    # Single-agent variant
+workflows/
+└── meeting-notes.ts    # Workflow returning a typed Notes object
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Reshape the notes.** Edit the `Notes` valibot schema to add fields like
+  attendees, risks, or next meeting date.
+- **Persist the output.** Add a tool that writes the notes to Notion, Linear, or
+  a database.
+- **Tune the extraction.** Edit the agent instructions to change how owners are
+  inferred or how decisions are phrased.
+- **Swap the model.** Change the `model` field for longer transcripts or speed.

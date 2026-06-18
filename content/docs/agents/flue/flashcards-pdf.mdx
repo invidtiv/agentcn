@@ -1,0 +1,73 @@
+---
+title: Flash Cards from PDF Agent
+description: Flue recipe — turn a PDF into study flash cards through a workflow, with optional AI-generated images per concept.
+---
+
+The **Flash Cards from PDF Agent** turns a document into ready-to-study flash
+cards. It extracts the text, identifies the concepts worth memorizing, and writes
+concise front/back pairs — and on request, generates an illustrative image for
+each card. Reach for it to build study decks from textbooks, slides, or notes.
+
+<DocsBaseSwitcher base="flue" agent="flashcards-pdf" />
+
+The **Flue** recipe runs a workflow that returns a typed `Flashcards` object:
+`parse_pdf` extracts the text, the agent drafts grounded front/back pairs, and
+`generate_image` attaches an image URL per card when requested.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/flashcards-pdf
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `unpdf` dependency installs automatically with the shadcn CLI.
+- An `OPENAI_API_KEY` if you want generated images (`generate_image` calls the
+  OpenAI Images API).
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="flashcards-pdf"
+  framework="flue"
+  inputFields={[
+    {
+      name: "url",
+      label: "PDF URL",
+      placeholder: "https://example.com/biology-chapter.pdf",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── flashcards-pdf.ts      # Conversational card-writing agent
+workflows/
+└── flashcards-pdf.ts      # Typed Flashcards output
+tools/
+├── parse-pdf.ts           # Extract text from a PDF
+└── generate-image.ts      # Generate an image for a concept
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Reshape the deck.** Edit the `Flashcards` valibot schema to add tags, hints,
+  or difficulty.
+- **Swap the image model.** Edit `generate-image.ts` or drop images entirely.
+- **Export the deck.** Add a tool that writes to Anki, CSV, or your SRS.
+- **Swap the model.** Change the `model` field on the agent.

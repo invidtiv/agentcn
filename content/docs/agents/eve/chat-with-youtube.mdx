@@ -1,0 +1,80 @@
+---
+title: Chat with YouTube Agent
+description: Eve recipe — fetch a video's metadata and transcript, then answer questions with clickable timestamp citations.
+---
+
+The **Chat with YouTube Agent** answers questions about a video using its
+transcript. It pulls the video's metadata and full transcript, then summarizes,
+answers follow-ups, and generates chapter timestamps — each citation a clickable
+link straight to that moment. Reach for it to skim long talks, lectures, or
+podcasts without watching end to end.
+
+<DocsBaseSwitcher base="eve" agent="chat-with-youtube" />
+
+The **Eve** recipe composes two tools: `video_metadata` for title/author/id
+context, then `get_transcript` for the timestamped transcript — and answers
+grounded only in that transcript, citing moments as `youtu.be/<id>?t=<seconds>`.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/chat-with-youtube
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The `youtube-transcript` dependency installs automatically with the shadcn CLI.
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="chat-with-youtube"
+  framework="eve"
+  inputFields={[
+    {
+      name: "url",
+      label: "YouTube URL",
+      placeholder: "https://youtu.be/dQw4w9WgXcQ",
+      type: "text",
+    },
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "Summarize the video with chapter timestamps.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts                # Agent definition (model + config)
+├── instructions.md         # Transcript-grounded answering instructions
+└── tools/
+    ├── video_metadata.ts   # Title / author / id via oEmbed
+    └── get_transcript.ts   # Timestamped transcript segments
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Add chapters export.** Add a tool that writes the chapter list back as a
+  YouTube description or VTT file.
+- **Handle missing transcripts.** Fall back to an STT service when a video has no
+  captions.
+- **Swap metadata source.** Use the YouTube Data API for richer metadata.
+- **Swap the model.** Edit `agent/agent.ts`.

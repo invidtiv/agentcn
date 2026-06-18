@@ -1,0 +1,72 @@
+---
+title: Chat with Database Agent
+description: Flue recipe — introspect a database schema, convert questions to SQL, and run read-only queries.
+---
+
+The **Chat with Database Agent** answers questions about your data in plain
+English. It introspects the schema, writes the SQL, runs it read-only, and
+explains the results. Reach for it to give non-SQL users a safe way to query a
+database, or to prototype analytics without hand-writing queries.
+
+<DocsBaseSwitcher base="flue" agent="text-to-sql" />
+
+The **Flue** recipe wires `introspect_schema` and `run_query` into one agent. It
+inspects the schema first, writes a single query, and runs it through the
+read-only guard before summarizing the rows.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/text-to-sql
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `@libsql/client` dependency installs automatically with the shadcn CLI.
+- A `DATABASE_URL` (defaults to a local SQLite file `data.db`). Point it at a
+  Turso/libSQL database, or swap the client in `lib/db.ts` for Postgres/MySQL.
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="text-to-sql"
+  framework="flue"
+  inputFields={[
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "Show me the top 5 customers by revenue last quarter.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── text-to-sql.ts            # Agent with the two database tools
+tools/
+├── introspect-schema.ts      # Lists tables and columns
+└── run-query.ts              # Runs a read-only SELECT
+lib/
+└── db.ts                     # Database client (SQLite by default)
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Swap the database.** Replace the client in `lib/db.ts` with Postgres or MySQL.
+- **Allow writes (carefully).** `run-query.ts` blocks non-`SELECT` SQL by default.
+- **Add a workflow.** Wrap introspect + query in a workflow with a typed result.
+- **Swap the model.** Change the `model` field on the agent.

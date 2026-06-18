@@ -1,0 +1,83 @@
+---
+title: Chat with PDF Agent
+description: Flue recipe — index a PDF into a vector store and answer questions over it with page-cited retrieval.
+---
+
+The **Chat with PDF Agent** lets you ask questions about a PDF and get answers
+grounded in the document, with a page citation for every claim. It indexes the
+PDF into a vector store, retrieves only the relevant chunks per question, and can
+also generate comprehension quizzes from real passages. Reach for it to turn
+manuals, papers, and reports into something you can query.
+
+<DocsBaseSwitcher base="flue" agent="chat-with-pdf" />
+
+The **Flue** recipe exposes `index_pdf` and `search_docs` tools backed by a
+libSQL vector store. Use the agent for conversational Q&A, or run the workflow to
+index-then-answer and get back a typed `Answer` with page-level citations.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/chat-with-pdf
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The recipe's dependencies (`@libsql/client`, `unpdf`, `ai`, `@ai-sdk/openai`)
+  install automatically with the shadcn CLI.
+- An `OPENAI_API_KEY` for embeddings, and optionally `LIBSQL_URL` to point at a
+  remote Turso database (defaults to a local file).
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="chat-with-pdf"
+  framework="flue"
+  inputFields={[
+    {
+      name: "url",
+      label: "PDF URL",
+      placeholder: "https://example.com/whitepaper.pdf",
+      type: "text",
+    },
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "What does the paper conclude about latency?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── chat-with-pdf.ts      # Conversational Q&A agent
+workflows/
+└── chat-with-pdf.ts      # Index-then-answer, typed cited output
+tools/
+├── index-pdf.ts          # Chunk, embed, and store a PDF
+└── search-docs.ts        # Retrieve relevant chunks for a query
+lib/
+└── vector-store.ts       # libSQL vector store + embeddings helpers
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Swap the vector store.** `lib/vector-store.ts` wraps libSQL — replace it with
+  Pinecone, Qdrant, Chroma, or pgvector behind the same functions.
+- **Tune chunking.** Adjust `chunkText`'s size and overlap for your documents.
+- **Reshape the answer.** Edit the `Answer` valibot schema in the workflow.
+- **Swap the embedding model.** Change the model in `lib/vector-store.ts`.

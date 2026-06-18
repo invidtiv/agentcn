@@ -1,0 +1,76 @@
+---
+title: Chat with Database Agent
+description: Eve recipe — introspect a database schema, convert questions to SQL, and run read-only queries.
+---
+
+The **Chat with Database Agent** answers questions about your data in plain
+English. It introspects the schema, writes the SQL, runs it read-only, and
+explains the results. Reach for it to give non-SQL users a safe way to query a
+database, or to prototype analytics without hand-writing queries.
+
+<DocsBaseSwitcher base="eve" agent="text-to-sql" />
+
+The **Eve** recipe works sequentially: `introspect_schema` lists the tables and
+columns, the agent writes a single query, and `run_query` executes it — guarded
+so only `SELECT` statements run.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/text-to-sql
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The `@libsql/client` dependency installs automatically with the shadcn CLI.
+- A `DATABASE_URL` (defaults to a local SQLite file `data.db`). Point it at a
+  Turso/libSQL database, or swap the client in `lib/db.ts` for Postgres/MySQL.
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="text-to-sql"
+  framework="eve"
+  inputFields={[
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "Show me the top 5 customers by revenue last quarter.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts                   # Agent definition (model + config)
+├── instructions.md            # Introspect → SQL → execute instructions
+├── lib/
+│   └── db.ts                  # Database client (SQLite by default)
+└── tools/
+    ├── introspect_schema.ts   # Lists tables and columns
+    └── run_query.ts           # Runs a read-only SELECT
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Swap the database.** Replace the client in `lib/db.ts` with Postgres or MySQL.
+- **Allow writes (carefully).** The `run_query` tool blocks non-`SELECT` SQL by
+  default — relax that only behind explicit confirmation.
+- **Add row limits.** Cap result size in `run_query` to protect against huge scans.
+- **Swap the model.** Edit `agent/agent.ts`.

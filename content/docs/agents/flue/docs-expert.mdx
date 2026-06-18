@@ -1,0 +1,69 @@
+---
+title: Docs Expert Agent
+description: Flue recipe — answer questions about libraries and APIs by searching the live web and citing sources.
+---
+
+The **Docs Expert Agent** answers technical questions about libraries, APIs, and
+tools by searching the live web — preferring official documentation and citing
+every claim. Reach for it as a grounded "ask the docs" helper that returns
+copy-pasteable answers instead of hallucinated APIs.
+
+<DocsBaseSwitcher base="flue" agent="docs-expert" />
+
+The **Flue** recipe wires a `web_search` tool into an agent that runs precise
+queries, prefers official sources, and answers with a code example and citations.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/docs-expert
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
+- An `EXA_API_KEY` for web search (the `web_search` tool calls the Exa API).
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="docs-expert"
+  framework="flue"
+  inputFields={[
+    {
+      name: "query",
+      label: "Question",
+      placeholder: "How do I stream responses with the Vercel AI SDK?",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── docs-expert.ts      # Agent with the web_search tool
+tools/
+└── search.ts           # Web search via the Exa API
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Swap the search provider.** Edit `search.ts` for Brave, Tavily, or a
+  docs-specific index.
+- **Constrain to your docs.** Restrict queries to a domain to build a
+  product-specific expert.
+- **Add page fetching.** Add a `scrape_url` tool so the agent reads full pages.
+- **Swap the model.** Change the `model` field on the agent.

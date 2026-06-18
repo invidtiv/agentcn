@@ -1,0 +1,75 @@
+---
+title: GitHub PR Code Review Agent
+description: Eve recipe — fetch a GitHub pull request and return adaptive, file-by-file code review feedback.
+---
+
+The **GitHub PR Code Review Agent** reviews a pull request and returns actionable
+feedback. It fetches the PR's files and patches, adapts its depth to the diff
+size, and reports bugs, security issues, and style notes grouped by file — ending
+with an approve / request-changes recommendation. Reach for it to triage reviews
+or give contributors fast first-pass feedback.
+
+<DocsBaseSwitcher base="eve" agent="github-review" />
+
+The **Eve** recipe uses a single `fetch_pr` tool to pull the PR metadata and
+changed files, then reviews the diff in one session — skipping generated and lock
+files and commenting only on what's actually in the patch.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/github-review
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The `eve` package (installed automatically as a dependency of the recipe).
+- A `GITHUB_TOKEN` with read-only repo scope (the `fetch_pr` tool calls the
+  GitHub REST API).
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="github-review"
+  framework="eve"
+  inputFields={[
+    {
+      name: "url",
+      label: "Pull request URL",
+      placeholder: "https://github.com/owner/repo/pull/123",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts          # Agent definition (model + config)
+├── instructions.md   # Adaptive, file-by-file review instructions
+└── tools/
+    └── fetch_pr.ts   # Fetches PR metadata + changed files
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Tune the depth thresholds.** Edit `instructions.md` to change how review depth
+  scales with PR size.
+- **Skip more files.** Add glob patterns for generated or vendored paths.
+- **Post back to GitHub.** Add a tool that creates a review via the GitHub API
+  instead of replying in chat.
+- **Swap the model.** Edit `agent/agent.ts`.

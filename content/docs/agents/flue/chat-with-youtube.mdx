@@ -1,0 +1,77 @@
+---
+title: Chat with YouTube Agent
+description: Flue recipe — fetch a video's metadata and transcript, then answer questions with clickable timestamp citations.
+---
+
+The **Chat with YouTube Agent** answers questions about a video using its
+transcript. It pulls the video's metadata and full transcript, then summarizes,
+answers follow-ups, and generates chapter timestamps — each citation a clickable
+link straight to that moment. Reach for it to skim long talks, lectures, or
+podcasts without watching end to end.
+
+<DocsBaseSwitcher base="flue" agent="chat-with-youtube" />
+
+The **Flue** recipe wires `video_metadata` and `get_transcript` into a single
+agent that composes them in order, then answers grounded only in the transcript —
+citing moments as `youtu.be/<id>?t=<seconds>`.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/chat-with-youtube
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `youtube-transcript` dependency installs automatically with the shadcn CLI.
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="chat-with-youtube"
+  framework="flue"
+  inputFields={[
+    {
+      name: "url",
+      label: "YouTube URL",
+      placeholder: "https://youtu.be/dQw4w9WgXcQ",
+      type: "text",
+    },
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "Summarize the video with chapter timestamps.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── chat-with-youtube.ts  # Agent that composes the two tools
+tools/
+├── metadata.ts           # Title / author / id via oEmbed
+└── transcript.ts         # Timestamped transcript segments
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Add chapters export.** Add a tool that writes the chapter list as a
+  description or VTT file.
+- **Handle missing transcripts.** Fall back to an STT service when captions are
+  unavailable.
+- **Add a workflow.** Wrap the tools in a workflow with a typed chapters schema.
+- **Swap the model.** Change the `model` field on the agent.

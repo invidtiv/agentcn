@@ -1,0 +1,74 @@
+---
+title: Browser Agent
+description: Flue recipe — drive a real browser with Playwright using a snapshot-and-selector pattern.
+---
+
+The **Browser Agent** completes tasks on the live web by driving a real Chromium
+browser. It uses a snapshot-and-selector loop — the model sees a stable list of
+interactive elements instead of brittle CSS — to navigate, click, and type. Reach
+for it to automate flows, scrape interactive pages, or test UIs.
+
+<DocsBaseSwitcher base="flue" agent="browser-agent" />
+
+The **Flue** recipe wires `browser_goto`, `browser_snapshot`, `browser_click`,
+and `browser_type` over a shared Playwright page into one agent. Each action
+returns a fresh snapshot so the agent always acts on the current state.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/browser-agent
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `playwright` dependency installs automatically with the shadcn CLI. Run
+  `npx playwright install chromium` once, or set `BROWSER_CDP_URL` to a hosted
+  Chrome/Browserbase/Browserless instance for server deployments.
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="browser-agent"
+  framework="flue"
+  inputFields={[
+    {
+      name: "task",
+      label: "Task",
+      placeholder:
+        "Go to news.ycombinator.com and list the top 3 story titles.",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── browser-agent.ts    # Agent with the four browser tools
+tools/
+└── browser.ts          # browser_goto / snapshot / click / type
+lib/
+└── browser.ts          # Shared Playwright page + snapshot helper
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Use hosted browsers.** Set `BROWSER_CDP_URL` to run against Browserbase or a
+  remote Chrome.
+- **Richer snapshots.** Extend `lib/browser.ts` to include roles, ARIA, or
+  bounding boxes.
+- **Add actions.** Add tools for scrolling, file uploads, or screenshots.
+- **Swap the model.** Change the `model` field on the agent.

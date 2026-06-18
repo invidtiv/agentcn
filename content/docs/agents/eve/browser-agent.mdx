@@ -1,0 +1,80 @@
+---
+title: Browser Agent
+description: Eve recipe — drive a real browser with Playwright using a snapshot-and-selector pattern.
+---
+
+The **Browser Agent** completes tasks on the live web by driving a real Chromium
+browser. It uses a snapshot-and-selector loop — the model sees a stable list of
+interactive elements instead of brittle CSS — to navigate, click, and type. Reach
+for it to automate flows, scrape interactive pages, or test UIs.
+
+<DocsBaseSwitcher base="eve" agent="browser-agent" />
+
+The **Eve** recipe ships `browser_goto`, `browser_snapshot`, `browser_click`, and
+`browser_type` over a shared Playwright page. Each action returns a fresh snapshot
+so the agent always acts on the current state.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/browser-agent
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The `playwright` dependency installs automatically with the shadcn CLI. Run
+  `npx playwright install chromium` once, or set `BROWSER_CDP_URL` to a hosted
+  Chrome/Browserbase/Browserless instance for server deployments.
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="browser-agent"
+  framework="eve"
+  inputFields={[
+    {
+      name: "task",
+      label: "Task",
+      placeholder:
+        "Go to news.ycombinator.com and list the top 3 story titles.",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts                  # Agent definition (model + config)
+├── instructions.md           # Snapshot-then-act loop instructions
+├── lib/
+│   └── browser.ts            # Shared Playwright page + snapshot helper
+└── tools/
+    ├── browser_goto.ts       # Navigate to a URL
+    ├── browser_snapshot.ts   # Read the current page + elements
+    ├── browser_click.ts      # Click an element by selector
+    └── browser_type.ts       # Type into an input by selector
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Use hosted browsers.** Set `BROWSER_CDP_URL` to run against Browserbase or a
+  remote Chrome.
+- **Richer snapshots.** Extend `lib/browser.ts` to include roles, ARIA, or
+  bounding boxes.
+- **Add actions.** Add tools for scrolling, file uploads, or screenshots.
+- **Swap the model.** Edit `agent/agent.ts`.

@@ -1,0 +1,72 @@
+---
+title: CSV to Questions Agent
+description: Flue recipe — chain a summarizer and a question-generator through a workflow to turn a CSV into analytical questions.
+---
+
+The **CSV to Questions Agent** takes a CSV dataset and turns it into a set of
+sharp, answerable analytical questions. It first summarizes the data — columns,
+types, ranges, patterns — to compress large files and avoid token-limit errors,
+then generates questions a data analyst would actually ask. Reach for it to
+kickstart exploratory analysis or build study material from raw data.
+
+<DocsBaseSwitcher base="flue" agent="csv-to-questions" />
+
+The **Flue** recipe runs a two-stage workflow: a `summarizer` agent loads the
+CSV with the `fetch_csv` tool and compresses it to a column profile, then a
+`questioner` agent turns that summary into a typed list of analytical questions.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/csv-to-questions
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="csv-to-questions"
+  framework="flue"
+  inputFields={[
+    {
+      name: "url",
+      label: "CSV URL",
+      placeholder: "https://example.com/world-gdp.csv",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── csv-to-questions.ts   # Single-agent variant with the fetch_csv tool
+workflows/
+└── csv-to-questions.ts   # summarizer → questioner pipeline (typed output)
+tools/
+└── fetch-csv.ts          # Loads a CSV file from a URL
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Read local files.** Swap `fetch-csv.ts` to read from disk or object storage.
+- **Reshape the output.** Edit the `Questions` valibot schema to add fields such
+  as difficulty or the column each question targets.
+- **Swap the models.** Use a large-context model on the summarizer for wide
+  datasets; a smaller one on the questioner for speed.
+- **Chunk huge files.** Summarize in row batches and merge before questioning.

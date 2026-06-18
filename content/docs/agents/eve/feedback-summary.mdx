@@ -1,0 +1,77 @@
+---
+title: Customer Feedback Summary Agent
+description: Eve recipe — retrieve, categorize, and summarize customer feedback into an executive report with recommendations.
+---
+
+The **Customer Feedback Summary Agent** answers questions about your customer
+feedback. It retrieves entries from your data source, categorizes them by theme
+and segment, and produces an executive summary with representative quotes and
+concrete recommendations. Reach for it to turn a backlog of reviews, tickets, or
+survey responses into something a team can act on.
+
+<DocsBaseSwitcher base="eve" agent="feedback-summary" />
+
+The **Eve** recipe runs in a single durable session: it **retrieves** feedback
+with the paginated `get_feedback` tool, **categorizes** the entries by theme and
+customer segment, then **summarizes** the top themes by volume and severity with
+recommendations — grounded only in the feedback it actually fetched.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/eve/feedback-summary
+```
+
+## Prerequisites
+
+- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
+  The recipe installs files under `agent/`, which Eve discovers automatically.
+- The `eve` package (installed automatically as a dependency of the recipe).
+- A `FEEDBACK_API_URL` pointing at your feedback source (the `get_feedback` tool
+  fetches paginated entries from it).
+- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
+  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
+  notes in the README.
+
+<AgentPreview
+  agent="feedback-summary"
+  framework="eve"
+  inputFields={[
+    {
+      name: "query",
+      label: "Request",
+      placeholder: "What are the critical issues from enterprise customers?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agent/
+├── agent.ts             # Agent definition (model + config)
+├── instructions.md      # Retrieve / categorize / summarize instructions
+└── tools/
+    └── get_feedback.ts  # Paginated feedback retrieval
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Connect your source.** Point `get_feedback` at your database, support desk,
+  or reviews API — keep the pagination + segment parameters.
+- **Change the categories.** Edit `instructions.md` to use your own taxonomy
+  (severity tiers, product areas, sentiment).
+- **Swap the model.** Edit `agent/agent.ts` — a larger model for nuanced
+  synthesis, a smaller one for speed.
+- **Add a scorer.** Track summary quality across runs to tune the prompt.

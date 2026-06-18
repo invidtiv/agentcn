@@ -10,9 +10,41 @@ workflows, installable with the shadcn CLI.
 
 ## Available agents
 
-- **[Competitor Intelligence](/docs/agents/eve/competitor-intel)** — scrapes and
-  analyzes competitor pages, then returns a structured intelligence report.
-  Available for both Eve and Flue.
+- **[Deep Search](/docs/agents/eve/deep-search)** — researches a question,
+  evaluates its own findings, and iterates until the answer is complete and cited.
+- **[CSV to Questions](/docs/agents/eve/csv-to-questions)** — summarizes a CSV
+  dataset, then generates focused analytical questions.
+- **[Customer Feedback Summary](/docs/agents/eve/feedback-summary)** — retrieves,
+  categorizes, and summarizes customer feedback into an executive report.
+- **[Meeting Notes](/docs/agents/eve/meeting-notes)** — turns a raw transcript
+  into a structured summary, decisions, and action items.
+- **[Chat with PDF](/docs/agents/eve/chat-with-pdf)** — indexes a PDF into a
+  vector store and answers questions over it with page-cited retrieval.
+- **[Flash Cards from PDF](/docs/agents/eve/flashcards-pdf)** — turns a PDF into
+  study flash cards, with optional AI-generated images per concept.
+- **[Chat with YouTube](/docs/agents/eve/chat-with-youtube)** — answers questions
+  about a video from its transcript, with clickable timestamp citations.
+- **[Docs Chatbot](/docs/agents/eve/docs-chatbot)** — answers questions about a
+  library's functions from structured documentation.
+- **[Chat with Database](/docs/agents/eve/text-to-sql)** — introspects a schema,
+  converts questions to SQL, and runs read-only queries.
+- **[GitHub PR Review](/docs/agents/eve/github-review)** — fetches a pull request
+  and returns adaptive, file-by-file code review feedback.
+- **[Slack Agent](/docs/agents/eve/slack-agent)** — replies to Slack mentions and
+  DMs, scoped to the thread.
+- **[Google Sheets](/docs/agents/eve/google-sheets)** — reads, analyzes, and
+  edits Google Sheets via the Sheets API.
+- **[Browser Agent](/docs/agents/eve/browser-agent)** — drives a real browser
+  with Playwright to complete web tasks.
+- **[Claw Assistant](/docs/agents/eve/claw)** — operates a sandboxed workspace
+  (files + shell) to finish multi-step tasks.
+- **[Company Knowledge](/docs/agents/eve/company-knowledge)** — answers questions
+  over indexed internal documents, with PII redaction.
+- **[Docs Expert](/docs/agents/eve/docs-expert)** — answers library and API
+  questions by searching the live web and citing sources.
+- **[Weather](/docs/agents/eve/weather)** — looks up current weather for a
+  location; a minimal single-tool starter.
 
-More recipes coming soon. Each one includes an install command, prerequisites, a
-live preview, and a breakdown of every file it installs.
+Every recipe is available for both **Eve** and **Flue**. More coming soon — each
+includes an install command, prerequisites, a live preview, and a breakdown of
+every file it installs.

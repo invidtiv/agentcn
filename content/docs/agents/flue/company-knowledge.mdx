@@ -1,0 +1,79 @@
+---
+title: Company Knowledge Agent
+description: Flue recipe — index internal documents into a vector store and answer questions over them, with PII redaction.
+---
+
+The **Company Knowledge Agent** answers questions over your internal documents —
+issues, wiki pages, notes. It indexes them into a vector store, searches the
+corpus first, and redacts personal data (emails, phone numbers, SSNs, card
+numbers, API keys) from responses. Reach for it to build an internal "ask the
+company" assistant.
+
+<DocsBaseSwitcher base="flue" agent="company-knowledge" />
+
+The **Flue** recipe ships `search_knowledge` and `index_document` tools over a
+libSQL vector store, a `redactPii` helper applied to retrieved passages, and an
+`index-knowledge` workflow you can run on a schedule to keep the corpus fresh.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/company-knowledge
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The recipe's dependencies (`@libsql/client`, `ai`, `@ai-sdk/openai`) install
+  automatically with the shadcn CLI.
+- An `OPENAI_API_KEY` for embeddings, and optionally `LIBSQL_URL` for a remote
+  Turso/libSQL database (or swap in pgvector/Neon).
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="company-knowledge"
+  framework="flue"
+  inputFields={[
+    {
+      name: "query",
+      label: "Question",
+      placeholder: "What's our policy on refund requests over $500?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── company-knowledge.ts     # Corpus-first, PII-safe agent
+workflows/
+└── index-knowledge.ts       # Scheduled re-index workflow
+tools/
+├── search-knowledge.ts      # Search the corpus (redacted)
+└── index-document.ts        # Add a document to the corpus
+lib/
+├── vector-store.ts          # libSQL vector store + embeddings
+└── pii.ts                   # PII redaction helper
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Connect sources.** Feed `index-knowledge` from Linear, Notion, or your wiki
+  on a cron for fresh data.
+- **Swap the vector store.** Replace `lib/vector-store.ts` with pgvector/Neon,
+  Pinecone, or Qdrant.
+- **Tune redaction.** Edit the patterns in `lib/pii.ts` for your data.
+- **Swap the model.** Change the `model` field on the agent.

@@ -1,0 +1,71 @@
+---
+title: Docs Chatbot Agent
+description: Flue recipe — answer questions about a library's functions by looking up structured documentation.
+---
+
+The **Docs Chatbot Agent** answers questions about a code library's API. It looks
+up structured function documentation — signatures, parameters, and examples — and
+answers using only what the docs say. Reach for it to drop a grounded "ask the
+docs" assistant into a docs site, an IDE, or a support channel.
+
+<DocsBaseSwitcher base="flue" agent="docs-chatbot" />
+
+The **Flue** recipe wires a `lookup_docs` tool over a structured docs source
+(`functions.json`) into a single agent. It retrieves matching functions and
+answers with the signature and a usage example, suggesting the closest names when
+nothing matches.
+
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.sh/r/flue/docs-chatbot
+```
+
+## Prerequisites
+
+- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
+- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
+- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
+  in-process in this site's API route — no separate deployment required.
+
+<AgentPreview
+  agent="docs-chatbot"
+  framework="flue"
+  inputFields={[
+    {
+      name: "query",
+      label: "Question",
+      placeholder: "Tell me about the getPlanetaryData function.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Files
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="files">
+    <AccordionTrigger>What gets installed</AccordionTrigger>
+    <AccordionContent>
+
+```txt
+agents/
+└── docs-chatbot.ts      # Agent with the lookup_docs tool
+tools/
+└── lookup-docs.ts       # Looks up functions by name or keyword
+data/
+└── functions.json       # Sample documentation source
+```
+
+    </AccordionContent>
+
+  </AccordionItem>
+</Accordion>
+
+## Customization
+
+- **Point at your docs.** Replace `data/functions.json` with your generated API
+  docs, or change `lookup-docs.ts` to fetch from a remote source.
+- **Improve matching.** Swap the substring filter for embeddings-based search.
+- **Expose it as MCP.** Wrap the tool in an MCP server for other clients.
+- **Swap the model.** Change the `model` field on the agent.
