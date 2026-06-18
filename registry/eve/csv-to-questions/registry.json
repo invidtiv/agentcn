@@ -1,0 +1,13 @@
+{
+  "name": "csv-to-questions",
+  "type": "registry:block",
+  "title": "CSV to Questions Agent",
+  "description": "Eve agent that summarizes a CSV dataset to stay within token limits, then generates focused analytical questions.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/tools/fetch_csv.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve"]
+}

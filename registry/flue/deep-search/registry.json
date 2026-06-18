@@ -1,0 +1,14 @@
+{
+  "name": "deep-search",
+  "type": "registry:block",
+  "title": "Deep Search Agent",
+  "description": "Flue agent that fans research out to searcher and evaluator subagents, iterating through a bounded workflow until the answer is cited and complete.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/deep-search.ts", "type": "registry:file" },
+    { "path": "workflows/deep-search.ts", "type": "registry:file" },
+    { "path": "tools/search.ts", "type": "registry:file" },
+    { "path": "skills/research/SKILL.md", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

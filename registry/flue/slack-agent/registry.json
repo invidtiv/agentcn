@@ -1,0 +1,12 @@
+{
+  "name": "slack-agent",
+  "type": "registry:block",
+  "title": "Slack Agent",
+  "description": "Flue agent that replies to Slack mentions and DMs, threaded, via the Slack Web API.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/slack-agent.ts", "type": "registry:file" },
+    { "path": "tools/post-message.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

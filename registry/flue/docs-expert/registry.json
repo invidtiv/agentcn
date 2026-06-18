@@ -1,0 +1,12 @@
+{
+  "name": "docs-expert",
+  "type": "registry:block",
+  "title": "Docs Expert Agent",
+  "description": "Flue agent that answers questions about libraries and APIs by searching the live web and citing sources.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/docs-expert.ts", "type": "registry:file" },
+    { "path": "tools/search.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

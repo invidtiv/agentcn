@@ -1,0 +1,13 @@
+{
+  "name": "docs-expert",
+  "type": "registry:block",
+  "title": "Docs Expert Agent",
+  "description": "Eve agent that answers questions about libraries and APIs by searching the live web and citing sources.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/tools/web_search.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve"]
+}

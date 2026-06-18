@@ -1,0 +1,16 @@
+{
+  "name": "company-knowledge",
+  "type": "registry:block",
+  "title": "Company Knowledge Agent",
+  "description": "Flue agent that indexes internal documents into a vector store and answers questions over them, with a scheduled re-index workflow and PII redaction.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/company-knowledge.ts", "type": "registry:file" },
+    { "path": "workflows/index-knowledge.ts", "type": "registry:file" },
+    { "path": "tools/search-knowledge.ts", "type": "registry:file" },
+    { "path": "tools/index-document.ts", "type": "registry:file" },
+    { "path": "lib/vector-store.ts", "type": "registry:file" },
+    { "path": "lib/pii.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime", "@libsql/client", "@ai-sdk/openai", "ai"]
+}

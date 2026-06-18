@@ -1,0 +1,13 @@
+{
+  "name": "browser-agent",
+  "type": "registry:block",
+  "title": "Browser Agent",
+  "description": "Flue agent that drives a real browser with Playwright using a snapshot-and-selector pattern to complete web tasks.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/browser-agent.ts", "type": "registry:file" },
+    { "path": "tools/browser.ts", "type": "registry:file" },
+    { "path": "lib/browser.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime", "playwright"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "text-to-sql",
+  "type": "registry:block",
+  "title": "Chat with Database Agent",
+  "description": "Eve agent that introspects a database schema, converts questions to SQL, and runs read-only queries.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/lib/db.ts", "type": "registry:file" },
+    { "path": "agent/tools/introspect_schema.ts", "type": "registry:file" },
+    { "path": "agent/tools/run_query.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve", "@libsql/client"]
+}

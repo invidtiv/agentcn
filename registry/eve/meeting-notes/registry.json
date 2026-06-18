@@ -1,0 +1,13 @@
+{
+  "name": "meeting-notes",
+  "type": "registry:block",
+  "title": "Meeting Notes Agent",
+  "description": "Eve agent that turns a raw meeting transcript into a structured summary, decisions, and action items.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/tools/save_notes.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve"]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "csv-to-questions",
+  "type": "registry:block",
+  "title": "CSV to Questions Agent",
+  "description": "Flue agent that chains a summarizer and a question-generator through a workflow to turn a CSV into analytical questions.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/csv-to-questions.ts", "type": "registry:file" },
+    { "path": "workflows/csv-to-questions.ts", "type": "registry:file" },
+    { "path": "tools/fetch-csv.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

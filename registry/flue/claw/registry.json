@@ -1,0 +1,16 @@
+{
+  "name": "claw",
+  "type": "registry:block",
+  "title": "Claw Autonomous Assistant",
+  "description": "Flue agent that operates a sandboxed workspace — read/write files and run shell commands — to finish multi-step tasks.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/claw.ts", "type": "registry:file" },
+    { "path": "tools/read-file.ts", "type": "registry:file" },
+    { "path": "tools/write-file.ts", "type": "registry:file" },
+    { "path": "tools/run-shell.ts", "type": "registry:file" },
+    { "path": "lib/workspace.ts", "type": "registry:file" },
+    { "path": "skills/workspace/SKILL.md", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

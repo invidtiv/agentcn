@@ -1,0 +1,12 @@
+{
+  "name": "meeting-notes",
+  "type": "registry:block",
+  "title": "Meeting Notes Agent",
+  "description": "Flue agent that runs a transcript through a workflow to return a structured summary, decisions, and action items.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/meeting-notes.ts", "type": "registry:file" },
+    { "path": "workflows/meeting-notes.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

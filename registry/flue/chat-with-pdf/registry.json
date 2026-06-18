@@ -1,0 +1,15 @@
+{
+  "name": "chat-with-pdf",
+  "type": "registry:block",
+  "title": "Chat with PDF Agent",
+  "description": "Flue agent that indexes a PDF into a vector store and answers questions over it with page-cited retrieval.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/chat-with-pdf.ts", "type": "registry:file" },
+    { "path": "workflows/chat-with-pdf.ts", "type": "registry:file" },
+    { "path": "tools/index-pdf.ts", "type": "registry:file" },
+    { "path": "tools/search-docs.ts", "type": "registry:file" },
+    { "path": "lib/vector-store.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime", "@libsql/client", "@ai-sdk/openai", "ai", "unpdf"]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "google-sheets",
+  "type": "registry:block",
+  "title": "Google Sheets Analysis Agent",
+  "description": "Flue agent that reads, analyzes, and edits Google Sheets via the Sheets API.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/google-sheets.ts", "type": "registry:file" },
+    { "path": "tools/read-range.ts", "type": "registry:file" },
+    { "path": "tools/update-range.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

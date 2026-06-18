@@ -1,0 +1,13 @@
+{
+  "name": "docs-chatbot",
+  "type": "registry:block",
+  "title": "Docs Chatbot Agent",
+  "description": "Flue agent that answers questions about a library's functions by looking up structured documentation.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/docs-chatbot.ts", "type": "registry:file" },
+    { "path": "tools/lookup-docs.ts", "type": "registry:file" },
+    { "path": "data/functions.json", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

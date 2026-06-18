@@ -1,0 +1,12 @@
+{
+  "name": "weather",
+  "type": "registry:block",
+  "title": "Weather Agent",
+  "description": "Flue agent that looks up current weather for a location via the Open-Meteo API.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/weather.ts", "type": "registry:file" },
+    { "path": "tools/get-weather.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

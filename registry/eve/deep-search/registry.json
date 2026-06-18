@@ -1,0 +1,14 @@
+{
+  "name": "deep-search",
+  "type": "registry:block",
+  "title": "Deep Search Agent",
+  "description": "Eve agent that researches a question, evaluates its own findings, and iterates until the answer is complete and cited.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/tools/web_search.ts", "type": "registry:file" },
+    { "path": "agent/skills/research/SKILL.md", "type": "registry:file" }
+  ],
+  "dependencies": ["eve"]
+}

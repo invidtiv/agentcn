@@ -1,0 +1,14 @@
+{
+  "name": "flashcards-pdf",
+  "type": "registry:block",
+  "title": "Flash Cards from PDF Agent",
+  "description": "Flue agent that turns a PDF into study flash cards through a workflow, with optional AI-generated images per concept.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/flashcards-pdf.ts", "type": "registry:file" },
+    { "path": "workflows/flashcards-pdf.ts", "type": "registry:file" },
+    { "path": "tools/parse-pdf.ts", "type": "registry:file" },
+    { "path": "tools/generate-image.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime", "unpdf"]
+}

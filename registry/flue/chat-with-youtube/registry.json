@@ -1,0 +1,13 @@
+{
+  "name": "chat-with-youtube",
+  "type": "registry:block",
+  "title": "Chat with YouTube Agent",
+  "description": "Flue agent that fetches a video's metadata and transcript, then answers questions with clickable timestamp citations.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/chat-with-youtube.ts", "type": "registry:file" },
+    { "path": "tools/metadata.ts", "type": "registry:file" },
+    { "path": "tools/transcript.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime", "youtube-transcript"]
+}

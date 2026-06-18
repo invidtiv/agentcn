@@ -1,0 +1,14 @@
+{
+  "name": "google-sheets",
+  "type": "registry:block",
+  "title": "Google Sheets Analysis Agent",
+  "description": "Eve agent that reads, analyzes, and edits Google Sheets via the Sheets API.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/tools/read_range.ts", "type": "registry:file" },
+    { "path": "agent/tools/update_range.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve"]
+}

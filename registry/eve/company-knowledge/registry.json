@@ -1,0 +1,16 @@
+{
+  "name": "company-knowledge",
+  "type": "registry:block",
+  "title": "Company Knowledge Agent",
+  "description": "Eve agent that indexes internal documents into a vector store and answers questions over them, with PII redaction.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/lib/pii.ts", "type": "registry:file" },
+    { "path": "agent/lib/vector-store.ts", "type": "registry:file" },
+    { "path": "agent/tools/index_document.ts", "type": "registry:file" },
+    { "path": "agent/tools/search_knowledge.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve", "@libsql/client", "@ai-sdk/openai", "ai"]
+}

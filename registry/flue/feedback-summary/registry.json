@@ -1,0 +1,12 @@
+{
+  "name": "feedback-summary",
+  "type": "registry:block",
+  "title": "Customer Feedback Summary Agent",
+  "description": "Flue agent that retrieves, categorizes, and summarizes customer feedback into an executive report with recommendations.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/feedback-summary.ts", "type": "registry:file" },
+    { "path": "tools/get-feedback.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

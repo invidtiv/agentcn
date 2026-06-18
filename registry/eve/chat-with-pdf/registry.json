@@ -1,0 +1,15 @@
+{
+  "name": "chat-with-pdf",
+  "type": "registry:block",
+  "title": "Chat with PDF Agent",
+  "description": "Eve agent that indexes a PDF into a vector store and answers questions over it with page-cited retrieval.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/lib/vector-store.ts", "type": "registry:file" },
+    { "path": "agent/tools/index_pdf.ts", "type": "registry:file" },
+    { "path": "agent/tools/search_docs.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve", "@libsql/client", "@ai-sdk/openai", "ai", "unpdf"]
+}

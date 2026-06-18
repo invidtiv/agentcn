@@ -1,0 +1,13 @@
+{
+  "name": "github-review",
+  "type": "registry:block",
+  "title": "GitHub PR Code Review Agent",
+  "description": "Flue agent that fetches a GitHub pull request and returns adaptive review feedback, with a workflow that emits a typed review.",
+  "framework": "flue",
+  "files": [
+    { "path": "agents/github-review.ts", "type": "registry:file" },
+    { "path": "workflows/github-review.ts", "type": "registry:file" },
+    { "path": "tools/fetch-pr.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@flue/runtime"]
+}

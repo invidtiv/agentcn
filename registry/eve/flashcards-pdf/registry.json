@@ -1,0 +1,14 @@
+{
+  "name": "flashcards-pdf",
+  "type": "registry:block",
+  "title": "Flash Cards from PDF Agent",
+  "description": "Eve agent that turns a PDF into study flash cards, with optional AI-generated images per concept.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/tools/parse_pdf.ts", "type": "registry:file" },
+    { "path": "agent/tools/generate_image.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve", "unpdf"]
+}

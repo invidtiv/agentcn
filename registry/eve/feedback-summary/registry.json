@@ -1,0 +1,13 @@
+{
+  "name": "feedback-summary",
+  "type": "registry:block",
+  "title": "Customer Feedback Summary Agent",
+  "description": "Eve agent that retrieves, categorizes, and summarizes customer feedback into an executive report with recommendations.",
+  "framework": "eve",
+  "files": [
+    { "path": "agent/agent.ts", "type": "registry:file" },
+    { "path": "agent/instructions.md", "type": "registry:file" },
+    { "path": "agent/tools/get_feedback.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["eve"]
+}
