@@ -20,16 +20,20 @@ export default function IndexPage() {
             </h1>
 
             <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
-              Ready to use, customizable agent recipes for Eve and Flue.
-              Complete backend agents, not UI components. Distributed via
-              shadcn.
+              Ready to use, customizable AI agent recipes.
+              <br className="hidden sm:block" />
+              Built on Eve and Flue. Distributed via shadcn.
             </p>
 
             <AgentInstallTabs className="mt-4 w-full max-w-xl" />
 
             <HomeCtas className="mt-4" />
+          </div>
+        </section>
 
-            <HomeAgentPreview className="mt-12 w-full" />
+        <section className="container-wrapper pb-8 lg:pb-12">
+          <div className="container">
+            <HomeAgentPreview />
           </div>
         </section>
       </PageTransition>
