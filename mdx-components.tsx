@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AgentPreview } from "@/components/agent-preview";
+import { AgentsList } from "@/components/agents-list";
 import { Callout } from "@/components/callout";
 import { CodeBlockCommand } from "@/components/code-block-command";
 import { CodeTabs } from "@/components/code-tabs";
@@ -30,6 +31,7 @@ export const mdxComponents = {
     props: React.ComponentProps<typeof AccordionTriggerBase>
   ) => <AccordionTriggerBase sound="click" {...props} />,
   AgentPreview,
+  AgentsList,
   Alert,
   AlertDescription,
   AlertTitle,

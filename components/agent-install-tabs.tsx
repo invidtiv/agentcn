@@ -61,7 +61,7 @@ export const AgentInstallTabs = ({ className }: { className?: string }) => {
             ))}
           </TabsList>
         </div>
-        <pre className="-translate-y-px px-4 py-3.5">
+        <pre className="-translate-y-px overflow-x-auto px-4 py-3.5">
           <code
             className="block text-left font-mono text-sm text-muted-foreground max-sm:leading-6"
             data-language="bash"

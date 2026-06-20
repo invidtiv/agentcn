@@ -6,6 +6,8 @@ export const ROUTES = {
   DOCS: "/docs",
   DOCS_AGENTS: "/docs/agents",
   DOCS_INSTALLATION: "/docs/installation",
+  DOCS_MCP: "/docs/mcp",
+  DOCS_REGISTRY: "/docs/registry",
   HOME: "/",
   LLMS: "/llms.txt",
   LLMS_FULL: "/llms-full.txt",
