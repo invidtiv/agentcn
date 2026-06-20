@@ -1,34 +1,9 @@
 ---
-title: Docs Expert Agent
-description: Eve recipe — answer questions about libraries and APIs by searching the live web and citing sources.
+title: Docs Expert
+description: Answers questions about libraries and APIs by searching the live web and citing sources.
 ---
 
-The **Docs Expert Agent** answers technical questions about libraries, APIs, and
-tools by searching the live web — preferring official documentation and citing
-every claim. Reach for it as a grounded "ask the docs" helper that returns
-copy-pasteable answers instead of hallucinated APIs.
-
 <DocsBaseSwitcher base="eve" agent="docs-expert" />
-
-The **Eve** recipe ships a single `web_search` tool. The agent runs precise
-queries, reads the results, and answers from official sources with a short code
-example and citations.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/docs-expert
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `eve` package (installed automatically as a dependency of the recipe).
-- An `EXA_API_KEY` for web search (the `web_search` tool calls the Exa API).
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="docs-expert"
@@ -43,25 +18,28 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/docs-expert
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Docs Expert Agent** answers technical questions about libraries, APIs, and
+tools by searching the live web — preferring official documentation and citing
+every claim. Reach for it as a grounded "ask the docs" helper that returns
+copy-pasteable answers instead of hallucinated APIs.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/docs-expert.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts            # Agent definition (model + config)
 ├── instructions.md     # Cite-your-sources answering instructions
 └── tools/
     └── web_search.ts   # Web search via the Exa API
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

@@ -1,35 +1,9 @@
 ---
-title: Browser Agent
-description: Eve recipe — drive a real browser with Playwright using a snapshot-and-selector pattern.
+title: Browser
+description: Drives a real browser with Playwright using a snapshot-and-selector pattern to complete web tasks.
 ---
 
-The **Browser Agent** completes tasks on the live web by driving a real Chromium
-browser. It uses a snapshot-and-selector loop — the model sees a stable list of
-interactive elements instead of brittle CSS — to navigate, click, and type. Reach
-for it to automate flows, scrape interactive pages, or test UIs.
-
 <DocsBaseSwitcher base="eve" agent="browser-agent" />
-
-The **Eve** recipe ships `browser_goto`, `browser_snapshot`, `browser_click`, and
-`browser_type` over a shared Playwright page. Each action returns a fresh snapshot
-so the agent always acts on the current state.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/browser-agent
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `playwright` dependency installs automatically with the shadcn CLI. Run
-  `npx playwright install chromium` once, or set `BROWSER_CDP_URL` to a hosted
-  Chrome/Browserbase/Browserless instance for server deployments.
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="browser-agent"
@@ -45,14 +19,22 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/browser-agent
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Browser Agent** completes tasks on the live web by driving a real Chromium
+browser. It uses a snapshot-and-selector loop — the model sees a stable list of
+interactive elements instead of brittle CSS — to navigate, click, and type. Reach
+for it to automate flows, scrape interactive pages, or test UIs.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/browser-agent.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts                  # Agent definition (model + config)
 ├── instructions.md           # Snapshot-then-act loop instructions
@@ -64,11 +46,6 @@ agent/
     ├── browser_click.ts      # Click an element by selector
     └── browser_type.ts       # Type into an input by selector
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

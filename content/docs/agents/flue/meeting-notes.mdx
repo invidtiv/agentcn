@@ -1,31 +1,9 @@
 ---
-title: Meeting Notes Agent
-description: Flue recipe — run a transcript through a workflow to return a structured summary, decisions, and action items.
+title: Meeting Notes
+description: Turns a raw meeting transcript into a structured summary, decisions, and action items.
 ---
 
-The **Meeting Notes Agent** takes a raw meeting transcript and returns clean,
-structured notes: a short summary, the decisions that were made, action items as
-owner/task pairs, and any open questions. Reach for it to close out standups,
-planning sessions, or customer calls without writing up notes by hand.
-
 <DocsBaseSwitcher base="flue" agent="meeting-notes" />
-
-The **Flue** recipe runs the transcript through a workflow that returns a typed
-`Notes` object — summary, decisions, owner/task action items, and open questions
-— so downstream code gets structured data rather than free text.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/meeting-notes
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="meeting-notes"
@@ -40,24 +18,27 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/meeting-notes
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Meeting Notes Agent** takes a raw meeting transcript and returns clean,
+structured notes: a short summary, the decisions that were made, action items as
+owner/task pairs, and any open questions. Reach for it to close out standups,
+planning sessions, or customer calls without writing up notes by hand.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/meeting-notes.json
+```
+
+## Composition
+
+```text
 agents/
 └── meeting-notes.ts    # Single-agent variant
 workflows/
 └── meeting-notes.ts    # Workflow returning a typed Notes object
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

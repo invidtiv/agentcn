@@ -1,34 +1,9 @@
 ---
-title: Deep Search Agent
-description: Flue recipe — fan research out to searcher and evaluator subagents, iterating through a bounded workflow until the answer is cited.
+title: Deep Search
+description: Researches a question, evaluates its own findings, and iterates until the answer is complete and cited.
 ---
 
-The **Deep Search Agent** takes a research question, searches the web, and then
-critiques its own findings — re-searching to close gaps until the question is
-fully answered. It returns an answer grounded only in the sources it found, with
-a citation for every claim. Reach for it whenever a single search isn't enough
-and you need a verified, sourced answer.
-
 <DocsBaseSwitcher base="flue" agent="deep-search" />
-
-The **Flue** recipe splits the work across subagents. The orchestrator
-decomposes the question and dispatches a `searcher` subagent per sub-question,
-sends the findings to an `evaluator` subagent, and loops through a bounded
-workflow until the evaluator reports no gaps — returning a typed, cited answer.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/deep-search
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- An `EXA_API_KEY` for web search (the `web_search` tool calls the Exa API).
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="deep-search"
@@ -44,14 +19,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/deep-search
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Deep Search Agent** takes a research question, searches the web, and then
+critiques its own findings — re-searching to close gaps until the question is
+fully answered. It returns an answer grounded only in the sources it found, with
+a citation for every claim. Reach for it whenever a single search isn't enough
+and you need a verified, sourced answer.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/deep-search.json
+```
+
+## Composition
+
+```text
 agents/
 └── deep-search.ts        # Orchestrator + searcher/evaluator subagents
 workflows/
@@ -62,11 +46,6 @@ skills/
 └── research/
     └── SKILL.md          # Iterative research procedure
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

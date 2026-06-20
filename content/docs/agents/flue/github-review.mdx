@@ -1,34 +1,9 @@
 ---
-title: GitHub PR Code Review Agent
-description: Flue recipe — fetch a GitHub pull request and return adaptive review feedback, with a workflow that emits a typed review.
+title: GitHub PR Code Review
+description: Fetches a GitHub pull request and returns adaptive, file-by-file code review feedback.
 ---
 
-The **GitHub PR Code Review Agent** reviews a pull request and returns actionable
-feedback. It fetches the PR's files and patches, adapts its depth to the diff
-size, and reports bugs, security issues, and style notes grouped by file — ending
-with an approve / request-changes recommendation. Reach for it to triage reviews
-or give contributors fast first-pass feedback.
-
 <DocsBaseSwitcher base="flue" agent="github-review" />
-
-The **Flue** recipe ships both modes: a chat agent for interactive review, and a
-`pr-review` workflow that returns a typed `Review` — a summary, a recommendation,
-and per-file comments tagged by severity.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/github-review
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- A `GITHUB_TOKEN` with read-only repo scope (the `fetch_pr` tool calls the
-  GitHub REST API).
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="github-review"
@@ -43,14 +18,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/github-review
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **GitHub PR Code Review Agent** reviews a pull request and returns actionable
+feedback. It fetches the PR's files and patches, adapts its depth to the diff
+size, and reports bugs, security issues, and style notes grouped by file — ending
+with an approve / request-changes recommendation. Reach for it to triage reviews
+or give contributors fast first-pass feedback.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/github-review.json
+```
+
+## Composition
+
+```text
 agents/
 └── github-review.ts      # Chat review agent
 workflows/
@@ -58,11 +42,6 @@ workflows/
 tools/
 └── fetch-pr.ts           # Fetches PR metadata + changed files
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

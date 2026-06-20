@@ -1,32 +1,9 @@
 ---
-title: CSV to Questions Agent
-description: Flue recipe — chain a summarizer and a question-generator through a workflow to turn a CSV into analytical questions.
+title: CSV to Questions
+description: Summarizes a CSV dataset to stay within token limits, then generates focused analytical questions.
 ---
 
-The **CSV to Questions Agent** takes a CSV dataset and turns it into a set of
-sharp, answerable analytical questions. It first summarizes the data — columns,
-types, ranges, patterns — to compress large files and avoid token-limit errors,
-then generates questions a data analyst would actually ask. Reach for it to
-kickstart exploratory analysis or build study material from raw data.
-
 <DocsBaseSwitcher base="flue" agent="csv-to-questions" />
-
-The **Flue** recipe runs a two-stage workflow: a `summarizer` agent loads the
-CSV with the `fetch_csv` tool and compresses it to a column profile, then a
-`questioner` agent turns that summary into a typed list of analytical questions.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/csv-to-questions
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="csv-to-questions"
@@ -41,14 +18,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/csv-to-questions
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **CSV to Questions Agent** takes a CSV dataset and turns it into a set of
+sharp, answerable analytical questions. It first summarizes the data — columns,
+types, ranges, patterns — to compress large files and avoid token-limit errors,
+then generates questions a data analyst would actually ask. Reach for it to
+kickstart exploratory analysis or build study material from raw data.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/csv-to-questions.json
+```
+
+## Composition
+
+```text
 agents/
 └── csv-to-questions.ts   # Single-agent variant with the fetch_csv tool
 workflows/
@@ -56,11 +42,6 @@ workflows/
 tools/
 └── fetch-csv.ts          # Loads a CSV file from a URL
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

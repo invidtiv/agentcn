@@ -1,36 +1,9 @@
 ---
-title: Deep Search Agent
-description: Eve recipe — research a question, evaluate your own findings, and iterate until the answer is complete and cited.
+title: Deep Search
+description: Researches a question, evaluates its own findings, and iterates until the answer is complete and cited.
 ---
 
-The **Deep Search Agent** takes a research question, searches the web, and then
-critiques its own findings — re-searching to close gaps until the question is
-fully answered. It returns an answer grounded only in the sources it found, with
-a citation for every claim. Reach for it whenever a single search isn't enough
-and you need a verified, sourced answer.
-
 <DocsBaseSwitcher base="eve" agent="deep-search" />
-
-The **Eve** recipe runs the whole loop inside one durable session: it
-decomposes the question, **searches** each sub-question with the `web_search`
-tool, **self-evaluates** for gaps and contradictions, and repeats until coverage
-is sufficient — then writes a cited answer.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/deep-search
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `eve` package (installed automatically as a dependency of the recipe).
-- An `EXA_API_KEY` for web search (the `web_search` tool calls the Exa API).
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="deep-search"
@@ -46,14 +19,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/deep-search
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Deep Search Agent** takes a research question, searches the web, and then
+critiques its own findings — re-searching to close gaps until the question is
+fully answered. It returns an answer grounded only in the sources it found, with
+a citation for every claim. Reach for it whenever a single search isn't enough
+and you need a verified, sourced answer.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/deep-search.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts              # Agent definition (model + config)
 ├── instructions.md       # Self-evaluating research instructions
@@ -63,11 +45,6 @@ agent/
     └── research/
         └── SKILL.md      # Iterative research procedure
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

@@ -1,31 +1,9 @@
 ---
-title: Weather Agent
-description: Flue recipe — look up the current weather for a location via the Open-Meteo API.
+title: Weather
+description: Looks up the current weather for a location via the Open-Meteo API.
 ---
 
-The **Weather Agent** is the classic starter: ask about a place and it reports the
-current conditions. It geocodes the location and fetches live weather from the
-free Open-Meteo API — no key required. Reach for it as a minimal, end-to-end
-example of an agent with a single tool.
-
 <DocsBaseSwitcher base="flue" agent="weather" />
-
-The **Flue** recipe wires one `get_weather` tool into an agent: it geocodes the
-location, fetches the current forecast, and reports it conversationally.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/weather
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- No API key — Open-Meteo is free and unauthenticated.
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="weather"
@@ -40,24 +18,27 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/weather
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Weather Agent** is the classic starter: ask about a place and it reports the
+current conditions. It geocodes the location and fetches live weather from the
+free Open-Meteo API — no key required. Reach for it as a minimal, end-to-end
+example of an agent with a single tool.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/weather.json
+```
+
+## Composition
+
+```text
 agents/
 └── weather.ts          # Agent with the get_weather tool
 tools/
 └── get-weather.ts      # Geocode + current forecast (Open-Meteo)
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

@@ -1,38 +1,9 @@
 ---
-title: Chat with PDF Agent
-description: Eve recipe — index a PDF into a vector store and answer questions over it with page-cited retrieval.
+title: Chat with PDF
+description: Indexes a PDF into a vector store and answers questions over it with page-cited retrieval.
 ---
 
-The **Chat with PDF Agent** lets you ask questions about a PDF and get answers
-grounded in the document, with a page citation for every claim. It indexes the
-PDF into a vector store, retrieves only the relevant chunks per question, and can
-also generate comprehension quizzes from real passages. Reach for it to turn
-manuals, papers, and reports into something you can query.
-
 <DocsBaseSwitcher base="eve" agent="chat-with-pdf" />
-
-The **Eve** recipe runs the full RAG loop in one session: `index_pdf` chunks and
-embeds the document into a libSQL vector store, then `search_docs` retrieves the
-top matches for each question so the agent answers from real chunks — citing the
-page each one came from.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/chat-with-pdf
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The recipe's dependencies (`@libsql/client`, `unpdf`, `ai`, `@ai-sdk/openai`)
-  install automatically with the shadcn CLI.
-- An `OPENAI_API_KEY` for embeddings, and optionally `LIBSQL_URL` to point at a
-  remote Turso database (defaults to a local file).
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="chat-with-pdf"
@@ -53,14 +24,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/chat-with-pdf
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Chat with PDF Agent** lets you ask questions about a PDF and get answers
+grounded in the document, with a page citation for every claim. It indexes the
+PDF into a vector store, retrieves only the relevant chunks per question, and can
+also generate comprehension quizzes from real passages. Reach for it to turn
+manuals, papers, and reports into something you can query.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/chat-with-pdf.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts              # Agent definition (model + config)
 ├── instructions.md       # Retrieval-grounded answering instructions
@@ -70,11 +50,6 @@ agent/
     ├── index_pdf.ts      # Chunk, embed, and store a PDF
     └── search_docs.ts    # Retrieve relevant chunks for a query
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

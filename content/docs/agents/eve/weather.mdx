@@ -1,33 +1,9 @@
 ---
-title: Weather Agent
-description: Eve recipe — look up the current weather for a location via the Open-Meteo API.
+title: Weather
+description: Looks up the current weather for a location via the Open-Meteo API.
 ---
 
-The **Weather Agent** is the classic starter: ask about a place and it reports the
-current conditions. It geocodes the location and fetches live weather from the
-free Open-Meteo API — no key required. Reach for it as a minimal, end-to-end
-example of an agent with a single tool.
-
 <DocsBaseSwitcher base="eve" agent="weather" />
-
-The **Eve** recipe ships one `get_weather` tool: it geocodes the location, fetches
-the current forecast, and the agent reports it conversationally.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/weather
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `eve` package (installed automatically as a dependency of the recipe).
-- No API key — Open-Meteo is free and unauthenticated.
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="weather"
@@ -42,25 +18,28 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/weather
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Weather Agent** is the classic starter: ask about a place and it reports the
+current conditions. It geocodes the location and fetches live weather from the
+free Open-Meteo API — no key required. Reach for it as a minimal, end-to-end
+example of an agent with a single tool.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/weather.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts             # Agent definition (model + config)
 ├── instructions.md      # Weather assistant instructions
 └── tools/
     └── get_weather.ts   # Geocode + current forecast (Open-Meteo)
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

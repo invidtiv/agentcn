@@ -1,37 +1,9 @@
 ---
-title: Google Sheets Analysis Agent
-description: Eve recipe — read, analyze, and edit Google Sheets via the Sheets API.
+title: Google Sheets Analysis
+description: Reads, analyzes, and edits Google Sheets via the Sheets API.
 ---
 
-The **Google Sheets Analysis Agent** reads a spreadsheet, answers questions about
-it, and — on request — writes results back. It loads ranges in A1 notation,
-computes totals/trends/joins, and updates cells only when you ask. Reach for it to
-turn a sheet into a conversational analyst or to automate routine spreadsheet
-edits.
-
 <DocsBaseSwitcher base="eve" agent="google-sheets" />
-
-The **Eve** recipe ships two tools: `read_range` to load cells and `update_range`
-to write them. The agent always reads before writing and only edits the exact
-range you approve.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/google-sheets
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `eve` package (installed automatically as a dependency of the recipe).
-- A `GOOGLE_ACCESS_TOKEN` with the Sheets scope (OAuth user token or a service
-  account token). Reading needs `spreadsheets.readonly`; writing needs
-  `spreadsheets`.
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="google-sheets"
@@ -52,14 +24,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/google-sheets
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Google Sheets Analysis Agent** reads a spreadsheet, answers questions about
+it, and — on request — writes results back. It loads ranges in A1 notation,
+computes totals/trends/joins, and updates cells only when you ask. Reach for it to
+turn a sheet into a conversational analyst or to automate routine spreadsheet
+edits.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/google-sheets.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts             # Agent definition (model + config)
 ├── instructions.md      # Read-before-write analysis instructions
@@ -67,11 +48,6 @@ agent/
     ├── read_range.ts    # Reads a range (A1 notation)
     └── update_range.ts  # Writes values to a range
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

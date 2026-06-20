@@ -1,33 +1,9 @@
 ---
-title: Chat with Database Agent
-description: Flue recipe — introspect a database schema, convert questions to SQL, and run read-only queries.
+title: Chat with Database
+description: Introspects a database schema, converts questions to SQL, and runs read-only queries.
 ---
 
-The **Chat with Database Agent** answers questions about your data in plain
-English. It introspects the schema, writes the SQL, runs it read-only, and
-explains the results. Reach for it to give non-SQL users a safe way to query a
-database, or to prototype analytics without hand-writing queries.
-
 <DocsBaseSwitcher base="flue" agent="text-to-sql" />
-
-The **Flue** recipe wires `introspect_schema` and `run_query` into one agent. It
-inspects the schema first, writes a single query, and runs it through the
-read-only guard before summarizing the rows.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/text-to-sql
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@libsql/client` dependency installs automatically with the shadcn CLI.
-- A `DATABASE_URL` (defaults to a local SQLite file `data.db`). Point it at a
-  Turso/libSQL database, or swap the client in `lib/db.ts` for Postgres/MySQL.
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="text-to-sql"
@@ -42,14 +18,22 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/text-to-sql
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Chat with Database Agent** answers questions about your data in plain
+English. It introspects the schema, writes the SQL, runs it read-only, and
+explains the results. Reach for it to give non-SQL users a safe way to query a
+database, or to prototype analytics without hand-writing queries.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/text-to-sql.json
+```
+
+## Composition
+
+```text
 agents/
 └── text-to-sql.ts            # Agent with the two database tools
 tools/
@@ -58,11 +42,6 @@ tools/
 lib/
 └── db.ts                     # Database client (SQLite by default)
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

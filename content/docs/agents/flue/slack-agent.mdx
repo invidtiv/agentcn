@@ -1,33 +1,9 @@
 ---
-title: Slack Agent
-description: Flue recipe — reply to Slack mentions and DMs, threaded, via the Slack Web API.
+title: Slack
+description: Replies to Slack mentions and DMs, scoped to the thread, via the Slack Web API.
 ---
 
-The **Slack Agent** turns your agent into a Slack bot. It answers mentions and
-direct messages, keeps each conversation scoped to its thread, and replies with
-Slack formatting. Reach for it to put an assistant where your team already works —
-an on-call helper, a docs bot, or a triage assistant.
-
 <DocsBaseSwitcher base="flue" agent="slack-agent" />
-
-The **Flue** recipe ships a `post_message` tool and an agent designed to mount
-behind the Slack Events route. Verify the Slack signature in the route, map
-events to a session keyed by `thread_ts`, and the agent replies in-thread.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/slack-agent
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- A Slack app with a `SLACK_BOT_TOKEN`, the `chat:write` scope, and Event
-  Subscriptions enabled. Use a tunnel (e.g. ngrok) for local webhook testing.
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="slack-agent"
@@ -42,24 +18,27 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/slack-agent
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Slack Agent** turns your agent into a Slack bot. It answers mentions and
+direct messages, keeps each conversation scoped to its thread, and replies with
+Slack formatting. Reach for it to put an assistant where your team already works —
+an on-call helper, a docs bot, or a triage assistant.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/slack-agent.json
+```
+
+## Composition
+
+```text
 agents/
 └── slack-agent.ts       # Agent + route handler stub for Slack events
 tools/
 └── post-message.ts      # Posts a (threaded) Slack message
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

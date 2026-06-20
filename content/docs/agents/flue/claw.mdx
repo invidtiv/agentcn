@@ -1,33 +1,9 @@
 ---
 title: Claw Autonomous Assistant
-description: Flue recipe — operate a sandboxed workspace (files + shell) to finish multi-step tasks.
+description: Operates a sandboxed workspace — read/write files and run shell commands — to finish multi-step tasks.
 ---
 
-**Claw** is an autonomous assistant that operates a sandboxed workspace to finish
-multi-step tasks. It reads and writes files, runs shell commands scoped to a
-workspace directory, and follows reusable skills. Reach for it as a base for
-coding assistants, repo automation, or any agent that needs a real filesystem.
-
 <DocsBaseSwitcher base="flue" agent="claw" />
-
-The **Flue** recipe wires `read_file`, `write_file`, and `run_shell` tools — all
-guarded to stay inside the workspace — and loads a `workspace` skill that encodes
-a safe plan-inspect-act-verify loop.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/claw
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- A `WORKSPACE_DIR` (defaults to `./workspace`). The sandbox guard refuses any
-  path that escapes it.
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="claw"
@@ -42,14 +18,22 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/claw
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+**Claw** is an autonomous assistant that operates a sandboxed workspace to finish
+multi-step tasks. It reads and writes files, runs shell commands scoped to a
+workspace directory, and follows reusable skills. Reach for it as a base for
+coding assistants, repo automation, or any agent that needs a real filesystem.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/claw.json
+```
+
+## Composition
+
+```text
 agents/
 └── claw.ts              # Agent + workspace skill + tools
 tools/
@@ -62,11 +46,6 @@ skills/
 └── workspace/
     └── SKILL.md         # Plan / inspect / act / verify procedure
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

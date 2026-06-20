@@ -1,35 +1,9 @@
 ---
-title: Customer Feedback Summary Agent
-description: Flue recipe — retrieve, categorize, and summarize customer feedback into an executive report with recommendations.
+title: Customer Feedback Summary
+description: Retrieves, categorizes, and summarizes customer feedback into an executive report with recommendations.
 ---
 
-The **Customer Feedback Summary Agent** answers questions about your customer
-feedback. It retrieves entries from your data source, categorizes them by theme
-and segment, and produces an executive summary with representative quotes and
-concrete recommendations. Reach for it to turn a backlog of reviews, tickets, or
-survey responses into something a team can act on.
-
 <DocsBaseSwitcher base="flue" agent="feedback-summary" />
-
-The **Flue** recipe wires the `get_feedback` tool into a single agent: it
-retrieves entries (paginating as needed), categorizes them by theme and segment,
-and returns an executive summary with the top issues by volume and severity plus
-concrete recommendations.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/feedback-summary
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `@flue/runtime` package (installed automatically as a dependency of the recipe).
-- A `FEEDBACK_API_URL` pointing at your feedback source (the `get_feedback` tool
-  fetches paginated entries from it).
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="feedback-summary"
@@ -44,24 +18,28 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/feedback-summary
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Customer Feedback Summary Agent** answers questions about your customer
+feedback. It retrieves entries from your data source, categorizes them by theme
+and segment, and produces an executive summary with representative quotes and
+concrete recommendations. Reach for it to turn a backlog of reviews, tickets, or
+survey responses into something a team can act on.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/feedback-summary.json
+```
+
+## Composition
+
+```text
 agents/
 └── feedback-summary.ts  # Agent definition with the get_feedback tool
 tools/
 └── get-feedback.ts      # Paginated feedback retrieval
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

@@ -1,34 +1,9 @@
 ---
-title: Chat with YouTube Agent
-description: Eve recipe — fetch a video's metadata and transcript, then answer questions with clickable timestamp citations.
+title: Chat with YouTube
+description: Fetches a video's metadata and transcript, then answers questions with clickable timestamp citations.
 ---
 
-The **Chat with YouTube Agent** answers questions about a video using its
-transcript. It pulls the video's metadata and full transcript, then summarizes,
-answers follow-ups, and generates chapter timestamps — each citation a clickable
-link straight to that moment. Reach for it to skim long talks, lectures, or
-podcasts without watching end to end.
-
 <DocsBaseSwitcher base="eve" agent="chat-with-youtube" />
-
-The **Eve** recipe composes two tools: `video_metadata` for title/author/id
-context, then `get_transcript` for the timestamped transcript — and answers
-grounded only in that transcript, citing moments as `youtu.be/<id>?t=<seconds>`.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/chat-with-youtube
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `youtube-transcript` dependency installs automatically with the shadcn CLI.
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="chat-with-youtube"
@@ -49,14 +24,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/chat-with-youtube
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Chat with YouTube Agent** answers questions about a video using its
+transcript. It pulls the video's metadata and full transcript, then summarizes,
+answers follow-ups, and generates chapter timestamps — each citation a clickable
+link straight to that moment. Reach for it to skim long talks, lectures, or
+podcasts without watching end to end.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/chat-with-youtube.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts                # Agent definition (model + config)
 ├── instructions.md         # Transcript-grounded answering instructions
@@ -64,11 +48,6 @@ agent/
     ├── video_metadata.ts   # Title / author / id via oEmbed
     └── get_transcript.ts   # Timestamped transcript segments
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

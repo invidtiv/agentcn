@@ -1,35 +1,9 @@
 ---
-title: Company Knowledge Agent
-description: Flue recipe — index internal documents into a vector store and answer questions over them, with PII redaction.
+title: Company Knowledge
+description: Indexes internal documents into a vector store and answers questions over them, with PII redaction.
 ---
 
-The **Company Knowledge Agent** answers questions over your internal documents —
-issues, wiki pages, notes. It indexes them into a vector store, searches the
-corpus first, and redacts personal data (emails, phone numbers, SSNs, card
-numbers, API keys) from responses. Reach for it to build an internal "ask the
-company" assistant.
-
 <DocsBaseSwitcher base="flue" agent="company-knowledge" />
-
-The **Flue** recipe ships `search_knowledge` and `index_document` tools over a
-libSQL vector store, a `redactPii` helper applied to retrieved passages, and an
-`index-knowledge` workflow you can run on a schedule to keep the corpus fresh.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/company-knowledge
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The recipe's dependencies (`@libsql/client`, `ai`, `@ai-sdk/openai`) install
-  automatically with the shadcn CLI.
-- An `OPENAI_API_KEY` for embeddings, and optionally `LIBSQL_URL` for a remote
-  Turso/libSQL database (or swap in pgvector/Neon).
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="company-knowledge"
@@ -44,14 +18,23 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/company-knowledge
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Company Knowledge Agent** answers questions over your internal documents —
+issues, wiki pages, notes. It indexes them into a vector store, searches the
+corpus first, and redacts personal data (emails, phone numbers, SSNs, card
+numbers, API keys) from responses. Reach for it to build an internal "ask the
+company" assistant.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/company-knowledge.json
+```
+
+## Composition
+
+```text
 agents/
 └── company-knowledge.ts     # Corpus-first, PII-safe agent
 workflows/
@@ -63,11 +46,6 @@ lib/
 ├── vector-store.ts          # libSQL vector store + embeddings
 └── pii.ts                   # PII redaction helper
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

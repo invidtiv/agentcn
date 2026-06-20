@@ -1,34 +1,9 @@
 ---
-title: Meeting Notes Agent
-description: Eve recipe — turn a raw meeting transcript into a structured summary, decisions, and action items.
+title: Meeting Notes
+description: Turns a raw meeting transcript into a structured summary, decisions, and action items.
 ---
 
-The **Meeting Notes Agent** takes a raw meeting transcript and returns clean,
-structured notes: a short summary, the decisions that were made, action items as
-owner/task pairs, and any open questions. Reach for it to close out standups,
-planning sessions, or customer calls without writing up notes by hand.
-
 <DocsBaseSwitcher base="eve" agent="meeting-notes" />
-
-The **Eve** recipe processes the transcript in a single session: it **reads**
-the transcript, **extracts** the summary, decisions, and action items, then calls
-the `save_notes` tool to emit a structured result — grounded only in what was
-actually discussed.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/meeting-notes
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `eve` package (installed automatically as a dependency of the recipe).
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="meeting-notes"
@@ -43,25 +18,28 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/meeting-notes
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Meeting Notes Agent** takes a raw meeting transcript and returns clean,
+structured notes: a short summary, the decisions that were made, action items as
+owner/task pairs, and any open questions. Reach for it to close out standups,
+planning sessions, or customer calls without writing up notes by hand.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/meeting-notes.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts           # Agent definition (model + config)
 ├── instructions.md    # Notes-extraction instructions
 └── tools/
     └── save_notes.ts  # Saves the structured notes
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

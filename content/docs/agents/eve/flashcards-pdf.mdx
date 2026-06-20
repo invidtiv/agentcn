@@ -1,35 +1,9 @@
 ---
-title: Flash Cards from PDF Agent
-description: Eve recipe — turn a PDF into study flash cards, with optional AI-generated images per concept.
+title: Flash Cards from PDF
+description: Turns a PDF into study flash cards, with optional AI-generated images per concept.
 ---
 
-The **Flash Cards from PDF Agent** turns a document into ready-to-study flash
-cards. It extracts the text, identifies the concepts worth memorizing, and writes
-concise front/back pairs — and on request, generates an illustrative image for
-each card. Reach for it to build study decks from textbooks, slides, or notes.
-
 <DocsBaseSwitcher base="eve" agent="flashcards-pdf" />
-
-The **Eve** recipe runs in one session: `parse_pdf` extracts the document text,
-the agent drafts front/back cards grounded in it, and `generate_image` adds an
-illustration per card only when you ask for images.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/flashcards-pdf
-```
-
-## Prerequisites
-
-- An [Eve](https://vercel.com/docs/eve) project (`npx eve@latest init my-agent`).
-  The recipe installs files under `agent/`, which Eve discovers automatically.
-- The `unpdf` dependency installs automatically with the shadcn CLI.
-- An `OPENAI_API_KEY` if you want generated images (`generate_image` calls the
-  OpenAI Images API).
-- For the **live preview below**, set `EVE_PREVIEW_URL` to a deployed Eve
-  instance of this recipe. See the [Preview Backend](https://github.com/shadcn-labs/agentcn#preview-backend)
-  notes in the README.
 
 <AgentPreview
   agent="flashcards-pdf"
@@ -44,14 +18,22 @@ npx shadcn@latest add https://agentcn.vercel.app/r/eve/flashcards-pdf
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Flash Cards from PDF Agent** turns a document into ready-to-study flash
+cards. It extracts the text, identifies the concepts worth memorizing, and writes
+concise front/back pairs — and on request, generates an illustrative image for
+each card. Reach for it to build study decks from textbooks, slides, or notes.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/eve/flashcards-pdf.json
+```
+
+## Composition
+
+```text
 agent/
 ├── agent.ts               # Agent definition (model + config)
 ├── instructions.md        # Card-writing instructions
@@ -59,11 +41,6 @@ agent/
     ├── parse_pdf.ts       # Extract text from a PDF
     └── generate_image.ts  # Generate an image for a concept
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 

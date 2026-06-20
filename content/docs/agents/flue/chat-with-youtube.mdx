@@ -1,32 +1,9 @@
 ---
-title: Chat with YouTube Agent
-description: Flue recipe — fetch a video's metadata and transcript, then answer questions with clickable timestamp citations.
+title: Chat with YouTube
+description: Fetches a video's metadata and transcript, then answers questions with clickable timestamp citations.
 ---
 
-The **Chat with YouTube Agent** answers questions about a video using its
-transcript. It pulls the video's metadata and full transcript, then summarizes,
-answers follow-ups, and generates chapter timestamps — each citation a clickable
-link straight to that moment. Reach for it to skim long talks, lectures, or
-podcasts without watching end to end.
-
 <DocsBaseSwitcher base="flue" agent="chat-with-youtube" />
-
-The **Flue** recipe wires `video_metadata` and `get_transcript` into a single
-agent that composes them in order, then answers grounded only in the transcript —
-citing moments as `youtu.be/<id>?t=<seconds>`.
-
-## Install
-
-```bash
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/chat-with-youtube
-```
-
-## Prerequisites
-
-- A [Flue](https://flueframework.com) project (`npx flue@latest init my-agent`).
-- The `youtube-transcript` dependency installs automatically with the shadcn CLI.
-- For the **live preview below**, set `ANTHROPIC_API_KEY`. The Flue preview runs
-  in-process in this site's API route — no separate deployment required.
 
 <AgentPreview
   agent="chat-with-youtube"
@@ -47,25 +24,29 @@ npx shadcn@latest add https://agentcn.vercel.app/r/flue/chat-with-youtube
   ]}
 />
 
-## Files
+## Summary
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="files">
-    <AccordionTrigger>What gets installed</AccordionTrigger>
-    <AccordionContent>
+The **Chat with YouTube Agent** answers questions about a video using its
+transcript. It pulls the video's metadata and full transcript, then summarizes,
+answers follow-ups, and generates chapter timestamps — each citation a clickable
+link straight to that moment. Reach for it to skim long talks, lectures, or
+podcasts without watching end to end.
 
-```txt
+## Install
+
+```bash
+npx shadcn@latest add https://agentcn.vercel.app/r/flue/chat-with-youtube.json
+```
+
+## Composition
+
+```text
 agents/
 └── chat-with-youtube.ts  # Agent that composes the two tools
 tools/
 ├── metadata.ts           # Title / author / id via oEmbed
 └── transcript.ts         # Timestamped transcript segments
 ```
-
-    </AccordionContent>
-
-  </AccordionItem>
-</Accordion>
 
 ## Customization
 
