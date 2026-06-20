@@ -1,4 +1,3 @@
-import { findNeighbour } from "fumadocs-core/page-tree";
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -14,7 +13,12 @@ import { PageTransition } from "@/components/page-transition";
 import { Badge } from "@/components/ui/badge";
 import { ROUTES } from "@/constants/routes";
 import { formatTitleFromSlug } from "@/lib/docs";
-import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source";
+import {
+  getDocNeighbours,
+  getPageImage,
+  getPageMarkdownUrl,
+  source,
+} from "@/lib/source";
 import { absoluteUrl } from "@/lib/utils";
 import { mdxComponents } from "@/mdx-components";
 import { BreadcrumbJsonLd } from "@/seo/json-ld";
@@ -82,7 +86,7 @@ const Page = async (props: { params: Promise<{ slug?: string[] }> }) => {
 
   const doc = page.data;
   const MdxContent = doc.body;
-  const neighbours = findNeighbour(source.pageTree, page.url);
+  const neighbours = getDocNeighbours(page.url);
   const markdownUrl = getPageMarkdownUrl(page).url;
 
   const { links } = doc as { links?: { doc?: string; api?: string } };
