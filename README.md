@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://agentcn.vercel.app/og" alt="agentcn banner" />
+  <img src="public/og.png" alt="agentcn banner" />
 </p>
 
 <h1 align="center">agentcn</h1>
