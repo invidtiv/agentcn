@@ -1,10 +1,16 @@
 "use client";
 
-import { SearchIcon } from "lucide-react";
+import { Check, SearchIcon, Terminal } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { CopyButton } from "@/components/copy-button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from "@/components/ui/input-group";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import type { ChatMessage, FrameworkId } from "@/constants/agents";
 import {
   AGENTS,
@@ -12,6 +18,7 @@ import {
   getAgent,
   installCommand,
 } from "@/constants/agents";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { cn } from "@/lib/utils";
 
 const ChatBubble = ({ message }: { message: ChatMessage }) => {
@@ -53,6 +60,7 @@ export const HomeAgentPreview = ({ className }: { className?: string }) => {
     AGENTS[0].frameworks[0]
   );
   const [query, setQuery] = useState("");
+  const { copyToClipboard, isCopied } = useCopyToClipboard();
 
   const agent = getAgent(selectedSlug) ?? AGENTS[0];
 
@@ -96,60 +104,70 @@ export const HomeAgentPreview = ({ className }: { className?: string }) => {
     >
       {/* Navbar: agent header (left) + framework switcher and install command (right) */}
       <div className="flex flex-col gap-3 border-b px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <span className="truncate text-sm font-semibold">{agent.title}</span>
-
-        <div className="flex min-w-0 items-center gap-2">
-          <div className="bg-muted flex shrink-0 items-center gap-0.5 rounded-md p-0.5">
+        <div className="flex flex-1 min-w-0 items-center justify-between gap-2">
+          <span className="min-w-0 truncate text-sm font-semibold">
+            {agent.title}
+          </span>
+          <ToggleGroup
+            type="single"
+            size="sm"
+            variant="outline"
+            value={framework}
+            onValueChange={(value) => {
+              if (value) {
+                setFramework(value as FrameworkId);
+              }
+            }}
+          >
             {availableFrameworks.map((item) => (
-              <button
-                className={cn(
-                  "rounded px-2.5 py-1 text-xs font-medium transition-colors",
-                  framework === item.id
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-                key={item.id}
-                onClick={() => setFramework(item.id)}
-                type="button"
-              >
+              <ToggleGroupItem key={item.id} value={item.id}>
                 {item.label}
-              </button>
+              </ToggleGroupItem>
             ))}
-          </div>
-
-          <div className="bg-muted flex min-w-0 items-center gap-1 rounded-md py-1 pr-1 pl-2.5">
-            <code className="text-muted-foreground truncate font-mono text-xs">
-              {command}
-            </code>
-            <CopyButton
-              aria-label="Copy install command"
-              className="size-6 shrink-0"
-              event="copy_npm_command"
-              value={command}
-              variant="ghost"
-            />
-          </div>
+          </ToggleGroup>
         </div>
+
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => copyToClipboard(command)}
+        >
+          {isCopied ? <Check /> : <Terminal />}
+          <span>{command}</span>
+        </Button>
       </div>
 
       {/* Body: agent sidebar (left) + chat preview (right) */}
-      <div className="grid sm:grid-cols-[14rem_1fr]">
-        <aside className="flex flex-col border-b sm:border-r sm:border-b-0">
-          <div className="relative p-2.5">
-            <SearchIcon className="text-muted-foreground pointer-events-none absolute top-1/2 left-5 size-3.5 -translate-y-1/2" />
-            <Input
-              className="h-8 pl-7 text-sm"
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search agents…"
-              value={query}
-            />
+      <div className="grid sm:grid-cols-[16rem_1fr]">
+        <aside className="flex h-[60vh] flex-col border-b sm:border-r sm:border-b-0">
+          <div className="p-2.5">
+            <InputGroup>
+              <InputGroupAddon>
+                <SearchIcon />
+              </InputGroupAddon>
+              <InputGroupInput
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search agents…"
+                value={query}
+              />
+              {query && (
+                <InputGroupAddon align="inline-end">
+                  <InputGroupText>
+                    {filteredAgents.length} result
+                    {filteredAgents.length === 1 ? "" : "s"}
+                  </InputGroupText>
+                </InputGroupAddon>
+              )}
+            </InputGroup>
           </div>
 
-          <nav className="flex flex-col gap-0.5 px-2 pb-2.5">
+          <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-2 pb-2.5">
             {filteredAgents.length === 0 ? (
-              <p className="text-muted-foreground px-2 py-1.5 text-xs">
-                No agents found.
-              </p>
+              <div className="flex flex-1 items-center justify-center px-2 py-1.5">
+                <p className="text-sm text-muted-foreground">
+                  No agents found.
+                </p>
+              </div>
             ) : (
               filteredAgents.map((item) => (
                 <button
@@ -173,7 +191,7 @@ export const HomeAgentPreview = ({ className }: { className?: string }) => {
           </nav>
         </aside>
 
-        <div className="bg-background/40 flex max-h-96 min-h-72 flex-col gap-3 overflow-y-auto p-4">
+        <div className="bg-background/40 flex h-[60vh] flex-col gap-3 overflow-y-auto p-4">
           {transcript.map((message, index) => (
             <ChatBubble key={index} message={message} />
           ))}
