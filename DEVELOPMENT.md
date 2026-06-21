@@ -8,10 +8,10 @@ Install a recipe into your Eve or Flue project:
 
 ```bash
 # Eve
-npx shadcn@latest add https://agentcn.vercel.app/r/eve/deep-search.json
+npx shadcn@latest add @agentcn/eve/deep-search
 
 # Flue
-npx shadcn@latest add https://agentcn.vercel.app/r/flue/deep-search.json
+npx shadcn@latest add @agentcn/flue/deep-search
 ```
 
 To develop the registry itself:

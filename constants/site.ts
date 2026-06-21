@@ -34,7 +34,7 @@ export const SITE = {
   ] as const,
   NAME: "agentcn",
   OG_IMAGE: `${baseUrl}/og.png`,
-  REGISTRY: baseUrl,
+  REGISTRY: "@agentcn",
   URL: baseUrl,
 };
 

@@ -997,6 +997,5 @@ export const AGENTS: readonly Agent[] = [
 export const getAgent = (slug: string): Agent | undefined =>
   AGENTS.find((agent) => agent.slug === slug);
 
-/** `npx shadcn@latest add` command for a recipe in a given framework. */
 export const installCommand = (framework: FrameworkId, slug: string): string =>
-  `npx shadcn@latest add ${SITE.REGISTRY}/r/${framework}/${slug}.json`;
+  `npx shadcn@latest add ${SITE.REGISTRY}/${framework}/${slug}`;
