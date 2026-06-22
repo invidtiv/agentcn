@@ -25,11 +25,60 @@ English. It introspects the schema, writes the SQL, runs it read-only, and
 explains the results. Reach for it to give non-SQL users a safe way to query a
 database, or to prototype analytics without hand-writing queries.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/text-to-sql
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve @libsql/client
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/text-to-sql/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/text-to-sql/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/text-to-sql/agent/lib/db.ts"
+  title="agent/lib/db.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/text-to-sql/agent/tools/introspect_schema.ts"
+  title="agent/tools/introspect_schema.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/text-to-sql/agent/tools/run_query.ts"
+  title="agent/tools/run_query.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

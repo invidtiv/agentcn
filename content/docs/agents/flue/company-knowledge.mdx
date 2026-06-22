@@ -26,11 +26,65 @@ corpus first, and redacts personal data (emails, phone numbers, SSNs, card
 numbers, API keys) from responses. Reach for it to build an internal "ask the
 company" assistant.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/company-knowledge
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime @libsql/client @ai-sdk/openai ai
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/company-knowledge/agents/company-knowledge.ts"
+  title="agents/company-knowledge.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/company-knowledge/workflows/index-knowledge.ts"
+  title="workflows/index-knowledge.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/company-knowledge/tools/search-knowledge.ts"
+  title="tools/search-knowledge.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/company-knowledge/tools/index-document.ts"
+  title="tools/index-document.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/company-knowledge/lib/vector-store.ts"
+  title="lib/vector-store.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/company-knowledge/lib/pii.ts"
+  title="lib/pii.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

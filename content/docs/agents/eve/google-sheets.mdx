@@ -32,11 +32,55 @@ computes totals/trends/joins, and updates cells only when you ask. Reach for it 
 turn a sheet into a conversational analyst or to automate routine spreadsheet
 edits.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/google-sheets
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/google-sheets/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/google-sheets/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/google-sheets/agent/tools/read_range.ts"
+  title="agent/tools/read_range.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/google-sheets/agent/tools/update_range.ts"
+  title="agent/tools/update_range.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

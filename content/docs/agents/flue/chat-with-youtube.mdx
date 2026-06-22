@@ -32,11 +32,50 @@ answers follow-ups, and generates chapter timestamps — each citation a clickab
 link straight to that moment. Reach for it to skim long talks, lectures, or
 podcasts without watching end to end.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/chat-with-youtube
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime youtube-transcript
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/chat-with-youtube/agents/chat-with-youtube.ts"
+  title="agents/chat-with-youtube.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/chat-with-youtube/tools/metadata.ts"
+  title="tools/metadata.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/chat-with-youtube/tools/transcript.ts"
+  title="tools/transcript.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

@@ -25,11 +25,55 @@ cards. It extracts the text, identifies the concepts worth memorizing, and write
 concise front/back pairs — and on request, generates an illustrative image for
 each card. Reach for it to build study decks from textbooks, slides, or notes.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/flashcards-pdf
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve unpdf
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/flashcards-pdf/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/flashcards-pdf/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/flashcards-pdf/agent/tools/parse_pdf.ts"
+  title="agent/tools/parse_pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/flashcards-pdf/agent/tools/generate_image.ts"
+  title="agent/tools/generate_image.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

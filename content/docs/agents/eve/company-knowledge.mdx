@@ -26,11 +26,65 @@ corpus first, and redacts personal data (emails, phone numbers, SSNs, card
 numbers, API keys) from responses. Reach for it to build an internal "ask the
 company" assistant.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/company-knowledge
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve @libsql/client @ai-sdk/openai ai
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/company-knowledge/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/company-knowledge/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/company-knowledge/agent/lib/pii.ts"
+  title="agent/lib/pii.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/company-knowledge/agent/lib/vector-store.ts"
+  title="agent/lib/vector-store.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/company-knowledge/agent/tools/index_document.ts"
+  title="agent/tools/index_document.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/company-knowledge/agent/tools/search_knowledge.ts"
+  title="agent/tools/search_knowledge.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

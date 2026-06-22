@@ -25,11 +25,45 @@ structured notes: a short summary, the decisions that were made, action items as
 owner/task pairs, and any open questions. Reach for it to close out standups,
 planning sessions, or customer calls without writing up notes by hand.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/meeting-notes
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/meeting-notes/agents/meeting-notes.ts"
+  title="agents/meeting-notes.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/meeting-notes/workflows/meeting-notes.ts"
+  title="workflows/meeting-notes.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

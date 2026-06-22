@@ -2,7 +2,6 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -28,11 +27,6 @@ type LogEntry =
   | { kind: "done"; result: string }
   | { kind: "error"; message: string }
   | { kind: "raw"; text: string };
-
-const FRAMEWORK_LABEL: Record<AgentPreviewProps["framework"], string> = {
-  eve: "Eve",
-  flue: "Flue",
-};
 
 const truncate = (value: unknown, max = 80): string => {
   const text = typeof value === "string" ? value : JSON.stringify(value);
@@ -254,11 +248,6 @@ export const AgentPreview = ({
   return (
     <div className="not-prose my-6 overflow-hidden rounded-xl border bg-card">
       <div className="flex flex-col gap-4 border-b p-4">
-        <div className="flex items-start justify-between gap-2">
-          <p className="text-sm font-medium">Live preview</p>
-          <Badge variant="secondary">{FRAMEWORK_LABEL[framework]}</Badge>
-        </div>
-
         <div className="flex flex-col gap-3">
           {inputFields.map((field) => (
             <label key={field.name} className="flex flex-col gap-1.5">

@@ -25,11 +25,55 @@ up structured function documentation â€” signatures, parameters, and examples â€
 answers using only what the docs say. Reach for it to drop a grounded "ask the
 docs" assistant into a docs site, an IDE, or a support channel.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/docs-chatbot
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/docs-chatbot/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/docs-chatbot/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/docs-chatbot/agent/data/functions.json"
+  title="agent/data/functions.json"
+/>
+
+<ComponentSource
+  src="registry/eve/docs-chatbot/agent/tools/lookup_docs.ts"
+  title="agent/tools/lookup_docs.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

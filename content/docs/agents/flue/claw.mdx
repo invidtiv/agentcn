@@ -25,11 +25,65 @@ multi-step tasks. It reads and writes files, runs shell commands scoped to a
 workspace directory, and follows reusable skills. Reach for it as a base for
 coding assistants, repo automation, or any agent that needs a real filesystem.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/claw
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/claw/agents/claw.ts"
+  title="agents/claw.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/claw/tools/read-file.ts"
+  title="tools/read-file.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/claw/tools/write-file.ts"
+  title="tools/write-file.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/claw/tools/run-shell.ts"
+  title="tools/run-shell.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/claw/lib/workspace.ts"
+  title="lib/workspace.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/claw/skills/workspace/SKILL.md"
+  title="skills/workspace/SKILL.md"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

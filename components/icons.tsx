@@ -422,6 +422,9 @@ export const getIconForLanguageExtension = (language: string) => {
     case "typescript": {
       return <TsIcon />;
     }
+    case "markdown": {
+      return <MarkdownDocIcon />;
+    }
     default: {
       return <FileIcon className="size-4" />;
     }

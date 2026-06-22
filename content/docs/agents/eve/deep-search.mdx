@@ -27,11 +27,55 @@ fully answered. It returns an answer grounded only in the sources it found, with
 a citation for every claim. Reach for it whenever a single search isn't enough
 and you need a verified, sourced answer.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/deep-search
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/deep-search/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/deep-search/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/deep-search/agent/tools/web_search.ts"
+  title="agent/tools/web_search.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/deep-search/agent/skills/research/SKILL.md"
+  title="agent/skills/research/SKILL.md"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

@@ -26,11 +26,50 @@ types, ranges, patterns — to compress large files and avoid token-limit errors
 then generates questions a data analyst would actually ask. Reach for it to
 kickstart exploratory analysis or build study material from raw data.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/csv-to-questions
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/csv-to-questions/agents/csv-to-questions.ts"
+  title="agents/csv-to-questions.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/csv-to-questions/workflows/csv-to-questions.ts"
+  title="workflows/csv-to-questions.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/csv-to-questions/tools/fetch-csv.ts"
+  title="tools/fetch-csv.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

@@ -26,11 +26,50 @@ browser. It uses a snapshot-and-selector loop — the model sees a stable list o
 interactive elements instead of brittle CSS — to navigate, click, and type. Reach
 for it to automate flows, scrape interactive pages, or test UIs.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/browser-agent
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime playwright
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/browser-agent/agents/browser-agent.ts"
+  title="agents/browser-agent.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/browser-agent/tools/browser.ts"
+  title="tools/browser.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/browser-agent/lib/browser.ts"
+  title="lib/browser.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

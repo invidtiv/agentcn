@@ -32,11 +32,60 @@ PDF into a vector store, retrieves only the relevant chunks per question, and ca
 also generate comprehension quizzes from real passages. Reach for it to turn
 manuals, papers, and reports into something you can query.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/chat-with-pdf
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve @libsql/client @ai-sdk/openai ai unpdf
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/chat-with-pdf/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/chat-with-pdf/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/chat-with-pdf/agent/lib/vector-store.ts"
+  title="agent/lib/vector-store.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/chat-with-pdf/agent/tools/index_pdf.ts"
+  title="agent/tools/index_pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/chat-with-pdf/agent/tools/search_docs.ts"
+  title="agent/tools/search_docs.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

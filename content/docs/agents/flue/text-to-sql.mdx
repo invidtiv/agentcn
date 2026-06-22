@@ -25,11 +25,52 @@ English. It introspects the schema, writes the SQL, runs it read-only, and
 explains the results. Reach for it to give non-SQL users a safe way to query a
 database, or to prototype analytics without hand-writing queries.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/text-to-sql
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime @libsql/client
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/text-to-sql/agents/text-to-sql.ts"
+  title="agents/text-to-sql.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/text-to-sql/tools/introspect-schema.ts"
+  title="tools/introspect-schema.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/text-to-sql/tools/run-query.ts"
+  title="tools/run-query.ts"
+/>
+
+<ComponentSource src="registry/flue/text-to-sql/lib/db.ts" title="lib/db.ts" />
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

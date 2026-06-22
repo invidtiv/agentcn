@@ -26,11 +26,50 @@ size, and reports bugs, security issues, and style notes grouped by file — end
 with an approve / request-changes recommendation. Reach for it to triage reviews
 or give contributors fast first-pass feedback.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/github-review
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/github-review/agents/github-review.ts"
+  title="agents/github-review.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/github-review/workflows/github-review.ts"
+  title="workflows/github-review.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/github-review/tools/fetch-pr.ts"
+  title="tools/fetch-pr.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

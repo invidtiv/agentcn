@@ -32,11 +32,50 @@ computes totals/trends/joins, and updates cells only when you ask. Reach for it 
 turn a sheet into a conversational analyst or to automate routine spreadsheet
 edits.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/google-sheets
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/google-sheets/agents/google-sheets.ts"
+  title="agents/google-sheets.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/google-sheets/tools/read-range.ts"
+  title="tools/read-range.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/google-sheets/tools/update-range.ts"
+  title="tools/update-range.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

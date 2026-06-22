@@ -25,11 +25,50 @@ up structured function documentation â€” signatures, parameters, and examples â€
 answers using only what the docs say. Reach for it to drop a grounded "ask the
 docs" assistant into a docs site, an IDE, or a support channel.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/docs-chatbot
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/docs-chatbot/agents/docs-chatbot.ts"
+  title="agents/docs-chatbot.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/docs-chatbot/tools/lookup-docs.ts"
+  title="tools/lookup-docs.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/docs-chatbot/data/functions.json"
+  title="data/functions.json"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

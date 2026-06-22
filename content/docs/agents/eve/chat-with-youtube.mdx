@@ -32,11 +32,55 @@ answers follow-ups, and generates chapter timestamps — each citation a clickab
 link straight to that moment. Reach for it to skim long talks, lectures, or
 podcasts without watching end to end.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/chat-with-youtube
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve youtube-transcript
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/chat-with-youtube/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/chat-with-youtube/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/chat-with-youtube/agent/tools/video_metadata.ts"
+  title="agent/tools/video_metadata.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/chat-with-youtube/agent/tools/get_transcript.ts"
+  title="agent/tools/get_transcript.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

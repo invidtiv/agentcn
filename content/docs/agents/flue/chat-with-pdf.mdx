@@ -32,11 +32,60 @@ PDF into a vector store, retrieves only the relevant chunks per question, and ca
 also generate comprehension quizzes from real passages. Reach for it to turn
 manuals, papers, and reports into something you can query.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/chat-with-pdf
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime @libsql/client @ai-sdk/openai ai unpdf
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/chat-with-pdf/agents/chat-with-pdf.ts"
+  title="agents/chat-with-pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/chat-with-pdf/workflows/chat-with-pdf.ts"
+  title="workflows/chat-with-pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/chat-with-pdf/tools/index-pdf.ts"
+  title="tools/index-pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/chat-with-pdf/tools/search-docs.ts"
+  title="tools/search-docs.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/chat-with-pdf/lib/vector-store.ts"
+  title="lib/vector-store.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

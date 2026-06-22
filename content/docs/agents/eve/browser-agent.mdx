@@ -26,11 +26,70 @@ browser. It uses a snapshot-and-selector loop — the model sees a stable list o
 interactive elements instead of brittle CSS — to navigate, click, and type. Reach
 for it to automate flows, scrape interactive pages, or test UIs.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/browser-agent
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve playwright
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/browser-agent/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/browser-agent/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/browser-agent/agent/lib/browser.ts"
+  title="agent/lib/browser.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/browser-agent/agent/tools/browser_goto.ts"
+  title="agent/tools/browser_goto.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/browser-agent/agent/tools/browser_snapshot.ts"
+  title="agent/tools/browser_snapshot.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/browser-agent/agent/tools/browser_click.ts"
+  title="agent/tools/browser_click.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/browser-agent/agent/tools/browser_type.ts"
+  title="agent/tools/browser_type.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

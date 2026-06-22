@@ -25,11 +25,70 @@ multi-step tasks. It reads and writes files, runs shell commands scoped to a
 workspace directory, and follows reusable skills. Reach for it as a base for
 coding assistants, repo automation, or any agent that needs a real filesystem.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/eve/claw
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install eve
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/eve/claw/agent/agent.ts"
+  title="agent/agent.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/claw/agent/instructions.md"
+  title="agent/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/eve/claw/agent/lib/workspace.ts"
+  title="agent/lib/workspace.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/claw/agent/tools/read_file.ts"
+  title="agent/tools/read_file.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/claw/agent/tools/write_file.ts"
+  title="agent/tools/write_file.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/claw/agent/tools/run_shell.ts"
+  title="agent/tools/run_shell.ts"
+/>
+
+<ComponentSource
+  src="registry/eve/claw/agent/skills/workspace/SKILL.md"
+  title="agent/skills/workspace/SKILL.md"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

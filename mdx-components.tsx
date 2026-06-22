@@ -7,6 +7,7 @@ import { AgentsList } from "@/components/agents-list";
 import { Callout } from "@/components/callout";
 import { CodeBlockCommand } from "@/components/code-block-command";
 import { CodeTabs } from "@/components/code-tabs";
+import { ComponentSource } from "@/components/component-source";
 import { CopyButton } from "@/components/copy-button";
 import { DocsBaseSwitcher } from "@/components/docs-base-switcher";
 import { getIconForLanguageExtension } from "@/components/icons";
@@ -39,6 +40,7 @@ export const mdxComponents = {
   Button,
   Callout,
   CodeTabs,
+  ComponentSource,
   DocsBaseSwitcher,
   FeatureCard: ({
     icon: Icon,

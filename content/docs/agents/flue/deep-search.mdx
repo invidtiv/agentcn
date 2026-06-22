@@ -27,11 +27,55 @@ fully answered. It returns an answer grounded only in the sources it found, with
 a citation for every claim. Reach for it whenever a single search isn't enough
 and you need a verified, sourced answer.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/deep-search
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/deep-search/agents/deep-search.ts"
+  title="agents/deep-search.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/deep-search/workflows/deep-search.ts"
+  title="workflows/deep-search.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/deep-search/tools/search.ts"
+  title="tools/search.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/deep-search/skills/research/SKILL.md"
+  title="skills/research/SKILL.md"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 

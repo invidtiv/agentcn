@@ -25,11 +25,55 @@ cards. It extracts the text, identifies the concepts worth memorizing, and write
 concise front/back pairs — and on request, generates an illustrative image for
 each card. Reach for it to build study decks from textbooks, slides, or notes.
 
-## Install
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
 ```bash
 npx shadcn@latest add @agentcn/flue/flashcards-pdf
 ```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @flue/runtime unpdf
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/flue/flashcards-pdf/agents/flashcards-pdf.ts"
+  title="agents/flashcards-pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/flashcards-pdf/workflows/flashcards-pdf.ts"
+  title="workflows/flashcards-pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/flashcards-pdf/tools/parse-pdf.ts"
+  title="tools/parse-pdf.ts"
+/>
+
+<ComponentSource
+  src="registry/flue/flashcards-pdf/tools/generate-image.ts"
+  title="tools/generate-image.ts"
+/>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
 
 ## Composition
 
