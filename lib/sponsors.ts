@@ -1,8 +1,19 @@
-interface Sponsor {
+export interface Sponsor {
   name: string;
   href: string;
   logo?: string;
+  /** Logo shown in light mode (falls back to `logoDark`). */
+  logoLight?: string;
+  /** Logo shown in dark mode (falls back to `logoLight`). */
+  logoDark?: string;
 }
+
+const BRIGHT_DATA: Sponsor = {
+  href: "https://brightdata.com/?utm_source=agentcn&utm_medium=sponsor",
+  logoDark: "/sponsors/brightdata-dark.svg",
+  logoLight: "/sponsors/brightdata-light.svg",
+  name: "Bright Data",
+};
 
 export const tiers = [
   {
@@ -15,7 +26,7 @@ export const tiers = [
     },
     name: "Gold",
     slots: 3,
-    sponsors: [] as Sponsor[],
+    sponsors: [BRIGHT_DATA] as Sponsor[],
   },
   {
     colors: {

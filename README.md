@@ -31,6 +31,10 @@ Zero config. One command setup. Built on <a href="https://vercel.com/docs/eve">E
 - 🍳 **Complete recipes** — Full agent source: instructions, tools, skills, and workflows
 - 🧪 **Live previews** — Run each agent right from its docs page
 
+## Development
+
+Please refer to the [Development Guide](./DEVELOPMENT.md) for more details on running the registry locally and configuring the live preview backend.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -41,10 +45,39 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=shadcn-labs/agentcn)](https://github.com/shadcn-labs/agentcn/graphs/contributors)
+
+> Made with [contrib.rocks](https://contrib.rocks)
+
+## Sponsors
+
+agentcn is free and open source, and stays that way thanks to its sponsors. Want your logo here? [Become a sponsor](https://github.com/sponsors/Aniket-508).
+
+### Gold
+
+<p align="left">
+<a href="https://brightdata.com/?utm_source=agentcn&utm_medium=readme">
+  <img src="public/sponsors/brightdata-light.svg#gh-light-mode-only" alt="Bright Data" height="48" />
+  <img src="public/sponsors/brightdata-dark.svg#gh-dark-mode-only" alt="Bright Data" height="48" />
+</a>
+</p>
+
+See all tiers and current sponsors on the [sponsor page](https://agentcn.vercel.app/sponsor).
+
+## Stats
+
+Repository activity at a glance.
+
+<!--
+Repobeats analytics — register the repo at https://repobeats.axiom.co to generate
+an embed, then uncomment the line below and swap in your embed hash:
+![Stats](https://repobeats.axiom.co/api/embed/<your-hash>.svg "Repobeats analytics image")
+-->
+
+[![Star History Chart](https://api.star-history.com/svg?repos=shadcn-labs/agentcn&type=Date)](https://star-history.com/#shadcn-labs/agentcn&Date)
+
 ## License
 
 [MIT](LICENSE)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=shadcn-labs/agentcn&type=Date)](https://star-history.com/#shadcn-labs/agentcn&Date)
