@@ -9,9 +9,6 @@ import {
   type LiveStyleguide,
 } from './derive-tokens'
 
-// All design signals flow through context.dev. The styleguide is the primary
-// token source; the screenshot (passed to the model as a vision image) and the
-// homepage Markdown are supporting evidence. https://context.dev
 const client = new ContextDev({ apiKey: process.env.CONTEXT_DEV_API_KEY ?? '' })
 
 interface DesignSignals {
@@ -83,12 +80,6 @@ export interface DesignMdResult {
   css: string
 }
 
-/**
- * Composes the three design artifacts for a domain: the DESIGN.md (a single
- * Claude call with the screenshot as a vision image), plus the Tailwind v4
- * `@theme` block and CSS `:root` tokens derived deterministically from the
- * styleguide + brand.
- */
 export async function composeDesignMd(domain: string): Promise<DesignMdResult> {
   const signals = await fetchSignals(domain)
   const designMd = await generateDesignMd(domain, signals)

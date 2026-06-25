@@ -3,9 +3,6 @@ import * as v from 'valibot'
 import { runAudit } from '../lib/audit.ts'
 import { normalizeAuditUrl } from '../lib/url.ts'
 
-// The full audit is deterministic: page data flows through context.dev, then a
-// fixed rubric (lib/rules.ts) scores ~30 checks into a 0–100 total. The agent
-// presents this result — it never re-scores. https://context.dev
 export const auditPage = defineTool({
   name: 'audit_page',
   description:

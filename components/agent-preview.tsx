@@ -158,7 +158,6 @@ export const AgentPreview = ({
 
   const append = useCallback((entry: LogEntry) => {
     setLog((current) => {
-      // Accumulate consecutive text deltas into one streamed block.
       if (entry.kind === "text") {
         const last = current.at(-1);
         if (last?.kind === "text") {
@@ -229,7 +228,6 @@ export const AgentPreview = ({
           break;
         }
         default: {
-          // Unknown (e.g. raw Eve NDJSON) — render generically.
           append({
             kind: "raw",
             text: typeof event.text === "string" ? event.text : raw,

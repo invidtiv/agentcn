@@ -1,11 +1,4 @@
-/**
- * Generic in-process preview runner.
- *
- * Drives any catalogued agent with a single Anthropic Messages tool-use loop:
- * it sends the agent's system prompt and tool schemas, executes each requested
- * tool via the shared catalog (running real ones, degrading the rest), and
- * emits the structured preview event protocol the `AgentPreview` UI renders.
- */
+/** In-process preview runner. */
 import { getPreviewAgent } from "@/lib/preview/agents";
 import {
   buildTokenArtifacts,
@@ -28,7 +21,6 @@ interface ToolSchema {
   name: string;
 }
 
-/** Runs a tool from the shared catalog, normalizing failures into a result. */
 const executeTool = async (
   name: string,
   input: Record<string, unknown>
@@ -43,8 +35,6 @@ const executeTool = async (
     return { error: error instanceof Error ? error.message : "Tool failed." };
   }
 };
-
-// --- Anthropic ------------------------------------------------------------
 
 interface TextBlock {
   text: string;
@@ -179,15 +169,6 @@ const runAnthropicLoop = async ({
   emit({ result: finalText || "(no final answer produced)", type: "done" });
 };
 
-// --- Extract DESIGN.md (deterministic pipeline, not a tool loop) -----------
-
-/**
- * Mirrors the designmd.supply pipeline: fetch the styleguide, screenshot, and
- * Markdown from context.dev, then make a single Claude call with the verbatim
- * prompt (screenshot as a vision image, temperature 0.2). The Tailwind v4 theme
- * block and CSS :root tokens are then derived deterministically. Runs instead
- * of the generic agent loop so the preview returns the three artifacts.
- */
 const runDesignMdPreview = async (
   input: Record<string, string>,
   emit: EmitEvent,
@@ -236,8 +217,6 @@ const runDesignMdPreview = async (
     return;
   }
 
-  // DESIGN.md is the Claude composition; the Tailwind v4 @theme block and CSS
-  // :root tokens are derived deterministically from the styleguide + brand.
   const designMd = await generateDesignMd(domain, signals, anthropicKey);
   const { tailwind, css } = buildTokenArtifacts(domain, signals);
 
@@ -261,8 +240,6 @@ const runDesignMdPreview = async (
   });
 };
 
-// --- Entry point ----------------------------------------------------------
-
 export const runPreview = async ({
   slug,
   input,
@@ -274,8 +251,6 @@ export const runPreview = async ({
   emit: EmitEvent;
   signal?: AbortSignal;
 }): Promise<void> => {
-  // Extract DESIGN.md runs the deterministic designmd.supply pipeline rather
-  // than the generic tool-calling loop, so it returns the three artifacts.
   if (slug === "extract-design-md") {
     await runDesignMdPreview(input, emit, signal);
     return;

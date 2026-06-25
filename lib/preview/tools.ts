@@ -1,13 +1,4 @@
-/**
- * Server-side tool catalog for the in-process agent preview.
- *
- * Each recipe's tools are mirrored here so the live preview can actually call
- * them. Tools that need no secret and are safe to run in a shared, hosted
- * environment execute for real; tools that need an API key, a database, a
- * browser, or shell access (or that would mutate external state) degrade
- * gracefully — they return a clear note so the agent still produces a sensible
- * response without doing anything unsafe.
- */
+/** Preview tool catalog. */
 import { runAudit } from "@/lib/preview/seo-audit/audit";
 import { normalizeAuditUrl } from "@/lib/preview/seo-audit/url";
 
@@ -27,7 +18,6 @@ const str = (value: unknown): string =>
 const num = (value: unknown, fallback: number): number =>
   typeof value === "number" ? value : fallback;
 
-/** Standard degradation payload for tools that can't run in the hosted preview. */
 const disabled = (
   envOrReason: string,
   action: string
@@ -38,11 +28,6 @@ const disabled = (
 
 const CONTEXT_DEV_BASE_URL = "https://api.context.dev/v1";
 
-/**
- * Calls a context.dev REST endpoint with the configured key, mirroring the
- * `context.dev` SDK the AI SEO Audit and Extract DESIGN.md recipes use. Degrades
- * gracefully when the key is missing so the preview still explains the recipe.
- */
 const contextDevGet = async (
   action: string,
   path: string,
@@ -132,7 +117,6 @@ const SAMPLE_SCHEMA = {
   ],
 };
 
-/** Best-effort YouTube transcript fetch from the public watch page. */
 const fetchTranscript = async (url: string): Promise<unknown> => {
   try {
     const page = await fetch(url, {

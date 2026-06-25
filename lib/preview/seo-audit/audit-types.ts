@@ -16,7 +16,6 @@ export interface AuditCategory {
   description: string;
   score: number;
   maxScore: number;
-  /** Number of rules excluded because they did not apply to this page. */
   naExcluded: number;
   items: AuditItem[];
 }

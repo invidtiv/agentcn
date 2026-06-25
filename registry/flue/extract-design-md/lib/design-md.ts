@@ -1,8 +1,4 @@
-/**
- * The DESIGN.md prompt spec — the single source of truth for what the model
- * produces. Use the styleguide as the primary token source; the screenshot and
- * Markdown are supporting evidence.
- */
+/** DESIGN.md prompt spec and helpers. */
 
 export const DESIGN_MD_SPEC_SUMMARY = `DESIGN.md is a self-contained plain-text representation of a design system. It contains optional YAML frontmatter with normative machine-readable tokens and a Markdown body with human-readable rationale.
 

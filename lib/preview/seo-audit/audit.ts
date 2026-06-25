@@ -1,14 +1,4 @@
-/**
- * Audit orchestrator (live-preview copy).
- *
- * Mirrors the recipe's deterministic engine, but reaches context.dev through
- * its REST API with `fetch` instead of the `context.dev` SDK, so the hosted
- * preview needs no extra runtime dependency. The scoring rules in `rules.ts`
- * are identical to the recipe and to freeaiseoaudit.com.
- *
- * We NEVER make direct HTTP calls to the audited site. All web data flows
- * through context.dev.
- */
+/** Deterministic AI-SEO audit orchestrator (context.dev + rules.ts). */
 import { buildAgentFixPrompts } from "./agent-fix-prompt";
 import type {
   AuditBand,
@@ -84,10 +74,6 @@ export async function runAudit(
 
   return { ...audit, agentPrompts: buildAgentFixPrompts(audit) };
 }
-
-// ---------------------------------------------------------------------------
-// Context building: fetch + parse everything that rules might want to read.
-// ---------------------------------------------------------------------------
 
 type InternalContext = RuleContext & {
   markdownStatus: "fulfilled" | "rejected";
@@ -181,10 +167,6 @@ async function buildContext(
   };
 }
 
-// ---------------------------------------------------------------------------
-// Scoring: iterate RULES, group by category, apply multipliers.
-// ---------------------------------------------------------------------------
-
 function scoreCategories(ctx: RuleContext): AuditCategory[] {
   return CATEGORIES.map((category) => scoreCategory(category, ctx));
 }
@@ -193,8 +175,6 @@ function scoreCategory(category: CategoryDef, ctx: RuleContext): AuditCategory {
   const rules = RULES.filter((rule) => rule.categoryId === category.id);
   const evaluated = rules.map((rule) => ({ result: rule.evaluate(ctx), rule }));
 
-  // Denominator only includes applicable (non-N/A) rules so N/A items
-  // don't inflate scores by getting full credit or shrinking weights.
   const applicable = evaluated.filter(({ result }) => result.status !== "na");
   const denominator = applicable.reduce(
     (sum, { rule }) => sum + (rule.multiplier ?? 1),
@@ -277,10 +257,6 @@ function scoreBand(score: number): AuditBand {
   };
 }
 
-// ---------------------------------------------------------------------------
-// Fetch helpers: context.dev only. No direct calls to the audited site.
-// ---------------------------------------------------------------------------
-
 const CONTEXT_DEV_BASE_URL = "https://api.context.dev/v1";
 
 async function contextDevGet(
@@ -314,19 +290,12 @@ async function scrapeMarkdown(apiKey: string, url: string): Promise<string> {
 }
 
 async function scrapeHtml(apiKey: string, url: string): Promise<string> {
-  // waitForMs gives client-side JSON-LD injectors (Next.js head, Wix, Shopify
-  // apps, etc.) a chance to land before we grab the HTML.
   const result = await contextDevGet(apiKey, "/web/scrape/html", {
     url,
     waitForMs: "3000",
   });
   return typeof result.html === "string" ? result.html : "";
 }
-
-// ---------------------------------------------------------------------------
-// Parsing helpers: turn raw HTML/markdown into the structured fields rules
-// expect. These are internal; rules only ever read from the RuleContext.
-// ---------------------------------------------------------------------------
 
 function extractTitle(html: string): string | null {
   const match = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
@@ -373,9 +342,6 @@ function detectNoIndex(html: string): boolean {
 }
 
 function getAttr(tag: string, attr: string): string | null {
-  // Require attribute boundary (^ or whitespace) before the name so that e.g.
-  // `href` does NOT match `data-href`. Supports double-quoted, single-quoted,
-  // and unquoted attribute values.
   const escaped = attr.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const pattern = new RegExp(
     `(?:^|\\s)${escaped}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`,
@@ -415,9 +381,7 @@ function extractLinks(
         url.hash = "";
         links.add(url.toString());
       }
-    } catch {
-      // Ignore malformed and non-web links.
-    }
+    } catch {}
   }
   return [...links];
 }
@@ -427,10 +391,6 @@ function extractJsonLd(html: string): {
   blockCount: number;
   parseFailures: number;
 } {
-  // Match <script ... type=...application/ld+json...>...</script> permissively:
-  //   - allow whitespace around `=`
-  //   - allow single, double, or unquoted attribute values
-  //   - allow extra attributes before or after the type attribute
   const pattern =
     /<script\b[^>]*\btype\s*=\s*(?:"\s*application\/ld\+json\s*"|'\s*application\/ld\+json\s*'|application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/gi;
   const blocks = [...html.matchAll(pattern)];
@@ -454,12 +414,6 @@ function extractJsonLd(html: string): {
   return { blockCount: blocks.length, parseFailures, schemas };
 }
 
-/**
- * Strip wrappers some CMSs inject around inline JSON-LD:
- *   <!-- {...} -->
- *   //<![CDATA[\n{...}\n//]]>
- *   /*<![CDATA[* / {...} /*]]>* /
- */
 function stripScriptWrappers(body: string): string {
   let out = body.trim();
   out = out.replace(/^<!--/, "").replace(/-->$/, "");
@@ -470,17 +424,10 @@ function stripScriptWrappers(body: string): string {
   return out.trim();
 }
 
-/**
- * Parse JSON-LD body. Tries raw first because `<script>` content is NOT
- * HTML-entity-decoded by browsers, so decoding `&amp;` → `&` first would
- * corrupt URLs with query strings. Falls back to a decoded retry only if
- * the raw parse fails.
- */
 function tryParseJson(raw: string): unknown {
   try {
     return JSON.parse(raw);
   } catch {
-    // Some publishers do HTML-encode their JSON-LD (incorrectly). Retry.
     try {
       return JSON.parse(decodeHtml(raw));
     } catch {
@@ -689,7 +636,6 @@ function decodeHtml(value: string): string {
 }
 
 function fleschKincaidGrade(text: string): number | null {
-  // Flesch-Kincaid is English-specific. Bail out for CJK-heavy text.
   if (cjkRatio(text) > 0.35) {
     return null;
   }

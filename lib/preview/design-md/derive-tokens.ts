@@ -1,9 +1,4 @@
-/**
- * Deterministic design-token deriver — ported verbatim from
- * context-dot-dev/designmd-supply (lib/derive-tokens.ts). Turns the context.dev
- * styleguide + brand into a Tailwind v4 `@theme` block and vanilla CSS `:root`
- * tokens. Pure and deterministic — the same inputs always yield the same output.
- */
+/** Verbatim port from designmd-supply. */
 
 export interface LiveColor {
   hex: string;

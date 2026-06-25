@@ -3,9 +3,6 @@ import { never } from 'eve/tools/approval'
 import { z } from 'zod'
 import { composeDesignMd } from '../lib/compose'
 
-// Runs the full deterministic pipeline: gather the context.dev signals, then
-// return three artifacts — the DESIGN.md (a single Claude call) plus the
-// Tailwind v4 @theme block and CSS :root tokens. https://context.dev
 export default defineTool({
   needsApproval: never(),
   description:

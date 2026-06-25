@@ -1,12 +1,4 @@
-/**
- * Live-preview composer for Extract DESIGN.md.
- *
- * Mirrors the designmd.supply pipeline (app/api/design-md/route.ts in
- * context-dot-dev/designmd-supply): pull the styleguide, screenshot, and
- * homepage Markdown from context.dev, then make a single Claude call with the
- * verbatim prompt — screenshot passed as a vision image, temperature 0.2 — and
- * return the DESIGN.md text. The styleguide is the primary token source.
- */
+/** Live-preview composer for Extract DESIGN.md. */
 import { deriveCssVariables, deriveTailwindTheme } from "./derive-tokens";
 import type { LiveBrand, LiveStyleguide } from "./derive-tokens";
 import { buildDesignMdPrompt, DESIGN_MD_SYSTEM } from "./prompt";
@@ -62,7 +54,6 @@ export interface ComposeHooks {
   onSignalDone?: (tool: string) => void;
 }
 
-/** Fetch the context.dev inputs the DESIGN.md prompt and token derivers use. */
 export const fetchDesignSignals = async (
   domain: string,
   contextDevApiKey: string,
@@ -97,7 +88,6 @@ export const fetchDesignSignals = async (
   }
 
   return {
-    // The reference passes the `.styleguide` / `.brand` subfields, not the envelope.
     brand: brandRes.brand ?? null,
     markdown: asString(markdownRes.markdown),
     screenshotUrl: asString(screenshotRes.screenshot) || null,
@@ -105,7 +95,6 @@ export const fetchDesignSignals = async (
   };
 };
 
-/** Deterministic Tailwind v4 @theme and CSS :root tokens from the signals. */
 export const buildTokenArtifacts = (
   domain: string,
   signals: DesignMdSignals
@@ -118,7 +107,6 @@ export const buildTokenArtifacts = (
   };
 };
 
-/** Single Claude call with the verbatim prompt and screenshot vision. */
 export const generateDesignMd = async (
   domain: string,
   signals: DesignMdSignals,

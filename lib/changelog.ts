@@ -47,9 +47,7 @@ export const getDateFromFile = (slugs: string[]) => {
     if (match?.[1]) {
       return new Date(match[1].trim());
     }
-  } catch {
-    // File missing or invalid frontmatter.
-  }
+  } catch {}
 
   return null;
 };

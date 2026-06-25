@@ -1,8 +1,4 @@
-/**
- * Structured event protocol shared by the live preview backend and the
- * `AgentPreview` UI component. The Flue backend emits these directly; the Eve
- * backend forwards raw NDJSON which the UI renders generically.
- */
+/** Preview SSE event protocol. */
 export interface PreviewArtifact {
   id: string;
   label: string;

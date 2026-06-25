@@ -1,8 +1,4 @@
-/**
- * Per-agent configuration for the in-process preview runner: the model, the
- * system prompt (mirroring each recipe's instructions), the tools it may call,
- * and how to turn the preview form input into the first user message.
- */
+/** Preview agent configs. */
 
 export interface PreviewAgent {
   model: string;
@@ -11,10 +7,8 @@ export interface PreviewAgent {
   tools: string[];
 }
 
-// A snappy, inexpensive model for live demos. Recipes themselves pin their own.
 const DEFAULT_MODEL = "claude-haiku-4-5";
 
-/** Default prompt builder: join the non-empty form values into one message. */
 const joinInput = (input: Record<string, string>): string =>
   Object.values(input)
     .map((value) => value.trim())

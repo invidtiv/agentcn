@@ -1,13 +1,5 @@
 import { SITE } from "@/constants/site";
 
-/**
- * Shared catalog of agent recipes and the frameworks they ship for.
- *
- * This is the single source of truth that drives the per-framework docs split,
- * the install command tabs, and the home page agent preview (sidebar, framework
- * switcher, and chat preview). Add a new recipe here and it shows up everywhere.
- */
-
 export type FrameworkId = "eve" | "flue";
 
 export interface Framework {
@@ -25,7 +17,6 @@ export const FRAMEWORK_LABEL: Record<FrameworkId, string> = {
   flue: "Flue",
 };
 
-/** A single turn in an agent's sample chat transcript shown in the preview. */
 export type ChatMessage =
   | { role: "user"; text: string }
   | { role: "agent"; text: string }
@@ -39,16 +30,12 @@ export interface AgentInputField {
 }
 
 export interface Agent {
-  /** URL/registry slug, e.g. "deep-search". */
   slug: string;
   title: string;
-  /** Short label used in the sidebar list. */
   shortTitle: string;
   description: string;
-  /** Frameworks this recipe is available for. */
   frameworks: FrameworkId[];
   inputFields: AgentInputField[];
-  /** Sample transcript per framework, rendered in the home chat preview. */
   transcript: Record<FrameworkId, ChatMessage[]>;
 }
 

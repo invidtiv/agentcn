@@ -1,17 +1,4 @@
-/**
- * Authoritative source for every AI-SEO audit rule.
- *
- * To add, remove, or tune a rule:
- *   1. Edit (or add) an entry in `RULES` below.
- *   2. Make sure its `categoryId` points at one of the entries in `CATEGORIES`.
- *   3. Declare every input it reads from the page via `dependencies` (this is
- *      documentation only; the evaluator receives the full `RuleContext`).
- *   4. Optionally set `multiplier` (defaults to 1) to weight the rule inside
- *      its category. A category's `maxScore` is split across every rule's
- *      multiplier. N/A results receive full credit for their share.
- *
- * Everything downstream (scoring, agent prompts, UI) derives from this file.
- */
+/** AI-SEO audit rules, categories, and scoring helpers. */
 import type { AuditStatus } from "./audit-types";
 
 export type RuleDependency =
@@ -58,10 +45,6 @@ export interface Heading {
 
 export type JsonObject = Record<string, unknown>;
 
-/**
- * Everything a rule's evaluator can read about the audited page.
- * Built once per audit by `lib/audit.ts` and passed to every rule.
- */
 export interface RuleContext {
   url: URL;
   host: string;
@@ -88,9 +71,7 @@ export interface RuleContext {
   sameOriginLinks: string[];
 
   jsonLd: JsonObject[];
-  /** Total `<script type="application/ld+json">` blocks found, including those that failed to parse. */
   jsonLdBlockCount: number;
-  /** Number of JSON-LD blocks that were present but could not be parsed. */
   jsonLdParseFailures: number;
   schema: SchemaSummary;
 
@@ -98,9 +79,7 @@ export interface RuleContext {
   grade: number | null;
   dateSignals: DateSignals;
 
-  /** Precomputed FAQ-content presence, shared by B5 and C5. */
   faqStatus: AuditStatus;
-  /** Precomputed byline presence, shared by C4, D1, etc. */
   hasByline: boolean;
 }
 
@@ -114,9 +93,7 @@ export interface Rule {
   categoryId: string;
   label: string;
   recommendation: string;
-  /** Free-form list of inputs this rule reads. Documentation only. */
   dependencies: RuleDependency[];
-  /** Weight relative to siblings in the same category. Defaults to 1. */
   multiplier?: number;
   evaluate: (ctx: RuleContext) => RuleEvaluation;
 }
@@ -127,10 +104,6 @@ export interface CategoryDef {
   description: string;
   maxScore: number;
 }
-
-// ---------------------------------------------------------------------------
-// Categories: total maxScore should add to 100.
-// ---------------------------------------------------------------------------
 
 export const CATEGORIES: CategoryDef[] = [
   {
@@ -175,12 +148,7 @@ export const CATEGORIES: CategoryDef[] = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// Rules: the authoritative list. Order within a category controls UI order.
-// ---------------------------------------------------------------------------
-
 export const RULES: Rule[] = [
-  // ----- A. Technical AI Crawlability -------------------------------------
   {
     categoryId: "A",
     dependencies: ["url"],
@@ -249,7 +217,6 @@ export const RULES: Rule[] = [
       "Remove noindex from pages that should be eligible for AI search citation.",
   },
 
-  // ----- B. Content Structure & Chunking ----------------------------------
   {
     categoryId: "B",
     dependencies: ["paragraphs", "title", "url"],
@@ -531,7 +498,6 @@ export const RULES: Rule[] = [
       "Use bullets, numbered lists, and tables for steps, comparisons, pros/cons, and factual summaries.",
   },
 
-  // ----- C. Structured Data / Schema --------------------------------------
   {
     categoryId: "C",
     dependencies: ["json-ld"],
@@ -644,7 +610,6 @@ export const RULES: Rule[] = [
       "Do not rely on client-side JavaScript to inject important schema.",
   },
 
-  // ----- D. E-E-A-T & Entity Authority ------------------------------------
   {
     categoryId: "D",
     dependencies: ["links"],
@@ -742,7 +707,6 @@ export const RULES: Rule[] = [
       "Use the same brand name, category, and entity descriptors in title, meta description, headings, schema, and body copy.",
   },
 
-  // ----- E. Off-site / Citation Surface Presence --------------------------
   {
     categoryId: "E",
     dependencies: ["links", "text", "json-ld"],
@@ -845,7 +809,6 @@ export const RULES: Rule[] = [
       "Cite and co-occur with authoritative category sources, benchmarks, standards, and named experts.",
   },
 
-  // ----- F. Measurement & Governance --------------------------------------
   {
     categoryId: "F",
     dependencies: ["date-signals", "url", "text"],
@@ -873,13 +836,7 @@ export const RULES: Rule[] = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// Helpers used by rule evaluators. Kept here so rules.ts is self-contained.
-// ---------------------------------------------------------------------------
-
 export function countWords(text: string): number {
-  // Intl.Segmenter provides CJK-aware word segmentation.
-  // Falls back to Latin regex when unavailable (Node < 16, some edge runtimes).
   if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
     try {
       const segmenter = new Intl.Segmenter(undefined, { granularity: "word" });
@@ -890,12 +847,9 @@ export function countWords(text: string): number {
         }
       }
       return count;
-    } catch {
-      // Fall through to regex fallback.
-    }
+    } catch {}
   }
 
-  // Fallback: Latin-script words + CJK characters (rough approximation).
   const latin = text.match(/[A-Za-z0-9À-ɏ][A-Za-z0-9À-ɏ'-]*/g) ?? [];
   const cjk = text.match(/[一-鿿㐀-䶿豈-﫿぀-ゟ゠-ヿ가-힯]/g);
   return latin.length + (cjk?.length ?? 0);
@@ -917,13 +871,6 @@ function firstUsefulParagraph(paragraphs: string[]): string {
   return paragraphs.find((p) => countWords(p) >= 12) ?? "";
 }
 
-/**
- * Heuristic for "this is a blog post / article / editorial page."
- * Used by date-freshness rules (B12, F6) and article-schema rule (C3).
- *
- * Intentionally strict: long marketing pages should NOT match. We require
- * either an editorial URL pattern or actual Article/BlogPosting JSON-LD.
- */
 function isArticleLike(ctx: RuleContext): boolean {
   return (
     /\/(blog|article|articles|guide|guides|news|post|posts|insight|insights|research)\//i.test(
@@ -932,10 +879,6 @@ function isArticleLike(ctx: RuleContext): boolean {
   );
 }
 
-/**
- * Does the page read as a commercial product/SaaS offering? Used to gate rules
- * that only matter when there's something to sell or get reviewed.
- */
 function isCommercialOfferingLike(ctx: RuleContext): boolean {
   if (isArticleLike(ctx)) {
     return false;
@@ -957,10 +900,6 @@ function isCommercialOfferingLike(ctx: RuleContext): boolean {
   );
 }
 
-/**
- * Does the page read as a technical/developer product (API, SDK, library,
- * docs)? Used to gate GitHub-presence and similar developer-surface rules.
- */
 function isTechnicalProductLike(ctx: RuleContext): boolean {
   if (
     hasJsonLdType(ctx, [
@@ -979,7 +918,6 @@ function isTechnicalProductLike(ctx: RuleContext): boolean {
   );
 }
 
-/** Does the page expose an Organization or Person entity worth disambiguating? */
 function hasDisambiguableEntity(ctx: RuleContext): boolean {
   return (
     ctx.schema.hasOrganization || ctx.schema.hasPerson || ctx.schema.hasArticle
@@ -1006,10 +944,6 @@ function linkPathStatus(links: string[], pattern: RegExp): AuditStatus {
   }
   return "fail";
 }
-
-// ---------------------------------------------------------------------------
-// Convenience indexes for consumers that look rules up by id.
-// ---------------------------------------------------------------------------
 
 export const RULES_BY_ID: Record<string, Rule> = Object.fromEntries(
   RULES.map((rule) => [rule.id, rule])

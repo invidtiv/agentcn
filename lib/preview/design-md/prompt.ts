@@ -1,8 +1,4 @@
-/**
- * Verbatim port of the designmd.supply prompt spec (lib/design-md.ts in
- * context-dot-dev/designmd-supply) so the live preview composes DESIGN.md with
- * the exact same instructions the deployed site uses.
- */
+/** Verbatim port of the designmd.supply prompt spec. */
 
 export const DESIGN_MD_SPEC_SUMMARY = `DESIGN.md is a self-contained plain-text representation of a design system. It contains optional YAML frontmatter with normative machine-readable tokens and a Markdown body with human-readable rationale.
 
