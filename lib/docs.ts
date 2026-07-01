@@ -21,4 +21,10 @@ export const homeContentRoute = `${ROUTES.LLMS_MD}/content.md`;
 export const docsContentRoute = `${ROUTES.LLMS_MD}${ROUTES.DOCS}`;
 export const docsImageRoute = `${ROUTES.OG}${ROUTES.DOCS}`;
 
-export const PAGES_NEW: string[] = [ROUTES.DOCS_CHANGELOG];
+export const PAGES_NEW: string[] = [
+  ROUTES.DOCS_CHANGELOG,
+  `${ROUTES.DOCS_AGENTS}/eve/deep-search`,
+  `${ROUTES.DOCS_AGENTS}/flue/deep-search`,
+  `${ROUTES.DOCS_AGENTS}/eve/ai-seo-audit`,
+  `${ROUTES.DOCS_AGENTS}/flue/ai-seo-audit`,
+];
