@@ -1,0 +1,13 @@
+{
+  "name": "deep-search",
+  "type": "registry:block",
+  "title": "Deep Search Agent",
+  "description": "Mastra agent that researches a question, evaluates its own findings, and iterates until the answer is complete and cited.",
+  "framework": "mastra",
+  "files": [
+    { "path": "config.ts", "type": "registry:file" },
+    { "path": "instructions.md", "type": "registry:file" },
+    { "path": "tools/web_search.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@mastra/core"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "chat-with-pdf",
+  "type": "registry:block",
+  "title": "Chat with PDF Agent",
+  "description": "Mastra agent that indexes a PDF into a vector store and answers questions over it with page-cited retrieval.",
+  "framework": "mastra",
+  "files": [
+    { "path": "config.ts", "type": "registry:file" },
+    { "path": "instructions.md", "type": "registry:file" },
+    { "path": "tools/index_pdf.ts", "type": "registry:file" },
+    { "path": "tools/search_docs.ts", "type": "registry:file" },
+    { "path": "lib/vector-store.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@mastra/core"]
+}

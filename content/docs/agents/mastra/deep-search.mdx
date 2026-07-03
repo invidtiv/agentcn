@@ -1,0 +1,106 @@
+---
+title: Deep Search
+description: Researches a question, evaluates its own findings, and iterates until the answer is complete and cited.
+---
+
+<DocsBaseSwitcher base="mastra" agent="deep-search" />
+
+<AgentPreview
+  agent="deep-search"
+  framework="mastra"
+  inputFields={[
+    {
+      name: "question",
+      label: "Research question",
+      placeholder:
+        "What pricing models do the top 3 observability vendors use?",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Deep Search Agent** takes a research question, searches the web, and then
+critiques its own findings — re-searching to close gaps until the question is
+fully answered. It returns an answer grounded only in the sources it found, with
+a citation for every claim. Reach for it whenever a single search isn't enough
+and you need a verified, sourced answer.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/mastra/deep-search
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @mastra/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/mastra/deep-search/config.ts"
+  title="config.ts"
+/>
+
+<ComponentSource
+  src="registry/mastra/deep-search/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/mastra/deep-search/tools/web_search.ts"
+  title="tools/web_search.ts"
+/>
+
+<ComponentSource
+  src="registry/mastra/deep-search/skills/research/SKILL.md"
+  title="skills/research/SKILL.md"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── config.ts              # Agent definition (model + config)
+├── instructions.md        # Self-evaluating research instructions
+├── tools/
+│   └── web_search.ts      # Web search via the Bright Data SERP API
+└── skills/
+    └── research/
+        └── SKILL.md       # Iterative research procedure
+```
+
+## Customization
+
+- **Search provider.** Searches run through the [Bright Data SERP
+  API](https://docs.brightdata.com/scraping-automation/serp-api) — real-time,
+  unblocked results billed per successful request. Set `BRIGHTDATA_API_KEY` (and
+  optionally `BRIGHTDATA_SERP_ZONE`). Edit `tools/web_search.ts` to point
+  at a different provider — keep the input/output shape.
+- **Bound the iterations.** Add a max-rounds guard in `instructions.md` so the
+  agent stops after N search rounds.
+- **Swap the model.** Edit `config.ts` — `anthropic/claude-sonnet-4-6` for
+  deeper synthesis, `anthropic/claude-haiku-4-5` for speed.
+- **Add scraping.** Add a `scrape_url` tool so the agent can read full pages, not
+  just search snippets.

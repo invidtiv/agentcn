@@ -1,0 +1,115 @@
+---
+title: Chat with YouTube
+description: Fetches a video's metadata and transcript, then answers questions with clickable timestamp citations.
+---
+
+<DocsBaseSwitcher base="mastra" agent="chat-with-youtube" />
+
+<AgentPreview
+  agent="chat-with-youtube"
+  framework="mastra"
+  inputFields={[
+    {
+      name: "url",
+      label: "YouTube URL",
+      placeholder: "https://youtu.be/dQw4w9WgXcQ",
+      type: "text",
+    },
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "Summarize the video with chapter timestamps.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Chat with YouTube Agent** answers questions about a video using its
+transcript. It pulls the video's metadata and full transcript, then summarizes,
+answers follow-ups, and generates chapter timestamps — each citation a clickable
+link straight to that moment. Reach for it to skim long talks, lectures, or
+podcasts without watching end to end.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/mastra/chat-with-youtube
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @mastra/core
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  src="registry/mastra/chat-with-youtube/config.ts"
+  title="config.ts"
+/>
+
+<ComponentSource
+  src="registry/mastra/chat-with-youtube/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/mastra/chat-with-youtube/lib/brightdata.ts"
+  title="lib/brightdata.ts"
+/>
+
+<ComponentSource
+  src="registry/mastra/chat-with-youtube/tools/video_metadata.ts"
+  title="tools/video_metadata.ts"
+/>
+
+<ComponentSource
+  src="registry/mastra/chat-with-youtube/tools/get_transcript.ts"
+  title="tools/get_transcript.ts"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── config.ts                # Agent definition (model + config)
+├── instructions.md          # Transcript-grounded answering instructions
+├── lib/
+│   └── brightdata.ts        # Web Unlocker fetch + YouTube parsing helpers
+└── tools/
+    ├── video_metadata.ts    # Title / author / id via oEmbed
+    └── get_transcript.ts    # Timestamped transcript segments
+```
+
+## Customization
+
+- **Reliable fetching.** Metadata and transcripts are pulled through the [Bright
+  Data Web Unlocker](https://docs.brightdata.com/scraping-automation/web-unlocker),
+  which handles YouTube at scale with no rate limits or blocks. Set
+  `BRIGHTDATA_API_KEY` (and optionally `BRIGHTDATA_UNLOCKER_ZONE`).
+- **Add chapters export.** Add a tool that writes the chapter list back as a
+  YouTube description or VTT file.
+- **Handle missing transcripts.** Fall back to an STT service when a video has no
+  captions.
+- **Swap metadata source.** Use the YouTube Data API for richer metadata.
+- **Swap the model.** Edit `config.ts`.

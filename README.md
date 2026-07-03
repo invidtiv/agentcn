@@ -6,7 +6,7 @@
 
 <p align="center">
   Free & open-source, customizable and production-ready AI agent recipes.<br/>
-  Zero config. One command setup. Built on <a href="https://vercel.com/docs/eve">Eve</a> and <a href="https://flueframework.com">Flue</a>, works seamlessly with <a href="https://ui.shadcn.com/">shadcn</a> CLI.
+  Zero config. One command setup. Built on <a href="https://vercel.com/docs/eve">Eve</a>, <a href="https://flueframework.com">Flue</a>, and <a href="https://mastra.ai">Mastra</a>, works seamlessly with <a href="https://ui.shadcn.com/">shadcn</a> CLI.
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@
 - 🎯 **Zero config** — Works out of the box with sensible defaults
 - 📦 **shadcn/ui compatible** — Uses the same registry format and CLI
 - 🧩 **Composable** — Build complex terminal UIs with simple, declarative components
-- ⌨️ **Eve and Flue powered** — Full access to powerful agent frameworks
+- ⌨️ **Eve, Flue, and Mastra powered** — Full access to powerful agent frameworks
 - 🍳 **Complete recipes** — Full agent source: instructions, tools, skills, and workflows
 - 🧪 **Live previews** — Run each agent right from its docs page
 

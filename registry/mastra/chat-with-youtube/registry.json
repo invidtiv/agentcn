@@ -1,0 +1,15 @@
+{
+  "name": "chat-with-youtube",
+  "type": "registry:block",
+  "title": "Chat with YouTube Agent",
+  "description": "Mastra agent that fetches a video's metadata and transcript, then answers questions with clickable timestamp citations.",
+  "framework": "mastra",
+  "files": [
+    { "path": "config.ts", "type": "registry:file" },
+    { "path": "instructions.md", "type": "registry:file" },
+    { "path": "tools/video_metadata.ts", "type": "registry:file" },
+    { "path": "tools/get_transcript.ts", "type": "registry:file" },
+    { "path": "lib/brightdata.ts", "type": "registry:file" }
+  ],
+  "dependencies": ["@mastra/core"]
+}
