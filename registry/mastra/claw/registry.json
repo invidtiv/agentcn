@@ -10,8 +10,7 @@
     { "path": "tools/read_file.ts", "type": "registry:file" },
     { "path": "tools/write_file.ts", "type": "registry:file" },
     { "path": "tools/run_shell.ts", "type": "registry:file" },
-    { "path": "lib/workspace.ts", "type": "registry:file" },
-    { "path": "skills/workspace/SKILL.md", "type": "registry:file" }
+    { "path": "lib/workspace.ts", "type": "registry:file" }
   ],
   "dependencies": ["@mastra/core"]
 }
