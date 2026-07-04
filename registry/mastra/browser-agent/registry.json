@@ -2,16 +2,19 @@
   "name": "browser-agent",
   "type": "registry:block",
   "title": "Browser Agent",
-  "description": "Mastra agent that drives a real browser with Playwright using a snapshot-and-selector pattern to complete web tasks.",
+  "description": "A browser-operating agent that interacts with live web pages using Playwright-based tools with accessibility-tree ref ids.",
   "framework": "mastra",
   "files": [
     { "path": "config.ts", "type": "registry:file" },
     { "path": "instructions.md", "type": "registry:file" },
-    { "path": "tools/browser_goto.ts", "type": "registry:file" },
-    { "path": "tools/browser_snapshot.ts", "type": "registry:file" },
-    { "path": "tools/browser_click.ts", "type": "registry:file" },
-    { "path": "tools/browser_type.ts", "type": "registry:file" },
-    { "path": "lib/browser.ts", "type": "registry:file" }
+    { "path": "memory.ts", "type": "registry:file" }
   ],
-  "dependencies": ["@mastra/core"]
+  "dependencies": [
+    "@mastra/core",
+    "@mastra/agent-browser",
+    "@mastra/libsql",
+    "@mastra/memory",
+    "@ai-sdk/openai",
+    "playwright-chromium"
+  ]
 }

@@ -1,6 +1,6 @@
 ---
 title: Browser
-description: Drives a real browser with Playwright using a snapshot-and-selector pattern to complete web tasks.
+description: A browser-operating agent that interacts with live web pages using Playwright-based tools with accessibility-tree ref ids.
 ---
 
 <DocsBaseSwitcher base="mastra" agent="browser-agent" />
@@ -22,9 +22,10 @@ description: Drives a real browser with Playwright using a snapshot-and-selector
 ## Summary
 
 The **Browser Agent** completes tasks on the live web by driving a real Chromium
-browser. It uses a snapshot-and-selector loop — the model sees a stable list of
-interactive elements instead of brittle CSS — to navigate, click, and type. Reach
-for it to automate flows, scrape interactive pages, or test UIs.
+browser. It uses Playwright-based tools with accessibility-tree ref ids for
+stable element targeting, web search as a fallback, and persists state to
+Turso (libSQL). Reach for it to automate flows, scrape interactive pages, or
+test UIs.
 
 ## Installation
 
@@ -46,7 +47,7 @@ npx shadcn@latest add @agentcn/mastra/browser-agent
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @mastra/core playwright
+npm install @mastra/core @mastra/agent-browser @mastra/libsql @mastra/memory @ai-sdk/openai playwright-chromium
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
@@ -62,28 +63,8 @@ npm install @mastra/core playwright
 />
 
 <ComponentSource
-  src="registry/mastra/browser-agent/lib/browser.ts"
-  title="lib/browser.ts"
-/>
-
-<ComponentSource
-  src="registry/mastra/browser-agent/tools/browser_goto.ts"
-  title="tools/browser_goto.ts"
-/>
-
-<ComponentSource
-  src="registry/mastra/browser-agent/tools/browser_snapshot.ts"
-  title="tools/browser_snapshot.ts"
-/>
-
-<ComponentSource
-  src="registry/mastra/browser-agent/tools/browser_click.ts"
-  title="tools/browser_click.ts"
-/>
-
-<ComponentSource
-  src="registry/mastra/browser-agent/tools/browser_type.ts"
-  title="tools/browser_type.ts"
+  src="registry/mastra/browser-agent/memory.ts"
+  title="memory.ts"
 />
 
 <Step>Update the import paths to match your project setup.</Step>
@@ -96,26 +77,32 @@ npm install @mastra/core playwright
 ## Composition
 
 ```text
-├── config.ts                  # Agent definition (model + config)
-├── instructions.md            # Snapshot-then-act loop instructions
-├── lib/
-│   └── browser.ts             # Shared Playwright page + snapshot helper
-└── tools/
-    ├── browser_goto.ts        # Navigate to a URL
-    ├── browser_snapshot.ts    # Read the current page + elements
-    ├── browser_click.ts       # Click an element by selector
-    └── browser_type.ts        # Type into an input by selector
+├── config.ts          # Agent config with browser and model
+├── instructions.md    # Comprehensive browser operation instructions
+└── memory.ts          # Memory with last 10 messages
 ```
+
+## Environment Variables
+
+```bash
+BROWSER_HEADLESS=      # Optional: Set to "false" for visible browser (default: true)
+BROWSER_CDP_URL=       # Optional: CDP endpoint for remote browser
+TURSO_DATABASE_URL=    # Required: Turso libSQL URL for storage
+TURSO_AUTH_TOKEN=      # Optional: Turso auth token
+```
+
+## How It Works
+
+1. **Navigate** - Call `browser_goto` with the target URL
+2. **Snapshot** - Call `browser_snapshot` to get the accessibility tree with ref ids
+3. **Interact** - Use ref ids from snapshot for `browser_click`, `browser_type`, etc.
+4. **Re-snapshot** - Take new snapshot after actions to see updated state
+5. **Verify** - Take final snapshot to confirm results before reporting
+6. **Fallback** - Use `web_search` for quick factual questions
 
 ## Customization
 
-- **Managed remote browser.** `lib/browser.ts` connects to the [Bright Data
-  Browser API](https://docs.brightdata.com/scraping-automation/scraping-browser) —
-  a managed, anti-bot-resistant Chromium with no local infra. Set
-  `BRIGHTDATA_BROWSER_AUTH` to your zone `username:password`, or point
-  `BROWSER_CDP_URL` at any other CDP endpoint. With neither set it falls back to
-  local Chromium for development.
-- **Richer snapshots.** Extend `lib/browser.ts` to include roles, ARIA, or
-  bounding boxes.
-- **Add actions.** Add tools for scrolling, file uploads, or screenshots.
-- **Swap the model.** Edit `config.ts`.
+- **Remote browser.** Set `BROWSER_CDP_URL` to connect to a remote CDP endpoint like Bright Data Browser API.
+- **Headless mode.** Set `BROWSER_HEADLESS=false` for visible browser during development.
+- **Swap models.** Edit the `model` field in `config.ts`.
+- **Adjust steps.** Modify `maxSteps` in `config.ts` (default: 100).
