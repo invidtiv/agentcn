@@ -1,7 +1,7 @@
 import { createTool } from '@mastra/core/tools'
 import { z } from 'zod'
 import { YoutubeTranscript } from 'youtube-transcript-scraper'
-import { extractVideoId, formatTimestamp } from './youtube-utils'
+import { extractVideoId, formatTimestamp } from '../lib/youtube-utils'
 
 export default createTool({
   id: 'fetch-youtube-transcript',
