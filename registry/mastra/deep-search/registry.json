@@ -7,7 +7,6 @@
   "files": [
     { "path": "config.ts", "type": "registry:file" },
     { "path": "instructions.md", "type": "registry:file" },
-    { "path": "memory.ts", "type": "registry:file" },
     { "path": "subagents/intent-clarifier/config.ts", "type": "registry:file" },
     { "path": "subagents/intent-clarifier/instructions.md", "type": "registry:file" },
     { "path": "subagents/research-planner/config.ts", "type": "registry:file" },

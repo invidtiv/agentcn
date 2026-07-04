@@ -73,8 +73,8 @@ npm install @mastra/core @mastra/libsql @mastra/memory youtube-transcript-scrape
 />
 
 <ComponentSource
-  src="registry/mastra/chat-with-youtube/tools/youtube-utils.ts"
-  title="tools/youtube-utils.ts"
+  src="registry/mastra/chat-with-youtube/lib/youtube-utils.ts"
+  title="lib/youtube-utils.ts"
 />
 
 <ComponentSource
@@ -100,8 +100,9 @@ npm install @mastra/core @mastra/libsql @mastra/memory youtube-transcript-scrape
 ├── config.ts                    # Agent definition (model + config)
 ├── instructions.md              # Comprehensive YouTube assistant instructions
 ├── memory.ts                    # Memory instance
+├── lib/
+│   └── youtube-utils.ts         # Video ID extraction + timestamp formatting
 └── tools/
-    ├── youtube-utils.ts         # Video ID extraction + timestamp formatting
     ├── youtube-metadata.ts      # Fetch video title, author, description, duration
     └── youtube-transcript.ts    # Fetch timestamped transcript segments
 ```

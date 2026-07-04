@@ -66,13 +66,13 @@ npm install @mastra/core @libsql/client
 />
 
 <ComponentSource
-  src="registry/mastra/text-to-sql/tools/introspect_schema.ts"
-  title="tools/introspect_schema.ts"
+  src="registry/mastra/text-to-sql/tools/introspect-database.ts"
+  title="tools/introspect-database.ts"
 />
 
 <ComponentSource
-  src="registry/mastra/text-to-sql/tools/run_query.ts"
-  title="tools/run_query.ts"
+  src="registry/mastra/text-to-sql/tools/execute-sql.ts"
+  title="tools/execute-sql.ts"
 />
 
 <Step>Update the import paths to match your project setup.</Step>
@@ -90,8 +90,8 @@ npm install @mastra/core @libsql/client
 ├── lib/
 │   └── db.ts                   # Database client (SQLite by default)
 └── tools/
-    ├── introspect_schema.ts    # Lists tables and columns
-    └── run_query.ts            # Runs a read-only SELECT
+    ├── introspect-database.ts  # Lists tables and columns
+    └── execute-sql.ts          # Runs a read-only SELECT
 ```
 
 ## Customization
