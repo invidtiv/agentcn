@@ -52,7 +52,7 @@ npx shadcn@latest add @agentcn/mastra/chat-with-youtube
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install @mastra/core
+npm install @mastra/core @mastra/libsql @mastra/memory youtube-transcript-scraper
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
@@ -68,18 +68,23 @@ npm install @mastra/core
 />
 
 <ComponentSource
-  src="registry/mastra/chat-with-youtube/lib/brightdata.ts"
-  title="lib/brightdata.ts"
+  src="registry/mastra/chat-with-youtube/memory.ts"
+  title="memory.ts"
 />
 
 <ComponentSource
-  src="registry/mastra/chat-with-youtube/tools/video_metadata.ts"
-  title="tools/video_metadata.ts"
+  src="registry/mastra/chat-with-youtube/tools/youtube-utils.ts"
+  title="tools/youtube-utils.ts"
 />
 
 <ComponentSource
-  src="registry/mastra/chat-with-youtube/tools/get_transcript.ts"
-  title="tools/get_transcript.ts"
+  src="registry/mastra/chat-with-youtube/tools/youtube-metadata.ts"
+  title="tools/youtube-metadata.ts"
+/>
+
+<ComponentSource
+  src="registry/mastra/chat-with-youtube/tools/youtube-transcript.ts"
+  title="tools/youtube-transcript.ts"
 />
 
 <Step>Update the import paths to match your project setup.</Step>
@@ -92,24 +97,25 @@ npm install @mastra/core
 ## Composition
 
 ```text
-├── config.ts                # Agent definition (model + config)
-├── instructions.md          # Transcript-grounded answering instructions
-├── lib/
-│   └── brightdata.ts        # Web Unlocker fetch + YouTube parsing helpers
+├── config.ts                    # Agent definition (model + config)
+├── instructions.md              # Comprehensive YouTube assistant instructions
+├── memory.ts                    # Memory instance
 └── tools/
-    ├── video_metadata.ts    # Title / author / id via oEmbed
-    └── get_transcript.ts    # Timestamped transcript segments
+    ├── youtube-utils.ts         # Video ID extraction + timestamp formatting
+    ├── youtube-metadata.ts      # Fetch video title, author, description, duration
+    └── youtube-transcript.ts    # Fetch timestamped transcript segments
 ```
+
+## How It Works
+
+1. **Get Metadata** - `fetch-youtube-metadata` retrieves video title, author, description, and duration
+2. **Get Transcript** - `fetch-youtube-transcript` fetches the full transcript with timestamps
+3. **Answer Questions** - The agent answers based on transcript content with clickable timestamp citations
+4. **Generate Chapters** - Creates chapter timestamps in YouTube description format
 
 ## Customization
 
-- **Reliable fetching.** Metadata and transcripts are pulled through the [Bright
-  Data Web Unlocker](https://docs.brightdata.com/scraping-automation/web-unlocker),
-  which handles YouTube at scale with no rate limits or blocks. Set
-  `BRIGHTDATA_API_KEY` (and optionally `BRIGHTDATA_UNLOCKER_ZONE`).
-- **Add chapters export.** Add a tool that writes the chapter list back as a
-  YouTube description or VTT file.
-- **Handle missing transcripts.** Fall back to an STT service when a video has no
-  captions.
+- **Swap the model.** Edit the `model` field in `config.ts`.
+- **Add chapters export.** Add a tool that writes the chapter list back as a YouTube description or VTT file.
+- **Handle missing transcripts.** Fall back to an STT service when a video has no captions.
 - **Swap metadata source.** Use the YouTube Data API for richer metadata.
-- **Swap the model.** Edit `config.ts`.
