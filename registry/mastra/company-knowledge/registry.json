@@ -12,5 +12,5 @@
     { "path": "lib/vector-store.ts", "type": "registry:file" },
     { "path": "lib/pii.ts", "type": "registry:file" }
   ],
-  "dependencies": ["@mastra/core"]
+  "dependencies": ["@mastra/core", "@ai-sdk/openai", "@libsql/client", "ai"]
 }
