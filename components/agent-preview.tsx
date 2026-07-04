@@ -5,6 +5,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { CopyButton } from "@/components/copy-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import type { PreviewArtifact } from "@/lib/preview/events";
 import { cn } from "@/lib/utils";
 
@@ -313,7 +314,7 @@ export const AgentPreview = ({
               {field.type === "text" ? (
                 <Input
                   placeholder={field.placeholder}
-                  value={values[field.name] ?? ""}
+                  value={values[field.name]}
                   onChange={(event) =>
                     setValues((current) => ({
                       ...current,
@@ -322,12 +323,9 @@ export const AgentPreview = ({
                   }
                 />
               ) : (
-                <textarea
-                  className={cn(
-                    "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 flex min-h-24 w-full rounded-md border bg-transparent px-3 py-2 font-mono text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px]"
-                  )}
+                <Textarea
                   placeholder={field.placeholder}
-                  value={values[field.name] ?? ""}
+                  value={values[field.name]}
                   onChange={(event) =>
                     setValues((current) => ({
                       ...current,
