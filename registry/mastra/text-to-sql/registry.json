@@ -11,5 +11,5 @@
     { "path": "tools/run_query.ts", "type": "registry:file" },
     { "path": "lib/db.ts", "type": "registry:file" }
   ],
-  "dependencies": ["@mastra/core"]
+  "dependencies": ["@mastra/core", "@libsql/client"]
 }

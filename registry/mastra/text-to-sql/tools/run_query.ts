@@ -2,18 +2,42 @@ import { createTool } from '@mastra/core/tools'
 import { z } from 'zod'
 import { db } from '../lib/db'
 
+const BLOCKED_PATTERNS = [
+  /\b(INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|TRUNCATE|REPLACE)\b/i,
+  /\b(ATTACH|DETACH)\b/i,
+  /\b(PRAGMA)\b/i,
+  /;.*\S/, // multiple statements
+]
+
 export default createTool({
   id: 'run_query',
-  description: 'Executes a read-only SELECT query and returns the rows as JSON.',
+  description: 'Executes a read-only SQL SELECT query against the local SQLite database and returns the results.',
   inputSchema: z.object({
-    sql: z.string(),
+    query: z.string().describe('The SQL SELECT query to execute'),
+  }),
+  outputSchema: z.object({
+    rows: z.array(z.record(z.string(), z.unknown())).describe('Query result rows'),
+    rowCount: z.number().describe('Number of rows returned'),
   }),
   execute: async ({ context }) => {
-    const { sql } = context
-    if (!/^\s*select/i.test(sql)) {
-      return { error: 'Refused: only read-only SELECT queries are allowed.' }
+    const { query } = context
+    const trimmed = query.trim().replace(/;$/, '')
+
+    for (const pattern of BLOCKED_PATTERNS) {
+      if (pattern.test(trimmed)) {
+        throw new Error('Only SELECT queries are allowed.')
+      }
     }
-    const result = await db.execute(sql)
-    return { rows: result.rows }
+
+    if (!/^\s*SELECT\b/i.test(trimmed)) {
+      throw new Error('Query must start with SELECT.')
+    }
+
+    const result = await db.execute(trimmed)
+
+    return {
+      rows: result.rows as Record<string, unknown>[],
+      rowCount: result.rows.length,
+    }
   },
 })

@@ -5,18 +5,48 @@ import { db } from '../lib/db'
 export default createTool({
   id: 'introspect_schema',
   description:
-    'Lists the database tables and their columns so you can write correct SQL.',
+    'Introspects the local SQLite database and returns a description of all tables, columns, foreign keys, and row counts.',
   inputSchema: z.object({}),
+  outputSchema: z.object({
+    schema: z.string().describe('Human-readable database schema description'),
+  }),
   execute: async () => {
     const tables = await db.execute(
-      "SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'"
+      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_litestream_%' ORDER BY name"
     )
-    const schema: Record<string, unknown> = {}
-    for (const row of tables.rows) {
-      const name = String(row.name)
-      const info = await db.execute(`PRAGMA table_info(${name})`)
-      schema[name] = info.rows.map((c) => ({ name: c.name, type: c.type }))
+
+    const lines: string[] = ['# Database Schema', '']
+
+    for (const table of tables.rows) {
+      const tableName = table.name as string
+
+      const columns = await db.execute(`PRAGMA table_info('${tableName}')`)
+      const foreignKeys = await db.execute(`PRAGMA foreign_key_list('${tableName}')`)
+      const countResult = await db.execute(`SELECT COUNT(*) as count FROM "${tableName}"`)
+      const rowCount = countResult.rows[0].count
+
+      lines.push(`## ${tableName} (${rowCount} rows)`)
+      lines.push('')
+      lines.push('| Column | Type | Nullable | PK |')
+      lines.push('|--------|------|----------|----|')
+
+      for (const col of columns.rows) {
+        const nullable = col.notnull ? 'NO' : 'YES'
+        const pk = col.pk ? 'YES' : ''
+        lines.push(`| ${col.name} | ${col.type || 'ANY'} | ${nullable} | ${pk} |`)
+      }
+
+      if (foreignKeys.rows.length > 0) {
+        lines.push('')
+        lines.push('**Foreign Keys:**')
+        for (const fk of foreignKeys.rows) {
+          lines.push(`- ${fk.from} → ${fk.table}.${fk.to}`)
+        }
+      }
+
+      lines.push('')
     }
-    return { schema }
+
+    return { schema: lines.join('\n') }
   },
 })
