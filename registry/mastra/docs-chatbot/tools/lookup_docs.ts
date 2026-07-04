@@ -18,8 +18,8 @@ export default createTool({
   inputSchema: z.object({
     query: z.string(),
   }),
-  execute: async ({ context }) => {
-    const { query } = context
+  execute: async (inputData) => {
+    const { query } = inputData
     const docs = JSON.parse(
       await readFile(fileURLToPath(DATA_URL), 'utf-8')
     ) as FunctionDoc[]

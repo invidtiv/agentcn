@@ -7,8 +7,8 @@ export default createTool({
   inputSchema: z.object({
     text: z.string().describe('The text to reverse'),
   }),
-  execute: async ({ context }) => {
-    const { text } = context
+  execute: async (inputData) => {
+    const { text } = inputData
     return text.split('').reverse().join('')
   },
 })

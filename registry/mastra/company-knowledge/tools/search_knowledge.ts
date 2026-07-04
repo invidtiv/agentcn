@@ -20,8 +20,8 @@ export default createTool({
       score: z.number().optional(),
     })),
   }),
-  execute: async ({ context }) => {
-    const { query, topK } = context
+  execute: async (inputData) => {
+    const { query, topK } = inputData
     const hits = await searchDocs(query, topK)
     const results = hits.map((row) => ({
       content: redactPii(String(row.content)),

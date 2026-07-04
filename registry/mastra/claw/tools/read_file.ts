@@ -9,8 +9,8 @@ export default createTool({
   inputSchema: z.object({
     path: z.string(),
   }),
-  execute: async ({ context }) => {
-    const { path: filePath } = context
+  execute: async (inputData) => {
+    const { path: filePath } = inputData
     const content = await readFile(resolveInWorkspace(filePath), 'utf-8')
     return { content, path: filePath }
   },

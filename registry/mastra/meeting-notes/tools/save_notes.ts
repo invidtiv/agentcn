@@ -14,7 +14,7 @@ export default createTool({
     })),
     openQuestions: z.array(z.string()),
   }),
-  execute: async ({ context }) => {
-    return context
+  execute: async (inputData) => {
+    return inputData
   },
 })

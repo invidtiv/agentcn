@@ -13,5 +13,5 @@
     { "path": "tools/query_pdf.ts", "type": "registry:file" },
     { "path": "workflows/index_pdf.ts", "type": "registry:file" }
   ],
-  "dependencies": ["@mastra/core", "@mastra/libsql", "@mastra/rag", "pdf-parse"]
+  "dependencies": ["@mastra/core", "@mastra/libsql", "@mastra/memory", "@mastra/rag", "pdf-parse"]
 }

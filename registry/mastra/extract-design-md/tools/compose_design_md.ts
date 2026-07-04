@@ -9,8 +9,8 @@ export default createTool({
   inputSchema: z.object({
     domain: z.string(),
   }),
-  execute: async ({ context }) => {
-    const { domain } = context
+  execute: async (inputData) => {
+    const { domain } = inputData
     const normalized = domain
       .trim()
       .toLowerCase()

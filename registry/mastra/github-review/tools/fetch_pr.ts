@@ -78,8 +78,8 @@ export default createTool({
     pr: prSchema,
     files: z.array(fileSchema),
   }),
-  execute: async ({ context }) => {
-    const { owner, repo, pullNumber } = context
+  execute: async (inputData) => {
+    const { owner, repo, pullNumber } = inputData
     const base = `${GITHUB_API}/repos/${owner}/${repo}/pulls/${pullNumber}`
     const [prResponse, filesResponse] = await Promise.all([
       fetch(base, { headers: headers() }).then((r) => r.json()),

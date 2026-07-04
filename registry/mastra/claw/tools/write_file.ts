@@ -11,8 +11,8 @@ export default createTool({
     path: z.string(),
     content: z.string(),
   }),
-  execute: async ({ context }) => {
-    const { path: filePath, content } = context
+  execute: async (inputData) => {
+    const { path: filePath, content } = inputData
     const target = resolveInWorkspace(filePath)
     await mkdir(dirname(target), { recursive: true })
     await writeFile(target, content, 'utf-8')

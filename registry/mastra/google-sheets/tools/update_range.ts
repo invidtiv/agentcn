@@ -12,8 +12,8 @@ export default createTool({
     range: z.string(),
     values: z.array(z.array(z.union([z.string(), z.number()]))),
   }),
-  execute: async ({ context }) => {
-    const { spreadsheetId, range, values } = context
+  execute: async (inputData) => {
+    const { spreadsheetId, range, values } = inputData
     const res = await fetch(
       `${SHEETS_API}/${spreadsheetId}/values/${encodeURIComponent(range)}?valueInputOption=USER_ENTERED`,
       {

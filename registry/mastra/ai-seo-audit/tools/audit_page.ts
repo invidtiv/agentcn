@@ -10,8 +10,8 @@ export default createTool({
   inputSchema: z.object({
     url: z.string().url(),
   }),
-  execute: async ({ context }) => {
-    const { url } = context
+  execute: async (inputData) => {
+    const { url } = inputData
     const normalized = normalizeAuditUrl(url)
     if (!normalized) {
       return { error: `"${url}" is not a valid URL.` }

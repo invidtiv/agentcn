@@ -13,8 +13,8 @@ export default createTool({
   inputSchema: z.object({
     command: z.string(),
   }),
-  execute: async ({ context }) => {
-    const { command } = context
+  execute: async (inputData) => {
+    const { command } = inputData
     try {
       const { stdout, stderr } = await run(command, {
         cwd: WORKSPACE,

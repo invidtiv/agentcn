@@ -10,8 +10,8 @@ export default createTool({
     source: z.string(),
     content: z.string(),
   }),
-  execute: async ({ context }) => {
-    const { source, content } = context
+  execute: async (inputData) => {
+    const { source, content } = inputData
     const chunks = await indexDoc({ source, content })
     return { chunks, source }
   },

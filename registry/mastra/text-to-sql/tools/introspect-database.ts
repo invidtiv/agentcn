@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { db } from '../lib/db'
 
 export default createTool({
-  id: 'introspect_schema',
+  id: 'introspect-database',
   description:
     'Introspects the local SQLite database and returns a description of all tables, columns, foreign keys, and row counts.',
   inputSchema: z.object({}),

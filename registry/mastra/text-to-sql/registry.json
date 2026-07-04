@@ -7,8 +7,8 @@
   "files": [
     { "path": "config.ts", "type": "registry:file" },
     { "path": "instructions.md", "type": "registry:file" },
-    { "path": "tools/introspect_schema.ts", "type": "registry:file" },
-    { "path": "tools/run_query.ts", "type": "registry:file" },
+    { "path": "tools/introspect-database.ts", "type": "registry:file" },
+    { "path": "tools/execute-sql.ts", "type": "registry:file" },
     { "path": "lib/db.ts", "type": "registry:file" }
   ],
   "dependencies": ["@mastra/core", "@libsql/client"]

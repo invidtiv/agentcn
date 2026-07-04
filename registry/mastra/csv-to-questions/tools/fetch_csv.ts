@@ -65,8 +65,8 @@ export default createTool({
     columnCount: z.number().describe('Number of columns in the CSV'),
     characterCount: z.number().describe('Number of characters in the original CSV'),
   }),
-  execute: async ({ context }) => {
-    const { url } = context
+  execute: async (inputData) => {
+    const { url } = inputData
 
     try {
       // Step 1: Download the CSV

@@ -1,5 +1,6 @@
 import { createTool } from '@mastra/core/tools'
 import { z } from 'zod'
+import pdf from 'pdf-parse'
 
 export default createTool({
   id: 'parse_pdf',
@@ -11,8 +12,8 @@ export default createTool({
     text: z.string().describe('Extracted text content from the PDF'),
     pageCount: z.number().describe('Number of pages in the PDF'),
   }),
-  execute: async ({ context }) => {
-    const { url } = context
+  execute: async (inputData) => {
+    const { url } = inputData
 
     try {
       const response = await fetch(url)
@@ -23,16 +24,11 @@ export default createTool({
       const arrayBuffer = await response.arrayBuffer()
       const buffer = Buffer.from(arrayBuffer)
 
-      // Simple PDF text extraction - in production, use a proper PDF parsing library
-      // This is a simplified version that extracts text from PDF
-      const text = buffer.toString('utf-8')
-
-      // Count pages (simplified - look for /Page objects)
-      const pageCount = (text.match(/\/Type\s*\/Page[^s]/g) || []).length || 1
+      const data = await pdf(buffer)
 
       return {
-        text: text.substring(0, 10000), // Limit to first 10k chars for safety
-        pageCount,
+        text: data.text.substring(0, 10000),
+        pageCount: data.numpages,
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error'

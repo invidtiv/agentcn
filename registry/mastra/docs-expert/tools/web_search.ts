@@ -79,7 +79,7 @@ export default createTool({
     answer: z.string(),
     sources: z.array(sourceSchema),
   }),
-  execute: async ({ context }) => {
+  execute: async (inputData) => {
     const apiKey = process.env.MASTRA_GATEWAY_API_KEY
 
     if (!apiKey) {
@@ -102,7 +102,7 @@ export default createTool({
           },
           {
             role: 'user',
-            content: context.query,
+            content: inputData.query,
           },
         ],
         tools: [

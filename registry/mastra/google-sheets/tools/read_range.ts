@@ -11,8 +11,8 @@ export default createTool({
     spreadsheetId: z.string(),
     range: z.string(),
   }),
-  execute: async ({ context }) => {
-    const { spreadsheetId, range } = context
+  execute: async (inputData) => {
+    const { spreadsheetId, range } = inputData
     const res = await fetch(
       `${SHEETS_API}/${spreadsheetId}/values/${encodeURIComponent(range)}`,
       {

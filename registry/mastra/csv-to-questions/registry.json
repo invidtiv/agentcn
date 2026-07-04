@@ -7,7 +7,9 @@
   "files": [
     { "path": "config.ts", "type": "registry:file" },
     { "path": "instructions.md", "type": "registry:file" },
-    { "path": "tools/fetch_csv.ts", "type": "registry:file" }
+    { "path": "tools/fetch_csv.ts", "type": "registry:file" },
+    { "path": "tools/generate_questions.ts", "type": "registry:file" },
+    { "path": "workflows/csv-to-questions.ts", "type": "registry:file" }
   ],
   "dependencies": ["@mastra/core"]
 }

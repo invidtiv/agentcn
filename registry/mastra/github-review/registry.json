@@ -7,7 +7,11 @@
   "files": [
     { "path": "config.ts", "type": "registry:file" },
     { "path": "instructions.md", "type": "registry:file" },
-    { "path": "tools/fetch_pr.ts", "type": "registry:file" }
+    { "path": "memory.ts", "type": "registry:file" },
+    { "path": "tools/fetch_pr.ts", "type": "registry:file" },
+    { "path": "tools/parse_github_url.ts", "type": "registry:file" },
+    { "path": "tools/get_pr_files.ts", "type": "registry:file" },
+    { "path": "tools/get_file_content.ts", "type": "registry:file" }
   ],
-  "dependencies": ["@mastra/core"]
+  "dependencies": ["@mastra/core", "@mastra/memory"]
 }

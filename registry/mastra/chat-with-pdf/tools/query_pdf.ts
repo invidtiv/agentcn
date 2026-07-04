@@ -17,8 +17,8 @@ For general topic searches without page constraints, omit pageStart/pageEnd.`,
     pageStart: z.number().optional().describe('Start of page range (inclusive)'),
     pageEnd: z.number().optional().describe('End of page range (inclusive)'),
   }),
-  execute: async ({ context }) => {
-    const { queryText, documentId, pageStart, pageEnd } = context
+  execute: async (inputData) => {
+    const { queryText, documentId, pageStart, pageEnd } = inputData
 
     const embeddingModel = new ModelRouterEmbeddingModel('openai/text-embedding-3-small')
     const { embeddings } = await embeddingModel.doEmbed({ values: [queryText] })

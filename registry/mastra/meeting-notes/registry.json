@@ -7,7 +7,10 @@
   "files": [
     { "path": "config.ts", "type": "registry:file" },
     { "path": "instructions.md", "type": "registry:file" },
-    { "path": "tools/save_notes.ts", "type": "registry:file" }
+    { "path": "tools/save_notes.ts", "type": "registry:file" },
+    { "path": "tools/list_meetings.ts", "type": "registry:file" },
+    { "path": "tools/get_transcript.ts", "type": "registry:file" },
+    { "path": "workflows/ingest-meeting.ts", "type": "registry:file" }
   ],
   "dependencies": ["@mastra/core"]
 }

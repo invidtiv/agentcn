@@ -22,8 +22,8 @@ export default createTool({
       .describe('Video duration in MM:SS or HH:MM:SS format'),
     error: z.string().optional().describe('Error message if the fetch failed'),
   }),
-  execute: async ({ context }) => {
-    const { url } = context
+  execute: async (inputData) => {
+    const { url } = inputData
     const videoId = extractVideoId(url)
 
     if (!videoId) {

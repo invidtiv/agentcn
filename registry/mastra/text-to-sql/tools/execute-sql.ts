@@ -10,7 +10,7 @@ const BLOCKED_PATTERNS = [
 ]
 
 export default createTool({
-  id: 'run_query',
+  id: 'execute-sql',
   description: 'Executes a read-only SQL SELECT query against the local SQLite database and returns the results.',
   inputSchema: z.object({
     query: z.string().describe('The SQL SELECT query to execute'),
@@ -19,8 +19,8 @@ export default createTool({
     rows: z.array(z.record(z.string(), z.unknown())).describe('Query result rows'),
     rowCount: z.number().describe('Number of rows returned'),
   }),
-  execute: async ({ context }) => {
-    const { query } = context
+  execute: async (inputData) => {
+    const { query } = inputData
     const trimmed = query.trim().replace(/;$/, '')
 
     for (const pattern of BLOCKED_PATTERNS) {

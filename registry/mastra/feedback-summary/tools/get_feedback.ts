@@ -33,8 +33,8 @@ export default createTool({
     has_more: z.boolean().describe('Whether more items are available'),
     filters_applied: z.record(z.string(), z.string()),
   }),
-  execute: async ({ context }) => {
-    const { source, customer_tier, start_date, end_date, limit = 40, offset = 0 } = context
+  execute: async (inputData) => {
+    const { source, customer_tier, start_date, end_date, limit = 40, offset = 0 } = inputData
 
     // In a real implementation, this would query a database
     // For now, we'll return a mock response structure
@@ -56,14 +56,49 @@ export default createTool({
       filtersApplied.end_date = end_date
     }
 
-    // Return empty array - in production this would query a real data source
+    const allFeedback = [
+      { id: 'fb-001', text: 'The new dashboard loads much faster, great improvement!', source: 'app_review', date: '2025-06-15', customer_tier: 'pro' },
+      { id: 'fb-002', text: 'Mobile app crashes every time I try to upload a file larger than 5MB.', source: 'support_ticket', date: '2025-06-16', customer_tier: 'enterprise' },
+      { id: 'fb-003', text: 'Love the dark mode feature, please add more theme options.', source: 'survey', date: '2025-06-17', customer_tier: 'free' },
+      { id: 'fb-004', text: 'The API response times have degraded significantly in the last week.', source: 'support_ticket', date: '2025-06-18', customer_tier: 'enterprise' },
+      { id: 'fb-005', text: 'Your product is overpriced compared to competitors. Considering alternatives.', source: 'social_media', date: '2025-06-19', customer_tier: 'pro' },
+      { id: 'fb-006', text: 'The onboarding tutorial was confusing, took me 2 hours to set up.', source: 'app_review', date: '2025-06-20', customer_tier: 'free' },
+      { id: 'fb-007', text: 'Fantastic customer support team! Resolved my issue within minutes.', source: 'social_media', date: '2025-06-21', customer_tier: 'pro' },
+      { id: 'fb-008', text: 'The CSV export feature keeps failing with large datasets.', source: 'support_ticket', date: '2025-06-22', customer_tier: 'pro' },
+      { id: 'fb-009', text: 'Would be great to have Slack integration for team notifications.', source: 'survey', date: '2025-06-23', customer_tier: 'enterprise' },
+      { id: 'fb-010', text: 'The search functionality is slow and returns irrelevant results.', source: 'app_review', date: '2025-06-24', customer_tier: 'free' },
+      { id: 'fb-011', text: 'Billing page is confusing, I was charged twice for my subscription.', source: 'support_ticket', date: '2025-06-25', customer_tier: 'pro' },
+      { id: 'fb-012', text: 'Great product overall, been using it daily for 6 months.', source: 'social_media', date: '2025-06-26', customer_tier: 'enterprise' },
+      { id: 'fb-013', text: 'The keyboard shortcuts don\'t work on Firefox, only Chrome.', source: 'app_review', date: '2025-06-27', customer_tier: 'free' },
+      { id: 'fb-014', text: 'Need better data export options, CSV alone is not enough.', source: 'survey', date: '2025-06-28', customer_tier: 'pro' },
+      { id: 'fb-015', text: 'The real-time collaboration feature is a game changer for our team!', source: 'social_media', date: '2025-06-29', customer_tier: 'enterprise' },
+    ]
+
+    let filtered = [...allFeedback]
+
+    if (source) {
+      filtered = filtered.filter(f => f.source === source)
+    }
+    if (customer_tier) {
+      filtered = filtered.filter(f => f.customer_tier === customer_tier)
+    }
+    if (start_date) {
+      filtered = filtered.filter(f => f.date >= start_date)
+    }
+    if (end_date) {
+      filtered = filtered.filter(f => f.date <= end_date)
+    }
+
+    const total = filtered.length
+    const paginated = filtered.slice(offset, offset + limit)
+
     return {
-      feedback: [],
-      total: 0,
-      returned: 0,
+      feedback: paginated,
+      total,
+      returned: paginated.length,
       limit,
       offset,
-      has_more: false,
+      has_more: offset + limit < total,
       filters_applied: filtersApplied,
     }
   },
