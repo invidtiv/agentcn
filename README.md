@@ -35,6 +35,13 @@
 
 Please refer to the [Development Guide](./DEVELOPMENT.md) for more details.
 
+## Showcase
+
+Consider showcasing your work on:
+
+- [awesome-eve-agents](https://github.com/shadcn-labs/awesome-eve-agents) — Curated list of awesome resources and AI agents built with Eve
+- [awesome-flue-agents](https://github.com/shadcn-labs/awesome-flue-agents) — Curated list of awesome resources and AI agents built with Flue
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
