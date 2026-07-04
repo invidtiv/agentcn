@@ -1,6 +1,7 @@
 import { agentConfig } from '@mastra/core/agent'
 import { AgentBrowser, AgentBrowserThreadManager } from '@mastra/agent-browser'
 import type { AgentBrowserThreadManagerConfig } from '@mastra/agent-browser'
+import { openai } from '@ai-sdk/openai'
 import { createRequire } from 'node:module'
 import { dirname, join, normalize } from 'node:path'
 import { spawn } from 'node:child_process'
@@ -80,9 +81,12 @@ const browser = new AgentBrowser({
 })
 
 export default agentConfig({
-  model: 'openai/gpt-5-mini',
+  model: 'mastra/openai/gpt-5-mini',
   browser,
   defaultOptions: {
     maxSteps: 100,
+  },
+  tools: {
+    web_search: openai.tools.webSearch({}),
   },
 })
