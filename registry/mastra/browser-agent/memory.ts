@@ -1,6 +1,6 @@
 import { Memory } from '@mastra/memory'
 
-export default new Memory({
+export const memory = new Memory({
   options: {
     lastMessages: 10,
   },
