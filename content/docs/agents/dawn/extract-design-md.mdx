@@ -1,0 +1,119 @@
+---
+title: Extract DESIGN.md
+description: Turns a domain into a self-contained DESIGN.md — gathering the styleguide, screenshot, and homepage Markdown from context.dev, then composing the document in a single Claude call.
+---
+
+<DocsBaseSwitcher base="dawn" agent="extract-design-md" />
+
+<AgentPreview
+  agent="extract-design-md"
+  framework="dawn"
+  inputFields={[
+    {
+      name: "domain",
+      label: "Domain",
+      placeholder: "stripe.com",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Extract DESIGN.md Agent** turns any public website into design artifacts.
+The `compose_design_md` tool gathers the styleguide, brand, a homepage
+screenshot, and clean page Markdown through context.dev, then returns **three
+outputs**, which the agent relays verbatim:
+
+- **DESIGN.md** — composed in **one Claude call** (screenshot passed as
+  a vision image): token frontmatter (`version: alpha`, colors, typography,
+  rounded, spacing, components) plus the canonical sections (Overview, Colors,
+  Typography, Layout, Elevation, Shapes, Components, Do's and Don'ts).
+- **Tailwind v4 `@theme` block** — derived **deterministically** from the
+  styleguide + brand in `lib/derive-tokens.ts`.
+- **CSS `:root` tokens** — the same tokens as vanilla CSS variables.
+
+It follows the [designmd.supply](https://designmd.supply) pipeline — the same
+prompt spec and deterministic token derivers — running on Claude.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/dawn/extract-design-md
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following Dawn route files into your project.</Step>
+
+<ComponentSource
+  src="registry/dawn/extract-design-md/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/extract-design-md/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/dawn/extract-design-md/lib/compose.ts"
+  title="lib/compose.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/extract-design-md/lib/derive-tokens.ts"
+  title="lib/derive-tokens.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/extract-design-md/lib/design-md.ts"
+  title="lib/design-md.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/extract-design-md/tools/compose_design_md.ts"
+  title="tools/compose_design_md.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so Dawn regenerates route and tool metadata.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── lib/compose.ts
+├── lib/derive-tokens.ts
+├── lib/design-md.ts
+├── tools/compose_design_md.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; Dawn infers tool input and output types from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

@@ -1,0 +1,87 @@
+---
+title: Slack
+description: Replies to Slack mentions and DMs, scoped to the thread, via the Slack Web API.
+---
+
+<DocsBaseSwitcher base="dawn" agent="slack-agent" />
+
+<AgentPreview
+  agent="slack-agent"
+  framework="dawn"
+  inputFields={[
+    {
+      name: "message",
+      label: "Message",
+      placeholder: "@bot what's the status of the deploy?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Slack Agent** turns your agent into a Slack bot. It answers mentions and
+direct messages, keeps each conversation scoped to its thread, and replies with
+Slack formatting. Reach for it to put an assistant where your team already works —
+an on-call helper, a docs bot, or a triage assistant.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/dawn/slack-agent
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following Dawn route files into your project.</Step>
+
+<ComponentSource src="registry/dawn/slack-agent/index.ts" title="index.ts" />
+
+<ComponentSource
+  src="registry/dawn/slack-agent/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/dawn/slack-agent/tools/post_message.ts"
+  title="tools/post_message.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so Dawn regenerates route and tool metadata.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── tools/post_message.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; Dawn infers tool input and output types from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

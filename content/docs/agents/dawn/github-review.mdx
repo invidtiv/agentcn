@@ -1,0 +1,106 @@
+---
+title: GitHub PR Code Review
+description: Fetches a GitHub pull request and returns adaptive, file-by-file code review feedback.
+---
+
+<DocsBaseSwitcher base="dawn" agent="github-review" />
+
+<AgentPreview
+  agent="github-review"
+  framework="dawn"
+  inputFields={[
+    {
+      name: "url",
+      label: "Pull request URL",
+      placeholder: "https://github.com/owner/repo/pull/123",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **GitHub PR Code Review Agent** reviews a pull request and returns actionable
+feedback. It fetches the PR's files and patches, adapts its depth to the diff
+size, and reports bugs, security issues, and style notes grouped by file — ending
+with an approve / request-changes recommendation. Reach for it to triage reviews
+or give contributors fast first-pass feedback.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/dawn/github-review
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following Dawn route files into your project.</Step>
+
+<ComponentSource src="registry/dawn/github-review/index.ts" title="index.ts" />
+
+<ComponentSource
+  src="registry/dawn/github-review/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/dawn/github-review/tools/fetch_pr.ts"
+  title="tools/fetch_pr.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/github-review/tools/get_file_content.ts"
+  title="tools/get_file_content.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/github-review/tools/get_pr_files.ts"
+  title="tools/get_pr_files.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/github-review/tools/parse_github_url.ts"
+  title="tools/parse_github_url.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so Dawn regenerates route and tool metadata.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── tools/fetch_pr.ts
+├── tools/get_file_content.ts
+├── tools/get_pr_files.ts
+├── tools/parse_github_url.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; Dawn infers tool input and output types from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

@@ -1,0 +1,91 @@
+---
+title: Customer Feedback Summary
+description: Retrieves, categorizes, and summarizes customer feedback into an executive report with recommendations.
+---
+
+<DocsBaseSwitcher base="dawn" agent="feedback-summary" />
+
+<AgentPreview
+  agent="feedback-summary"
+  framework="dawn"
+  inputFields={[
+    {
+      name: "query",
+      label: "Request",
+      placeholder: "What are the critical issues from enterprise customers?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Customer Feedback Summary Agent** answers questions about your customer
+feedback. It retrieves entries from your data source, categorizes them by theme
+and segment, and produces an executive summary with representative quotes and
+concrete recommendations. Reach for it to turn a backlog of reviews, tickets, or
+survey responses into something a team can act on.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/dawn/feedback-summary
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following Dawn route files into your project.</Step>
+
+<ComponentSource
+  src="registry/dawn/feedback-summary/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/dawn/feedback-summary/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/dawn/feedback-summary/tools/get_feedback.ts"
+  title="tools/get_feedback.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so Dawn regenerates route and tool metadata.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── tools/get_feedback.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; Dawn infers tool input and output types from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

@@ -1,0 +1,30 @@
+{
+  "name": "meeting-notes",
+  "type": "registry:block",
+  "title": "Meeting Notes Agent",
+  "description": "Dawn agent that turns a raw meeting transcript into a structured summary, decisions, and action items.",
+  "framework": "dawn",
+  "files": [
+    {
+      "path": "index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "tools/get_transcript.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "tools/list_meetings.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "tools/save_notes.ts",
+      "type": "registry:file"
+    }
+  ],
+  "dependencies": ["@dawn-ai/sdk"]
+}

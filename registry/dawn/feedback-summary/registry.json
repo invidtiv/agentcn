@@ -1,0 +1,22 @@
+{
+  "name": "feedback-summary",
+  "type": "registry:block",
+  "title": "Customer Feedback Summary Agent",
+  "description": "Dawn agent that retrieves, categorizes, and summarizes customer feedback into an executive report with recommendations.",
+  "framework": "dawn",
+  "files": [
+    {
+      "path": "index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "tools/get_feedback.ts",
+      "type": "registry:file"
+    }
+  ],
+  "dependencies": ["@dawn-ai/sdk"]
+}

@@ -38,6 +38,7 @@
     "node_modules",
     "registry/eve",
     "registry/flue",
-    "registry/mastra"
+    "registry/mastra",
+    "registry/dawn"
   ]
 }

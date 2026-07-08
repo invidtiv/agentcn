@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "description": "Dawn agent that looks up current weather for a location via the Open-Meteo API.",
+  "files": [
+    {
+      "content": "import { agent } from \"@dawn-ai/sdk\";\n\nexport default agent({\n  description:\n    \"Dawn agent that looks up current weather for a location via the Open-Meteo API.\",\n  model: \"anthropic/claude-haiku-4-5\",\n  systemPrompt:\n    'You are a helpful weather assistant that provides accurate weather information and can help planning activities based on the weather.\\n\\nYour primary function is to help users get weather details for specific locations. When responding:\\n- Always ask for a location if none is provided\\n- If the location name isn\\'t in English, please translate it\\n- If giving a location with multiple parts (e.g. \"New York, NY\"), use the most relevant part (e.g. \"New York\")\\n- Include relevant details like humidity, wind conditions, and precipitation\\n- Keep responses concise but informative\\n- If the user asks for activities and provides the weather forecast, suggest activities based on the weather forecast.\\n- If the user asks for activities, respond in the format they request.\\n\\nUse the get_weather tool to fetch current weather data.',\n});\n",
+      "path": "index.ts",
+      "target": "index.ts",
+      "type": "registry:file"
+    },
+    {
+      "content": "You are a helpful weather assistant that provides accurate weather information and can help planning activities based on the weather.\n\nYour primary function is to help users get weather details for specific locations. When responding:\n\n- Always ask for a location if none is provided\n- If the location name isn't in English, please translate it\n- If giving a location with multiple parts (e.g. \"New York, NY\"), use the most relevant part (e.g. \"New York\")\n- Include relevant details like humidity, wind conditions, and precipitation\n- Keep responses concise but informative\n- If the user asks for activities and provides the weather forecast, suggest activities based on the weather forecast.\n- If the user asks for activities, respond in the format they request.\n\nUse the get_weather tool to fetch current weather data.\n",
+      "path": "instructions.md",
+      "target": "instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "content": "interface GeocodingResponse {\n  results: {\n    latitude: number;\n    longitude: number;\n    name: string;\n  }[];\n}\n\ninterface WeatherResponse {\n  current: {\n    time: string;\n    temperature_2m: number;\n    apparent_temperature: number;\n    relative_humidity_2m: number;\n    wind_speed_10m: number;\n    wind_gusts_10m: number;\n    weather_code: number;\n  };\n}\n\nexport default async (inputData: { readonly location: string }) => {\n  const { location } = inputData;\n  const geocodingUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(location)}&count=1`;\n  const geocodingResponse = await fetch(geocodingUrl);\n  const geocodingData = (await geocodingResponse.json()) as GeocodingResponse;\n\n  if (!geocodingData.results?.[0]) {\n    throw new Error(`Location '${location}' not found`);\n  }\n\n  const { latitude, longitude, name } = geocodingData.results[0];\n\n  const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,weather_code`;\n\n  const response = await fetch(weatherUrl);\n  const data = (await response.json()) as WeatherResponse;\n\n  return {\n    conditions: getWeatherCondition(data.current.weather_code),\n    feelsLike: data.current.apparent_temperature,\n    humidity: data.current.relative_humidity_2m,\n    location: name,\n    temperature: data.current.temperature_2m,\n    windGust: data.current.wind_gusts_10m,\n    windSpeed: data.current.wind_speed_10m,\n  };\n};\nfunction getWeatherCondition(code: number): string {\n  const conditions: Record<number, string> = {\n    0: \"Clear sky\",\n    1: \"Mainly clear\",\n    2: \"Partly cloudy\",\n    3: \"Overcast\",\n    45: \"Foggy\",\n    48: \"Depositing rime fog\",\n    51: \"Light drizzle\",\n    53: \"Moderate drizzle\",\n    55: \"Dense drizzle\",\n    56: \"Light freezing drizzle\",\n    57: \"Dense freezing drizzle\",\n    61: \"Slight rain\",\n    63: \"Moderate rain\",\n    65: \"Heavy rain\",\n    66: \"Light freezing rain\",\n    67: \"Heavy freezing rain\",\n    71: \"Slight snow fall\",\n    73: \"Moderate snow fall\",\n    75: \"Heavy snow fall\",\n    77: \"Snow grains\",\n    80: \"Slight rain showers\",\n    81: \"Moderate rain showers\",\n    82: \"Violent rain showers\",\n    85: \"Slight snow showers\",\n    86: \"Heavy snow showers\",\n    95: \"Thunderstorm\",\n    96: \"Thunderstorm with slight hail\",\n    99: \"Thunderstorm with heavy hail\",\n  };\n  return conditions[code] || \"Unknown\";\n}\n",
+      "path": "tools/get_weather.ts",
+      "target": "tools/get_weather.ts",
+      "type": "registry:file"
+    }
+  ],
+  "name": "weather",
+  "title": "Weather Agent",
+  "type": "registry:block",
+  "dependencies": [
+    "@dawn-ai/sdk"
+  ]
+}
