@@ -91,7 +91,7 @@ export const HomeAgentPreview = ({ className }: { className?: string }) => {
     agent.frameworks.includes(item.id)
   );
 
-  const transcript = agent.transcript[framework];
+  const transcript = agent.transcript[framework] ?? agent.transcript.mastra;
   const command = installCommand(framework, agent.slug);
 
   return (

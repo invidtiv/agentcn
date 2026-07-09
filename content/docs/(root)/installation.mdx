@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install an agent recipe into your Eve, Flue, or Mastra project.
+description: Install an agent recipe into your Eve, Flue, Mastra, or LangGraph (Dawn) project.
 ---
 
 ## Prerequisites
@@ -15,10 +15,13 @@ Complete these before running the install command.
   Recipes install under `agents/`, `workflows/`, `tools/`, and `skills/`.
 - **Mastra** — `npx create-mastra@latest` ([docs](https://mastra.ai)).
   Recipes install under `src/mastra/agents/<name>/`, which Mastra discovers automatically.
+- **LangGraph (Dawn)** — `npx dawn init my-agent` ([docs](https://dawn-ai.dev)).
+  Recipes install under the project root alongside `dawn.config.ts`. Dawn is the
+  meta-framework that discovers LangGraph agents, tools, and skills automatically.
 
 **2. The framework package.** Each recipe declares its framework package (`eve`,
-`@flue/runtime`, or `@mastra/core`) as a dependency, so the shadcn CLI prompts
-to install it if it is missing.
+`@flue/runtime`, `@mastra/core`, or `@dawn-ai/sdk`) as a dependency, so the
+shadcn CLI prompts to install it if it is missing.
 
 **3. Environment variables.** Some recipes call external services and need
 secrets set in your project's environment — for example `BRIGHTDATA_API_KEY` for
@@ -54,10 +57,18 @@ npx shadcn@latest add @agentcn/flue/deep-search
 npx shadcn@latest add @agentcn/mastra/deep-search
 ```
 
+### LangGraph (Dawn)
+
+```bash
+npx shadcn@latest add @agentcn/langgraph/deep-search
+```
+
 The CLI writes the recipe's files into your project at their target paths — for
 Eve, under `agent/`; for Flue, under `agents/`, `workflows/`, `tools/`, and
 `skills/`; for Mastra, under `src/mastra/agents/<name>/` with `config.ts`,
-`instructions.md`, and `tools/*.ts`. Your framework discovers them automatically.
+`instructions.md`, and `tools/*.ts`; for LangGraph (Dawn), under the project root
+with `index.ts`, `instructions.md`, `tools/`, and `subagents/`. Your framework
+discovers them automatically.
 
 Prefer short names like `@agentcn/eve/deep-search`? Register the namespace once —
 see [Registry](/docs/registry).
@@ -76,5 +87,5 @@ See each recipe's **Customization** section for specifics.
 
 Start your project's dev server (for example `pnpm dev`) and invoke the agent
 through your framework — Eve exposes it through a durable session, Flue through
-its route handler. You can also try any recipe before installing it using the
-**live preview** embedded in its docs page.
+its route handler, Dawn via `dawn dev`. You can also try any recipe before
+installing it using the **live preview** embedded in its docs page.

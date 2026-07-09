@@ -1,4 +1,9 @@
-import { EveIcon, FlueIcon, MastraIcon } from "@/components/icons";
+import {
+  LangGraphIcon,
+  EveIcon,
+  FlueIcon,
+  MastraIcon,
+} from "@/components/icons";
 
 export interface Base {
   name: string;
@@ -39,6 +44,16 @@ export const BASES: Base[] = [
     },
     name: "mastra",
     title: "Mastra",
+    type: "registry:style",
+  },
+  {
+    description:
+      "TypeScript framework for building LangGraph agents with file-system routes and tools.",
+    meta: {
+      logo: LangGraphIcon,
+    },
+    name: "langgraph",
+    title: "LangGraph",
     type: "registry:style",
   },
 ];

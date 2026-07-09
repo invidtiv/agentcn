@@ -1,0 +1,135 @@
+---
+title: Claw Autonomous Assistant
+description: Operates a sandboxed workspace — read/write files and run shell commands — to finish multi-step tasks.
+---
+
+<DocsBaseSwitcher base="langgraph" agent="claw" />
+
+<AgentPreview
+  agent="claw"
+  framework="langgraph"
+  inputFields={[
+    {
+      name: "task",
+      label: "Task",
+      placeholder: "Scaffold a Vite + React app in ./app and run the build.",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Summary
+
+**Claw** is an autonomous assistant that operates a sandboxed workspace to finish
+multi-step tasks. It reads and writes files, runs shell commands scoped to a
+workspace directory, and follows reusable skills. Reach for it as a base for
+coding assistants, repo automation, or any agent that needs a real filesystem.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/langgraph/claw
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following agent route files into your project.</Step>
+
+<ComponentSource src="registry/langgraph/claw/index.ts" title="index.ts" />
+
+<ComponentSource
+  src="registry/langgraph/claw/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/lib/workspace.ts"
+  title="lib/workspace.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/skills/workspace/SKILL.md"
+  title="skills/workspace/SKILL.md"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/tools/delete_file.ts"
+  title="tools/delete_file.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/tools/edit_file.ts"
+  title="tools/edit_file.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/tools/grep.ts"
+  title="tools/grep.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/tools/list_files.ts"
+  title="tools/list_files.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/tools/read_file.ts"
+  title="tools/read_file.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/tools/run_shell.ts"
+  title="tools/run_shell.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/claw/tools/write_file.ts"
+  title="tools/write_file.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so route and tool metadata are regenerated.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── lib/workspace.ts
+├── skills/workspace/SKILL.md
+├── tools/delete_file.ts
+├── tools/edit_file.ts
+├── tools/grep.ts
+├── tools/list_files.ts
+├── tools/read_file.ts
+├── tools/run_shell.ts
+├── tools/write_file.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; tool input and output types are inferred from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

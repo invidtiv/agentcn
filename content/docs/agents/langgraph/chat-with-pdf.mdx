@@ -1,0 +1,110 @@
+---
+title: Chat with PDF
+description: Indexes a PDF into a vector store and answers questions over it with page-cited retrieval and stratified sampling.
+---
+
+<DocsBaseSwitcher base="langgraph" agent="chat-with-pdf" />
+
+<AgentPreview
+  agent="chat-with-pdf"
+  framework="langgraph"
+  inputFields={[
+    {
+      name: "url",
+      label: "PDF URL",
+      placeholder: "https://example.com/whitepaper.pdf",
+      type: "text",
+    },
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "What does the paper conclude about latency?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Chat with PDF Agent** lets you ask questions about a PDF and get answers
+grounded in the document, with a page citation for every claim. It indexes the
+PDF into a vector store, retrieves only the relevant chunks per question using
+stratified sampling across page ranges, and can also generate comprehension
+quizzes from real passages. Reach for it to turn manuals, papers, and reports
+into something you can query.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/langgraph/chat-with-pdf
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk pdf-parse
+```
+
+<Step>Copy and paste the following agent route files into your project.</Step>
+
+<ComponentSource
+  src="registry/langgraph/chat-with-pdf/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/chat-with-pdf/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langgraph/chat-with-pdf/lib/vector-store.ts"
+  title="lib/vector-store.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/chat-with-pdf/tools/list_documents.ts"
+  title="tools/list_documents.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/chat-with-pdf/tools/query_pdf.ts"
+  title="tools/query_pdf.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so route and tool metadata are regenerated.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── lib/vector-store.ts
+├── tools/list_documents.ts
+├── tools/query_pdf.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; tool input and output types are inferred from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

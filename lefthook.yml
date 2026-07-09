@@ -15,4 +15,5 @@ pre-commit:
         - "registry/eve/**"
         - "registry/flue/**"
         - "registry/mastra/**"
+        - "registry/langraph/**"
       stage_fixed: true
