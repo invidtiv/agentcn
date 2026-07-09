@@ -6,8 +6,8 @@ import { ROUTES } from "@/constants/routes";
 
 export const Announcement = () => (
   <Badge asChild variant="secondary">
-    <Link href={`${ROUTES.DOCS_AGENTS}/mastra`}>
-      Mastra support is here <ArrowRightIcon />
+    <Link href={`${ROUTES.DOCS_AGENTS}/langgraph`}>
+      LangGraph support is here <ArrowRightIcon />
     </Link>
   </Badge>
 );

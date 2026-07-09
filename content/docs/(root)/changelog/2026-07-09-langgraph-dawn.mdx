@@ -1,0 +1,69 @@
+---
+title: July 9, 2026 - LangGraph Support
+description: 19 LangGraph agent recipes added to the registry, built with Dawn as the meta-framework.
+date: 2026-07-09
+---
+
+import { LangGraphIcon } from "@/components/icons";
+
+We've added LangGraph as a supported framework, built with [Dawn](https://dawn-ai.dev) as the meta-framework — bringing the total to 76 agent recipes across four frameworks.
+
+<div className="mt-6 flex w-full items-center justify-center rounded-lg border bg-muted/50 py-32">
+  <LangGraphIcon className="size-12" />
+</div>
+
+[LangGraph](https://www.langchain.com/langgraph) is a low-level orchestration framework for building controllable agents as graphs. It provides customizable architectures, long-term memory, and human-in-the-loop to reliably handle complex tasks.
+
+### What's New
+
+- **19 LangGraph agents** - Every recipe from the catalog is now available for LangGraph: `ai-seo-audit`, `browser-agent`, `chat-with-pdf`, `chat-with-youtube`, `claw`, `company-knowledge`, `csv-to-questions`, `deep-search`, `docs-chatbot`, `docs-expert`, `extract-design-md`, `feedback-summary`, `flashcards-pdf`, `github-review`, `google-sheets`, `meeting-notes`, `slack-agent`, `text-to-sql`, and `weather`.
+- **Dawn meta-framework** - Agents use `@dawn-ai/sdk` and follow Dawn's file convention with `index.ts`, `instructions.md`, `tools/`, and `subagents/` where applicable.
+- **Production-ready** - Agents include proper tooling, skills, and subagents matching LangGraph best practices.
+
+### Installation
+
+Install any LangGraph agent with the shadcn CLI:
+
+```bash
+npx shadcn@latest add @agentcn/langraph/weather
+```
+
+Or copy the files manually:
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+### Dawn File Convention
+
+LangGraph agents built with Dawn use a file-based convention:
+
+```text
+weather/
+├── index.ts              # Agent definition (model + config)
+├── instructions.md       # Agent instructions
+└── tools/
+    └── get_weather.ts    # Tool definition
+```
+
+```ts
+// index.ts
+import { agent } from "@dawn-ai/sdk";
+
+export default agent({
+  model: "anthropic/claude-sonnet-4-6",
+  description: "Looks up the current weather for a location.",
+});
+```
+
+After copying, run `dawn check` to regenerate route and tool metadata. Use `dawn dev`, `dawn build`, and `dawn verify` for the full workflow.
+
+### Switching Frameworks
+
+Use the framework switcher on any agent page to see the Eve, Flue, Mastra, and LangGraph versions side by side. The agents work the same way — only the implementation changes.
+
+<Button asChild size="sm">
+  <Link href="/docs/agents/langraph" className="mt-6 no-underline!">
+    Browse LangGraph Agents
+  </Link>
+</Button>
