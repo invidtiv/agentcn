@@ -18,11 +18,11 @@ const ROOT = path.join(import.meta.dirname, "..");
 const REGISTRY_DIR = path.join(ROOT, "registry");
 const OUTPUT_DIR = path.join(ROOT, "public", "r");
 
-const FRAMEWORKS = ["eve", "flue", "mastra", "langraph"] as const;
+const FRAMEWORKS = ["eve", "flue", "mastra", "langgraph"] as const;
 
 const REGISTRY_ITEM_SCHEMA = "https://ui.shadcn.com/schema/registry-item.json";
 
-type RegistryFramework = (typeof FRAMEWORKS)[number];
+type Framework = (typeof FRAMEWORKS)[number];
 
 interface RegistryFile {
   path: string;
@@ -35,7 +35,7 @@ interface AgentRegistry {
   type: string;
   title: string;
   description: string;
-  framework: RegistryFramework;
+  framework: Framework;
   files: RegistryFile[];
   dependencies?: string[];
 }
@@ -45,12 +45,10 @@ interface ManifestItem {
   type: string;
   title: string;
   description: string;
-  framework?: RegistryFramework;
+  framework?: Framework;
 }
 
-const listAgentDirs = async (
-  framework: RegistryFramework
-): Promise<string[]> => {
+const listAgentDirs = async (framework: Framework): Promise<string[]> => {
   const frameworkDir = path.join(REGISTRY_DIR, framework);
 
   const entries = await readdir(frameworkDir, { withFileTypes: true }).catch(
@@ -66,7 +64,7 @@ const listAgentDirs = async (
 };
 
 const buildAgent = async (
-  framework: RegistryFramework,
+  framework: Framework,
   agentDir: string
 ): Promise<ManifestItem> => {
   const manifestPath = path.join(agentDir, "registry.json");
