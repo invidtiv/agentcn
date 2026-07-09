@@ -52,7 +52,7 @@ export const BASES: Base[] = [
     meta: {
       logo: LangGraphIcon,
     },
-    name: "langraph",
+    name: "langgraph",
     title: "LangGraph",
     type: "registry:style",
   },

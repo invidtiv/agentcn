@@ -1,0 +1,90 @@
+---
+title: Docs Expert
+description: Answers questions about libraries and APIs by searching the live web and citing sources.
+---
+
+<DocsBaseSwitcher base="langgraph" agent="docs-expert" />
+
+<AgentPreview
+  agent="docs-expert"
+  framework="langgraph"
+  inputFields={[
+    {
+      name: "query",
+      label: "Question",
+      placeholder: "How do I stream responses with the Vercel AI SDK?",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Docs Expert Agent** answers technical questions about libraries, APIs, and
+tools by searching the live web — preferring official documentation and citing
+every claim. Reach for it as a grounded "ask the docs" helper that returns
+copy-pasteable answers instead of hallucinated APIs.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/langgraph/docs-expert
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following agent route files into your project.</Step>
+
+<ComponentSource
+  src="registry/langgraph/docs-expert/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/docs-expert/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langgraph/docs-expert/tools/web_search.ts"
+  title="tools/web_search.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so route and tool metadata are regenerated.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── tools/web_search.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; tool input and output types are inferred from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

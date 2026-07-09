@@ -11,7 +11,7 @@ export default defineConfig({
     "registry/eve/**",
     "registry/flue/**",
     "registry/mastra/**",
-    "registry/langraph/**",
+    "registry/langgraph/**",
     ".agents/**",
     ".cursor/**",
     ".changeset/**",

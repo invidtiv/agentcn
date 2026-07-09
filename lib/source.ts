@@ -15,7 +15,7 @@ export const source = loader({
 const EVE_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/eve/`;
 const FLUE_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/flue/`;
 const MASTRA_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/mastra/`;
-const LANGRAPH_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/langraph/`;
+const LANGGRAPH_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/langgraph/`;
 
 /**
  * Previous/next neighbours for a docs page.
@@ -30,12 +30,12 @@ export const getDocNeighbours = (url: string) => {
   if (
     !url.startsWith(FLUE_AGENT_PREFIX) &&
     !url.startsWith(MASTRA_AGENT_PREFIX) &&
-    !url.startsWith(LANGRAPH_AGENT_PREFIX)
+    !url.startsWith(LANGGRAPH_AGENT_PREFIX)
   ) {
     return findNeighbour(source.pageTree, url);
   }
 
-  let targetPrefix = LANGRAPH_AGENT_PREFIX;
+  let targetPrefix = LANGGRAPH_AGENT_PREFIX;
   if (url.startsWith(FLUE_AGENT_PREFIX)) {
     targetPrefix = FLUE_AGENT_PREFIX;
   } else if (url.startsWith(MASTRA_AGENT_PREFIX)) {

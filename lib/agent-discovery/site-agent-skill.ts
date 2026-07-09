@@ -26,7 +26,7 @@ This site is a shadcn-compatible registry. For MCP workflows, use the maintained
 npx shadcn@latest add @agentcn/eve/deep-search
 npx shadcn@latest add @agentcn/flue/deep-search
 npx shadcn@latest add @agentcn/mastra/deep-search
-npx shadcn@latest add @agentcn/langraph/deep-search
+npx shadcn@latest add @agentcn/langgraph/deep-search
 \`\`\`
 
 Prefer following the on-site installation guide: ${ROUTES.DOCS_INSTALLATION}

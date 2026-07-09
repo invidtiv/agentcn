@@ -18,7 +18,7 @@ interface InputField {
 
 interface AgentPreviewProps {
   agent: string;
-  framework: "eve" | "flue" | "mastra" | "langraph";
+  framework: "eve" | "flue" | "mastra" | "langgraph";
   inputFields: InputField[];
 }
 

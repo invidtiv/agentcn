@@ -1,0 +1,102 @@
+---
+title: Chat with Database
+description: Introspects a database schema, converts questions to SQL, and runs read-only queries.
+---
+
+<DocsBaseSwitcher base="langgraph" agent="text-to-sql" />
+
+<AgentPreview
+  agent="text-to-sql"
+  framework="langgraph"
+  inputFields={[
+    {
+      name: "question",
+      label: "Question",
+      placeholder: "Show me the top 5 customers by revenue last quarter.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Chat with Database Agent** answers questions about your data in plain
+English. It introspects the schema, writes the SQL, runs it read-only, and
+explains the results. Reach for it to give non-SQL users a safe way to query a
+database, or to prototype analytics without hand-writing queries.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/langgraph/text-to-sql
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk @libsql/client
+```
+
+<Step>Copy and paste the following agent route files into your project.</Step>
+
+<ComponentSource
+  src="registry/langgraph/text-to-sql/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/text-to-sql/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langgraph/text-to-sql/lib/db.ts"
+  title="lib/db.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/text-to-sql/tools/execute-sql.ts"
+  title="tools/execute-sql.ts"
+/>
+
+<ComponentSource
+  src="registry/langgraph/text-to-sql/tools/introspect-database.ts"
+  title="tools/introspect-database.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so route and tool metadata are regenerated.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── lib/db.ts
+├── tools/execute-sql.ts
+├── tools/introspect-database.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; tool input and output types are inferred from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

@@ -1,0 +1,54 @@
+{
+  "name": "deep-search",
+  "type": "registry:block",
+  "title": "Deep Search Agent",
+  "description": "A multi-agent deep search system that researches questions by clarifying intent, planning queries, evaluating results, and synthesizing answers.",
+  "framework": "langgraph",
+  "files": [
+    {
+      "path": "index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "skills/research/SKILL.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/answerer/index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/answerer/instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/intent-clarifier/index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/intent-clarifier/instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/research-planner/index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/research-planner/instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/search-result-evaluator/index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "subagents/search-result-evaluator/instructions.md",
+      "type": "registry:file"
+    }
+  ],
+  "dependencies": ["@dawn-ai/sdk"]
+}
