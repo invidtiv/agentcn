@@ -1,0 +1,136 @@
+---
+title: Deep Search
+description: A multi-agent deep search system that researches questions by clarifying intent, planning queries, evaluating results, and synthesizing answers.
+---
+
+<DocsBaseSwitcher base="langraph" agent="deep-search" />
+
+<AgentPreview
+  agent="deep-search"
+  framework="langraph"
+  inputFields={[
+    {
+      name: "initialQuery",
+      label: "Research question",
+      placeholder:
+        "What pricing models do the top 3 observability vendors use?",
+      type: "textarea",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Deep Search Agent** is a multi-agent system that researches questions through an iterative process. It clarifies user intent, plans search queries, evaluates results for completeness, and synthesizes a comprehensive answer. The system uses 4 specialized agents working together in a workflow to produce well-researched, cited answers.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/langraph/deep-search
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following agent route files into your project.</Step>
+
+<ComponentSource
+  src="registry/langraph/deep-search/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/skills/research/SKILL.md"
+  title="skills/research/SKILL.md"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/answerer/index.ts"
+  title="subagents/answerer/index.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/answerer/instructions.md"
+  title="subagents/answerer/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/intent-clarifier/index.ts"
+  title="subagents/intent-clarifier/index.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/intent-clarifier/instructions.md"
+  title="subagents/intent-clarifier/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/research-planner/index.ts"
+  title="subagents/research-planner/index.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/research-planner/instructions.md"
+  title="subagents/research-planner/instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/search-result-evaluator/index.ts"
+  title="subagents/search-result-evaluator/index.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/deep-search/subagents/search-result-evaluator/instructions.md"
+  title="subagents/search-result-evaluator/instructions.md"
+/>
+
+<Step>
+  Run `dawn check` after copying so route and tool metadata are regenerated.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── skills/research/SKILL.md
+├── subagents/answerer/index.ts
+├── subagents/answerer/instructions.md
+├── subagents/intent-clarifier/index.ts
+├── subagents/intent-clarifier/instructions.md
+├── subagents/research-planner/index.ts
+├── subagents/research-planner/instructions.md
+├── subagents/search-result-evaluator/index.ts
+├── subagents/search-result-evaluator/instructions.md
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; tool input and output types are inferred from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

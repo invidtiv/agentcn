@@ -1,0 +1,109 @@
+---
+title: Company Knowledge
+description: Indexes internal documents into a vector store and answers questions over them, with PII redaction.
+---
+
+<DocsBaseSwitcher base="langraph" agent="company-knowledge" />
+
+<AgentPreview
+  agent="company-knowledge"
+  framework="langraph"
+  inputFields={[
+    {
+      name: "query",
+      label: "Question",
+      placeholder: "What's our policy on refund requests over $500?",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Company Knowledge Agent** answers questions over your internal documents —
+issues, wiki pages, notes. It indexes them into a vector store, searches the
+corpus first, and redacts personal data (emails, phone numbers, SSNs, card
+numbers, API keys) from responses. Reach for it to build an internal "ask the
+company" assistant.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/langraph/company-knowledge
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @ai-sdk/openai @dawn-ai/sdk @libsql/client ai
+```
+
+<Step>Copy and paste the following agent route files into your project.</Step>
+
+<ComponentSource
+  src="registry/langraph/company-knowledge/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/company-knowledge/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langraph/company-knowledge/lib/pii.ts"
+  title="lib/pii.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/company-knowledge/lib/vector-store.ts"
+  title="lib/vector-store.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/company-knowledge/tools/index_document.ts"
+  title="tools/index_document.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/company-knowledge/tools/search_knowledge.ts"
+  title="tools/search_knowledge.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so route and tool metadata are regenerated.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── index.ts
+├── instructions.md
+├── lib/pii.ts
+├── lib/vector-store.ts
+├── tools/index_document.ts
+├── tools/search_knowledge.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; tool input and output types are inferred from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

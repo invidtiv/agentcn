@@ -1,0 +1,26 @@
+{
+  "name": "flashcards-pdf",
+  "type": "registry:block",
+  "title": "Flash Cards from PDF Agent",
+  "description": "LangGraph agent that turns a PDF into study flash cards, with optional AI-generated images per concept.",
+  "framework": "langraph",
+  "files": [
+    {
+      "path": "index.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "instructions.md",
+      "type": "registry:file"
+    },
+    {
+      "path": "tools/generate_image.ts",
+      "type": "registry:file"
+    },
+    {
+      "path": "tools/parse_pdf.ts",
+      "type": "registry:file"
+    }
+  ],
+  "dependencies": ["@dawn-ai/sdk", "pdf-parse"]
+}

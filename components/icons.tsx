@@ -88,7 +88,7 @@ export const MastraIcon = ({
   </svg>
 );
 
-export const DawnIcon = ({
+export const LangGraphIcon = ({
   className,
   ...props
 }: React.ComponentProps<"svg">) => (

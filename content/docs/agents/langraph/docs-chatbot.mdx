@@ -1,0 +1,96 @@
+---
+title: Docs Chatbot
+description: Answers questions about a library's functions by looking up structured documentation.
+---
+
+<DocsBaseSwitcher base="langraph" agent="docs-chatbot" />
+
+<AgentPreview
+  agent="docs-chatbot"
+  framework="langraph"
+  inputFields={[
+    {
+      name: "query",
+      label: "Question",
+      placeholder: "Tell me about the getPlanetaryData function.",
+      type: "text",
+    },
+  ]}
+/>
+
+## Summary
+
+The **Docs Chatbot Agent** answers questions about a code library's API. It looks
+up structured function documentation — signatures, parameters, and examples — and
+answers using only what the docs say. Reach for it to drop a grounded "ask the
+docs" assistant into a docs site, an IDE, or a support channel.
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+<TabsTrigger value="cli">Command</TabsTrigger>
+<TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @agentcn/langraph/docs-chatbot
+```
+
+</TabsContent>
+<TabsContent value="manual">
+
+<Steps>
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @dawn-ai/sdk
+```
+
+<Step>Copy and paste the following agent route files into your project.</Step>
+
+<ComponentSource
+  src="registry/langraph/docs-chatbot/data/functions.json"
+  title="data/functions.json"
+/>
+
+<ComponentSource
+  src="registry/langraph/docs-chatbot/index.ts"
+  title="index.ts"
+/>
+
+<ComponentSource
+  src="registry/langraph/docs-chatbot/instructions.md"
+  title="instructions.md"
+/>
+
+<ComponentSource
+  src="registry/langraph/docs-chatbot/tools/lookup_docs.ts"
+  title="tools/lookup_docs.ts"
+/>
+
+<Step>
+  Run `dawn check` after copying so route and tool metadata are regenerated.
+  `dawn dev`, `dawn build`, and `dawn verify` also run the same discovery path.
+</Step>
+
+</Steps>
+
+</TabsContent>
+</CodeTabs>
+
+## Composition
+
+```text
+├── data/functions.json
+├── index.ts
+├── instructions.md
+├── tools/lookup_docs.ts
+```
+
+## Customization
+
+- Edit `index.ts` to change the model, description, or system prompt.
+- Add route-local tools under `tools/`; tool input and output types are inferred from TypeScript.
+- Run `dawn verify` before deploying generated LangGraph artifacts.

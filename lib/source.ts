@@ -15,13 +15,13 @@ export const source = loader({
 const EVE_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/eve/`;
 const FLUE_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/flue/`;
 const MASTRA_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/mastra/`;
-const DAWN_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/dawn/`;
+const LANGRAPH_AGENT_PREFIX = `${ROUTES.DOCS_AGENTS}/langraph/`;
 
 /**
  * Previous/next neighbours for a docs page.
  *
  * The Agents sidebar lists the Eve recipes plus a base switcher, so the Flue,
- * Mastra, and Dawn recipe pages are absent from the page tree and `findNeighbour`
+ * Mastra, and LangGraph recipe pages are absent from the page tree and `findNeighbour`
  * returns nothing for them. For those pages we mirror the Eve neighbours,
  * rewriting Eve recipe URLs to their framework counterparts so the prev/next
  * controls match the Eve view.
@@ -30,12 +30,12 @@ export const getDocNeighbours = (url: string) => {
   if (
     !url.startsWith(FLUE_AGENT_PREFIX) &&
     !url.startsWith(MASTRA_AGENT_PREFIX) &&
-    !url.startsWith(DAWN_AGENT_PREFIX)
+    !url.startsWith(LANGRAPH_AGENT_PREFIX)
   ) {
     return findNeighbour(source.pageTree, url);
   }
 
-  let targetPrefix = DAWN_AGENT_PREFIX;
+  let targetPrefix = LANGRAPH_AGENT_PREFIX;
   if (url.startsWith(FLUE_AGENT_PREFIX)) {
     targetPrefix = FLUE_AGENT_PREFIX;
   } else if (url.startsWith(MASTRA_AGENT_PREFIX)) {

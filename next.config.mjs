@@ -50,6 +50,16 @@ const nextConfig = {
         permanent: true,
         source: `${ROUTES.DOCS}/:path*.mdx`,
       },
+      {
+        destination: `${ROUTES.DOCS_AGENTS}/langraph/:path*`,
+        permanent: true,
+        source: `${ROUTES.DOCS_AGENTS}/dawn/:path*`,
+      },
+      {
+        destination: "/r/langraph/:path*",
+        permanent: true,
+        source: "/r/dawn/:path*",
+      },
     ];
   },
 };

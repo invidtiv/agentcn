@@ -1,6 +1,6 @@
 import { SITE } from "@/constants/site";
 
-export type FrameworkId = "eve" | "flue" | "mastra" | "dawn";
+export type FrameworkId = "eve" | "flue" | "mastra" | "langraph";
 
 export interface Framework {
   id: FrameworkId;
@@ -11,15 +11,19 @@ export const FRAMEWORKS: readonly Framework[] = [
   { id: "eve", label: "Eve" },
   { id: "flue", label: "Flue" },
   { id: "mastra", label: "Mastra" },
-  { id: "dawn", label: "Dawn" },
+  { id: "langraph", label: "LangGraph" },
 ] as const;
 
 export const FRAMEWORK_LABEL: Record<FrameworkId, string> = {
-  dawn: "Dawn",
   eve: "Eve",
   flue: "Flue",
+  langraph: "LangGraph",
   mastra: "Mastra",
 };
+
+/** Registry install path for a framework. */
+export const registryFrameworkSlug = (framework: FrameworkId): string =>
+  framework;
 
 export type ChatMessage =
   | { role: "user"; text: string }
@@ -47,7 +51,7 @@ export interface Agent {
 const deepSearch: Agent = {
   description:
     "Researches a question, evaluates its own findings, and iterates until the answer is complete and cited.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Research question",
@@ -127,7 +131,7 @@ const deepSearch: Agent = {
 const csvToQuestions: Agent = {
   description:
     "Summarizes a CSV dataset to stay within token limits, then generates focused analytical questions.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "CSV URL",
@@ -191,7 +195,7 @@ const csvToQuestions: Agent = {
 const feedbackSummary: Agent = {
   description:
     "Retrieves, categorizes, and summarizes customer feedback into an executive report with recommendations.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Request",
@@ -255,7 +259,7 @@ const feedbackSummary: Agent = {
 const meetingNotes: Agent = {
   description:
     "Turns a raw meeting transcript into a structured summary, decisions, and action items.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Transcript",
@@ -319,7 +323,7 @@ const meetingNotes: Agent = {
 const chatWithPdf: Agent = {
   description:
     "Indexes a PDF into a vector store and answers questions over it with page-cited retrieval.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "PDF URL",
@@ -404,7 +408,7 @@ const chatWithPdf: Agent = {
 const flashcardsPdf: Agent = {
   description:
     "Turns a PDF into study flash cards, with optional AI-generated images per concept.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "PDF URL",
@@ -473,7 +477,7 @@ const flashcardsPdf: Agent = {
 const chatWithYoutube: Agent = {
   description:
     "Fetches a video's metadata and transcript, then answers questions with clickable timestamp citations.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "YouTube URL",
@@ -558,7 +562,7 @@ const chatWithYoutube: Agent = {
 const docsChatbot: Agent = {
   description:
     "Answers questions about a library's functions by looking up structured documentation.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Question",
@@ -622,7 +626,7 @@ const docsChatbot: Agent = {
 const textToSql: Agent = {
   description:
     "Introspects a database schema, converts questions to SQL, and runs read-only queries.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Question",
@@ -701,7 +705,7 @@ const textToSql: Agent = {
 const githubReview: Agent = {
   description:
     "Fetches a GitHub pull request and returns adaptive, file-by-file code review feedback.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Pull request URL",
@@ -765,7 +769,7 @@ const githubReview: Agent = {
 const slackAgent: Agent = {
   description:
     "Replies to Slack mentions and DMs, scoped to the thread, via the Slack Web API.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Message",
@@ -828,7 +832,7 @@ const slackAgent: Agent = {
 
 const googleSheets: Agent = {
   description: "Reads, analyzes, and edits Google Sheets via the Sheets API.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Spreadsheet ID",
@@ -903,7 +907,7 @@ const googleSheets: Agent = {
 const weather: Agent = {
   description:
     "Looks up the current weather for a location via the Open-Meteo API.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Location",
@@ -967,7 +971,7 @@ const weather: Agent = {
 const docsExpert: Agent = {
   description:
     "Answers questions about libraries and APIs by searching the live web and citing sources.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Question",
@@ -1031,7 +1035,7 @@ const docsExpert: Agent = {
 const claw: Agent = {
   description:
     "Operates a sandboxed workspace — read/write files and run shell commands — to finish multi-step tasks.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Task",
@@ -1110,7 +1114,7 @@ const claw: Agent = {
 const browserAgent: Agent = {
   description:
     "Drives a real browser with Playwright using a snapshot-and-selector pattern to complete web tasks.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Task",
@@ -1190,7 +1194,7 @@ const browserAgent: Agent = {
 const companyKnowledge: Agent = {
   description:
     "Indexes internal documents into a vector store and answers questions over them, with PII redaction.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Question",
@@ -1254,7 +1258,7 @@ const companyKnowledge: Agent = {
 const aiSeoAudit: Agent = {
   description:
     "Runs a deterministic AI-SEO audit on a page through context.dev — scoring ~30 checks across six categories into a 0–100 total, returning failing checks and an agent-ready fix prompt.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Page URL",
@@ -1318,7 +1322,7 @@ const aiSeoAudit: Agent = {
 const extractDesignMd: Agent = {
   description:
     "Turns a domain into a self-contained DESIGN.md — gathering the styleguide, screenshot, and homepage Markdown from context.dev, then composing the document in a single Claude call with the screenshot as a vision image.",
-  frameworks: ["eve", "flue", "mastra", "dawn"],
+  frameworks: ["eve", "flue", "mastra", "langraph"],
   inputFields: [
     {
       label: "Domain",
@@ -1405,4 +1409,4 @@ export const getAgent = (slug: string): Agent | undefined =>
   AGENTS.find((agent) => agent.slug === slug);
 
 export const installCommand = (framework: FrameworkId, slug: string): string =>
-  `npx shadcn@latest add ${SITE.REGISTRY}/${framework}/${slug}`;
+  `npx shadcn@latest add ${SITE.REGISTRY}/${registryFrameworkSlug(framework)}/${slug}`;

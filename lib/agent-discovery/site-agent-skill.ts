@@ -8,7 +8,7 @@ export const SITE_AGENT_SKILL_MD = `# ${SITE.NAME}
 
 ## Summary
 
-Help users discover, inspect, and install complete agent recipes for the Eve, Flue, and Mastra frameworks from this public shadcn-compatible registry and its documentation site.
+Help users discover, inspect, and install complete agent recipes for the Eve, Flue, Mastra, and LangGraph frameworks from this public shadcn-compatible registry and its documentation site.
 
 ## Registry
 
@@ -26,6 +26,7 @@ This site is a shadcn-compatible registry. For MCP workflows, use the maintained
 npx shadcn@latest add @agentcn/eve/deep-search
 npx shadcn@latest add @agentcn/flue/deep-search
 npx shadcn@latest add @agentcn/mastra/deep-search
+npx shadcn@latest add @agentcn/langraph/deep-search
 \`\`\`
 
 Prefer following the on-site installation guide: ${ROUTES.DOCS_INSTALLATION}
